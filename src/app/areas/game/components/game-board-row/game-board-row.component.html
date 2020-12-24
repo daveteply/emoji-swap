@@ -1,0 +1,8 @@
+<div class="game-row">
+  <app-game-board-tile
+    class="game-row"
+    *ngFor="let tile of tileRow"
+    [tile]="tile"
+    [disabled]="disabled"
+  ></app-game-board-tile>
+</div>

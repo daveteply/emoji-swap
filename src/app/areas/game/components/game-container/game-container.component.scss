@@ -1,0 +1,28 @@
+.game-container {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 5em auto 5em 5em;
+
+  .header {
+    justify-self: center;
+    align-self: center;
+    .game-title {
+      font-weight: bold;
+    }
+  }
+
+  .game-board {
+    justify-self: center;
+    align-self: center;
+  }
+
+  .controls {
+    justify-self: center;
+    align-self: center;
+  }
+
+  .footer {
+    justify-self: center;
+    align-self: center;
+  }
+}

@@ -1,0 +1,8 @@
+<div class="game-board">
+  <div *ngFor="let row of gameBoard.grid">
+    <app-game-board-row
+      [tileRow]="row"
+      [disabled]="boardDisabled"
+    ></app-game-board-row>
+  </div>
+</div>

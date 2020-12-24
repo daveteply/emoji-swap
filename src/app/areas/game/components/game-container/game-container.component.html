@@ -1,0 +1,11 @@
+<div class="game-container">
+  <div class="header"><h1 class="game-title">Emoji Swap!</h1></div>
+  <app-game-board
+    class="game-board"
+    (scoreUpdated)="updateScore($event)"
+  ></app-game-board>
+  <div class="controls">
+    <h2>Score: {{ score }}</h2>
+  </div>
+  <div class="footer">This was fun to make!</div>
+</div>

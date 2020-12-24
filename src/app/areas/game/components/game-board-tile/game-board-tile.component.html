@@ -1,0 +1,24 @@
+<div
+  class="game-tile"
+  (swipe)="onSwipe($event)"
+  [class.game-tile__disabled]="disabled"
+>
+  <div
+    class="tile-overlay"
+    [innerHTML]="tile?.html"
+    [class.tile-overlay__to-remove]="tile?.toRemove"
+    [class.tile-overlay__remove]="tile?.animateRemove"
+    [class.tile-overlay__slide-up]="tile?.animateSlideUp"
+    [class.tile-overlay__slide-right]="tile?.animateSlideRight"
+    [class.tile-overlay__slide-down]="tile?.animateSlideDown"
+    [class.tile-overlay__slide-left]="tile?.animateSlideLeft"
+    [class.tile-overlay__reset-slide]="
+      !tile?.animateSlideDown &&
+      !tile?.animateSlideUp &&
+      !tile?.animateSlideRight &&
+      !tile.animateSlideLeft
+    "
+    [class.tile-overlay__shutter]="tile?.animateShutter"
+  ></div>
+  <div class="emoji"></div>
+</div>

@@ -1,0 +1,89 @@
+.game-tile {
+  user-select: none;
+  position: relative;
+  height: 1.5em;
+  width: 1.5em;
+  font-size: 4em;
+  background-color: lightgray;
+  border-radius: 0.25em;
+  margin: 0.1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 500ms;
+  &__disabled {
+    filter: blur(1px);
+  }
+
+  .emoji {
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    visibility: hidden;
+  }
+  .tile-overlay {
+    position: absolute;
+    transition: transform 1s, font-size 1s, opacity 1s, margin-left 500ms,
+      margin-top 500ms;
+    &__slide-down {
+      margin-top: 3.3em;
+      z-index: 1;
+      filter: blur(2px);
+    }
+    &__slide-up {
+      margin-top: -3.3em;
+      z-index: 1;
+      filter: blur(2px);
+    }
+    &__slide-right {
+      margin-left: 3.3em;
+      z-index: 1;
+      filter: blur(2px);
+    }
+    &__slide-left {
+      margin-left: -3.3em;
+      z-index: 1;
+      filter: blur(2px);
+    }
+    &__reset-slide {
+      transition: transform 1s, font-size 1s, opacity 1s;
+      margin-left: 0;
+      margin-top: 0;
+    }
+    &__to-remove {
+      animation: wobble 1s infinite;
+    }
+    &__remove {
+      transform: rotate(-365deg);
+      font-size: 0;
+      opacity: 0;
+    }
+    &__shutter {
+      animation: shutter 250ms 2;
+    }
+  }
+
+  @keyframes wobble {
+    0% {
+      transform: rotate(10deg);
+      font-size: 90%;
+    }
+    50% {
+      transform: rotate(-10deg);
+      font-size: 120%;
+    }
+  }
+
+  @keyframes shutter {
+    0% {
+      margin-left: 0.5em;
+      transform: skewX(5deg, 5deg);
+    }
+    50% {
+      margin-left: -0.5em;
+      transform: skew(-5deg, -5deg);
+    }
+  }
+}
