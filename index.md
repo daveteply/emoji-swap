@@ -1,6 +1,6 @@
-## Welcome to GitHub Pages
+## Welcome to Emoji Swap!
 
-<a href="docs">Demo</a>
+<a href="demo">Demo</a>
 
 You can use the [editor on GitHub](https://github.com/daveteply/emoji-swap/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
