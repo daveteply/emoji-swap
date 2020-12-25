@@ -9,9 +9,12 @@
     justify-self: center;
   }
 
-  .footer-content {
-    justify-self: center;
-    align-self: center;
+  footer {
+    background-color: lightgray;
+    .footer-content {
+      text-align: center;
+      padding: 1em;
+    }
   }
 
   @include media("<tablet") {
