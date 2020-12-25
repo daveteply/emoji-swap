@@ -1,6 +1,8 @@
+@import "/src/include-media";
+
 .site-container {
   display: grid;
-  grid-template-rows: 1fr auto 1fr;
+  grid-template-rows: 5em auto 1fr;
   height: 100vh;
 
   .game-content {
@@ -10,5 +12,9 @@
   .footer-content {
     justify-self: center;
     align-self: center;
+  }
+
+  @include media("<tablet") {
+    // color: red;
   }
 }

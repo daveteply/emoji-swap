@@ -1,8 +1,16 @@
+@import "/src/include-media";
+
+$tile-scale: 1.5em;
+$tile-scale-mobile: 1.75em;
+
+$animation-scale: 3.3em;
+$animation-scale-mobile: 3.3em;
+
 .game-tile {
   user-select: none;
   position: relative;
-  height: 1.5em;
-  width: 1.5em;
+  height: $tile-scale;
+  width: $tile-scale;
   font-size: 4em;
   background-color: lightgray;
   border-radius: 0.25em;
@@ -28,22 +36,22 @@
     transition: transform 1s, font-size 1s, opacity 1s, margin-left 500ms,
       margin-top 500ms;
     &__slide-down {
-      margin-top: 3.3em;
+      margin-top: $animation-scale;
       z-index: 1;
       filter: blur(2px);
     }
     &__slide-up {
-      margin-top: -3.3em;
+      margin-top: -$animation-scale;
       z-index: 1;
       filter: blur(2px);
     }
     &__slide-right {
-      margin-left: 3.3em;
+      margin-left: $animation-scale;
       z-index: 1;
       filter: blur(2px);
     }
     &__slide-left {
-      margin-left: -3.3em;
+      margin-left: -$animation-scale;
       z-index: 1;
       filter: blur(2px);
     }
@@ -85,5 +93,14 @@
       margin-left: -0.5em;
       transform: skew(-5deg, -5deg);
     }
+  }
+}
+
+@include media("<tablet") {
+  .game-tile {
+    height: $tile-scale-mobile;
+    width: $tile-scale-mobile;
+    margin: 0.05em;
+    font-size: 3.05em;
   }
 }
