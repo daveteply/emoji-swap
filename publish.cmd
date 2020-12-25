@@ -1,4 +1,5 @@
 set HOME=%USERPROFILE%
+set PATH=%PATH%;"c:\Program Files\Git\bin\"
 git checkout main
 call ng build --prod --baseHref="https://daveteply.github.io/emoji-swap/demo/"
 git checkout gh-pages
