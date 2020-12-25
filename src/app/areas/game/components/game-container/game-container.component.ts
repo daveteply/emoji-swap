@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game-container.component.scss'],
 })
 export class GameContainerComponent implements OnInit {
-  score!: number;
+  score = 0;
 
   ngOnInit(): void {}
 

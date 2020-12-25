@@ -1,0 +1,14 @@
+.site-container {
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  height: 100vh;
+
+  .game-content {
+    justify-self: center;
+  }
+
+  .footer-content {
+    justify-self: center;
+    align-self: center;
+  }
+}

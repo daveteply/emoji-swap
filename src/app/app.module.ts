@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { HammerConfig } from './hammer-config';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatToolbarModule } from '@angular/material/toolbar';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HammerModule,
     BrowserAnimationsModule,
+    MatToolbarModule,
   ],
   providers: [
     {
