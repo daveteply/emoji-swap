@@ -3,14 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'game',
-    loadChildren: () =>
-      import('./areas/game/game.module').then((m) => m.GameModule),
-  },
-  {
     path: '',
-    redirectTo: 'game',
-    pathMatch: 'full',
+    loadChildren: () => import('./game/game.module').then((m) => m.GameModule),
   },
 ];
 
