@@ -20,7 +20,8 @@ $animation-scale-mobile: 3.3em;
   align-items: center;
   transition: opacity 500ms;
   &__disabled {
-    filter: blur(1px);
+    filter: grayscale(50%);
+    pointer-events: none;
   }
 
   .emoji {
