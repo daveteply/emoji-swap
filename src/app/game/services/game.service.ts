@@ -98,6 +98,7 @@ export class GameService {
         gameBoard.grid[rowInx][colInx].animateSlideLeft = false;
 
         gameBoard.grid[rowInx][colInx].animateShutter = false;
+        gameBoard.grid[rowInx][colInx].potential = false;
       });
     });
   }
@@ -119,19 +120,6 @@ export class GameService {
       })
     );
     return score;
-  }
-
-  public ApplyPotentials(
-    gameBoard: GameBoard,
-    potentialMatchSets: Array<Array<GameTile>>
-  ): void {
-    if (gameBoard && potentialMatchSets) {
-      for (const potentialMatchSet of potentialMatchSets) {
-        for (const tile of potentialMatchSet) {
-          gameBoard.grid[tile.rowInx][tile.colInx].potential = true;
-        }
-      }
-    }
   }
 
   public FindMatchesAndPotentials(gameBoard: GameBoard): void {

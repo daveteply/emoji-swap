@@ -174,6 +174,14 @@ export class GameBoardComponent implements OnInit, OnDestroy {
           case InteractionSteps.Shutter:
             this.gameInteractionsService.Shutter(this.gameBoard);
             break;
+
+          case InteractionSteps.ShowHint:
+            this.gameInteractionsService.ApplyPotentials(
+              this.gameBoard,
+              this.potentialMatchSets,
+              true
+            );
+            break;
         }
       });
 
@@ -197,6 +205,12 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.scoreUpdated.emit(this.score);
   }
 
-  // const potentials = this.gameService.potentialMatches;
-  // this.gameService.ApplyPotentials(this.gameBoard, potentials);
+  public Hint(level: number): void {
+    this.gameInteractionsService.DoStep(InteractionSteps.ShowHint);
+    const scoreDeduction = level * 100;
+    if (this.score - scoreDeduction > Number.MIN_SAFE_INTEGER) {
+      this.score -= scoreDeduction;
+      this.scoreUpdated.emit(this.score);
+    }
+  }
 }

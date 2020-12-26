@@ -71,6 +71,9 @@ $animation-scale-mobile: 3.3em;
     &__shutter {
       animation: shutter 250ms 2;
     }
+    &__hint {
+      animation: hint 500ms;
+    }
   }
 
   @keyframes wobble {
@@ -92,6 +95,13 @@ $animation-scale-mobile: 3.3em;
     50% {
       margin-left: -0.5em;
       transform: skew(-5deg, -5deg);
+    }
+  }
+
+  @keyframes hint {
+    100% {
+      font-size: 500%;
+      opacity: 0;
     }
   }
 }

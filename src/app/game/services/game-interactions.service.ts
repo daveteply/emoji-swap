@@ -19,6 +19,7 @@ export enum InteractionSteps {
   Swap,
   SwapBack,
   Shutter,
+  ShowHint,
 }
 
 @Injectable({
@@ -159,5 +160,34 @@ export class GameInteractionsService {
     gameBoard.grid[this.playerTile.tile.rowInx][
       this.playerTile.tile.colInx
     ].animateShutter = true;
+  }
+
+  public ApplyPotentials(
+    gameBoard: GameBoard,
+    potentialMatchSets: Array<Array<GameTile>>,
+    random: boolean
+  ): void {
+    if (gameBoard && potentialMatchSets?.length) {
+      if (random) {
+        const targetMatchSet =
+          potentialMatchSets[
+            Math.floor(Math.random() * potentialMatchSets.length)
+          ];
+        this.applyPotentialClass(targetMatchSet, gameBoard);
+      } else {
+        for (const potentialMatchSet of potentialMatchSets) {
+          this.applyPotentialClass(potentialMatchSet, gameBoard);
+        }
+      }
+    }
+  }
+
+  private applyPotentialClass(
+    potentialMatchSet: Array<GameTile>,
+    gameBoard: GameBoard
+  ): void {
+    for (const tile of potentialMatchSet) {
+      gameBoard.grid[tile.rowInx][tile.colInx].potential = true;
+    }
   }
 }
