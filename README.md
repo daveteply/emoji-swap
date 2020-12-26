@@ -1,6 +1,6 @@
 # EmojiSwap
 
-[Demo](https://daveteply.github.io/emoji-swap/demo-01)
+[Demo](https://daveteply.github.io/emoji-swap/demo-0.1)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.3.
 
