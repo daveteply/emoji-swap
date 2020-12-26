@@ -3,10 +3,20 @@
     <h2>Level {{ level }}</h2>
     <h2>Score: {{ score }}</h2>
     <div class="game-controls">
-      <button mat-raised-button color="accent" (click)="gameBoard.Hint(level)">
+      <button
+        mat-raised-button
+        color="accent"
+        [disabled]="gameBoard.boardDisabled"
+        (click)="gameBoard.Hint(level)"
+      >
         Hint
       </button>
-      <button mat-raised-button color="accent" (click)="gameBoard.NewGame()">
+      <button
+        mat-raised-button
+        color="accent"
+        [disabled]="gameBoard.boardDisabled"
+        (click)="gameBoard.NewGame()"
+      >
         New Game
       </button>
     </div>

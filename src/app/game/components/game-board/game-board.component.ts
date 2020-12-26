@@ -29,14 +29,14 @@ import {
   styleUrls: ['./game-board.component.scss'],
 })
 export class GameBoardComponent implements OnInit, OnDestroy {
-  gameBoard!: GameBoard;
-  score = 0;
-  boardDisabled = false;
+  public boardDisabled = false;
+  public gameBoard!: GameBoard;
+
+  private score = 0;
+
   private matchSets: Array<Array<GameTile>> = [];
   private currentMatchSet: Array<GameTile> = [];
   private potentialMatchSets: Array<Array<GameTile>> = [];
-
-  @Output() scoreUpdated = new EventEmitter();
 
   private readonly GAME_BOARD_ROWS: number = 7;
   private readonly GAME_BOARD_COLUMNS: number = 5;
@@ -44,6 +44,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   private subscription: Subject<boolean> = new Subject<boolean>();
 
   private swapInProgress = false;
+
+  @Output() scoreUpdated = new EventEmitter();
 
   constructor(
     private gameService: GameService,
@@ -96,11 +98,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
             this.scoreUpdated.emit(this.score);
 
             this.gameLoopService.DoStep(GameLoopSteps.FindMatches);
-
-            // loop: continue to check for any new matches
-            // this.gameLoopService.DoStep(GameLoopSteps.FindMatches);
-
             break;
+
           case GameLoopSteps.UnlockBoard:
             this.boardDisabled = false;
             break;
