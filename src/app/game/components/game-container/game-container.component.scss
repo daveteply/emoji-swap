@@ -1,4 +1,11 @@
-.game-info {
-  display: flex;
-  justify-content: space-evenly;
+.game-container {
+  .game-header {
+    display: flex;
+    justify-content: space-evenly;
+    .game-controls {
+      button {
+        margin-left: 0.5em;
+      }
+    }
+  }
 }

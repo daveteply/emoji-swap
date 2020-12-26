@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameContainerComponent implements OnInit {
   score = 0;
+  level = 1;
 
   ngOnInit(): void {}
 

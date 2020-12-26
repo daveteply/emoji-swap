@@ -1,8 +1,17 @@
-<div class="game-info">
-  <h2>Level 1</h2>
-  <h2>Score: {{ score }}</h2>
+<div class="game-container">
+  <div class="game-header">
+    <h2>Level {{ level }}</h2>
+    <h2>Score: {{ score }}</h2>
+    <div class="game-controls">
+      <button mat-raised-button color="accent" (click)="hint()">Hint</button>
+      <button mat-raised-button color="accent" (click)="gameBoard.NewGame()">
+        New Game
+      </button>
+    </div>
+  </div>
+  <app-game-board
+    class="game-board"
+    (scoreUpdated)="updateScore($event)"
+    #gameBoard
+  ></app-game-board>
 </div>
-<app-game-board
-  class="game-board"
-  (scoreUpdated)="updateScore($event)"
-></app-game-board>

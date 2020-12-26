@@ -29,7 +29,7 @@ import {
   styleUrls: ['./game-board.component.scss'],
 })
 export class GameBoardComponent implements OnInit, OnDestroy {
-  gameBoard: GameBoard;
+  gameBoard!: GameBoard;
   score = 0;
   boardDisabled = false;
   private matchSets: Array<Array<GameTile>> = [];
@@ -50,13 +50,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     private gameLoopService: GameLoopService,
     private tileRemoveService: TileRemoveService,
     private gameInteractionsService: GameInteractionsService
-  ) {
-    this.gameBoard = this.gameService.CreateGame(
-      this.GAME_BOARD_ROWS,
-      this.GAME_BOARD_COLUMNS
-    );
-    console.log('created', this.gameBoard);
-  }
+  ) {}
 
   ngOnInit(): void {
     this.gameLoopService.gameLoopState$
@@ -183,12 +177,24 @@ export class GameBoardComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
+    this.NewGame();
   }
 
   ngOnDestroy(): void {
     this.subscription.next(true);
     this.subscription.complete();
+  }
+
+  public NewGame(): void {
+    this.gameBoard = this.gameService.CreateGame(
+      this.GAME_BOARD_ROWS,
+      this.GAME_BOARD_COLUMNS
+    );
+
+    this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
+
+    this.score = 0;
+    this.scoreUpdated.emit(this.score);
   }
 
   // const potentials = this.gameService.potentialMatches;
