@@ -33,6 +33,9 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   public gameBoard!: GameBoard;
 
   private score = 0;
+  private level = 1;
+  private matchSetCount = 0;
+  public matchProgress = 0;
 
   private matchSets: Array<Array<GameTile>> = [];
   private currentMatchSet: Array<GameTile> = [];
@@ -40,12 +43,14 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   private readonly GAME_BOARD_ROWS: number = 7;
   private readonly GAME_BOARD_COLUMNS: number = 5;
+  private readonly MATCH_SET_COUNT_NEXT_LEVEL = 10;
 
   private subscription: Subject<boolean> = new Subject<boolean>();
 
   private swapInProgress = false;
 
   @Output() scoreUpdated = new EventEmitter();
+  @Output() levelUpdated = new EventEmitter();
 
   constructor(
     private gameService: GameService,
@@ -79,6 +84,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
               this.tileRemoveService.StartTileDeletion(
                 this.currentMatchSet.map((t) => Object.assign({}, t))
               );
+              this.matchSetCount++;
               this.swapInProgress = false;
             } else {
               // check for swap
@@ -93,11 +99,23 @@ export class GameBoardComponent implements OnInit, OnDestroy {
             break;
 
           case GameLoopSteps.ApplyScoring:
-            this.gameService.ApplyScoring(this.gameBoard, this.currentMatchSet);
+            this.gameService.ApplyScoring(
+              this.gameBoard,
+              this.currentMatchSet,
+              this.level
+            );
             this.score += this.gameService.TallyScore(this.gameBoard);
             this.scoreUpdated.emit(this.score);
 
-            this.gameLoopService.DoStep(GameLoopSteps.FindMatches);
+            this.matchProgress =
+              (this.matchSetCount / this.MATCH_SET_COUNT_NEXT_LEVEL) * 100;
+
+            // level change
+            if (this.matchSetCount >= this.MATCH_SET_COUNT_NEXT_LEVEL) {
+              this.nextLevel();
+            } else {
+              this.gameLoopService.DoStep(GameLoopSteps.FindMatches);
+            }
             break;
 
           case GameLoopSteps.UnlockBoard:
@@ -117,7 +135,9 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
           case TileRemoveSteps.NextTile:
             this.gameService.ReIndexGrid(this.gameBoard);
-            this.tileRemoveService.NextTile(this.gameService.NewTile(0, 0));
+            this.tileRemoveService.NextTile(
+              this.gameService.NewTile(0, 0, this.level)
+            );
             break;
 
           case TileRemoveSteps.ApplyRemoveClass:
@@ -192,24 +212,42 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.subscription.complete();
   }
 
-  public NewGame(): void {
+  public NewGame(nextLevel: boolean = false): void {
+    if (!nextLevel) {
+      this.score = 0;
+      this.scoreUpdated.emit(this.score);
+      this.level = 1;
+      this.levelUpdated.emit(this.level);
+    }
+    this.matchProgress = 0;
+
     this.gameBoard = this.gameService.CreateGame(
       this.GAME_BOARD_ROWS,
-      this.GAME_BOARD_COLUMNS
+      this.GAME_BOARD_COLUMNS,
+      this.level
     );
 
     this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
-
-    this.score = 0;
-    this.scoreUpdated.emit(this.score);
   }
 
-  public Hint(level: number): void {
+  public Hint(): void {
     this.gameInteractionsService.DoStep(InteractionSteps.ShowHint);
-    const scoreDeduction = level * 100;
+    const scoreDeduction = this.level * 25;
     if (this.score - scoreDeduction > Number.MIN_SAFE_INTEGER) {
       this.score -= scoreDeduction;
       this.scoreUpdated.emit(this.score);
     }
+  }
+
+  private nextLevel(): void {
+    this.matchSetCount = 0;
+    this.level++;
+    // temporary until more levels are added
+    if (this.level > 3) {
+      this.level = 1;
+    }
+
+    this.levelUpdated.emit(this.level);
+    this.NewGame(true);
   }
 }

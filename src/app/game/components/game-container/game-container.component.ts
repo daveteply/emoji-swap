@@ -14,4 +14,8 @@ export class GameContainerComponent implements OnInit {
   updateScore(newScore: number): void {
     this.score = newScore;
   }
+
+  updateLevel(newLevel: number): void {
+    this.level = newLevel;
+  }
 }

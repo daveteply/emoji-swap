@@ -1,6 +1,5 @@
 export interface GameTile {
   code: string;
-  version: string;
   title: string;
   html: string;
 

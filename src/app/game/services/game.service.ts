@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { emojiData } from '../emoji-data';
+import { EmojiList } from '../emoji-data';
 import { GameBoard } from '../models/game-board';
 import { GameTile } from '../models/game-tile';
 import { GameUtilityService } from './game-utility.service';
@@ -51,14 +51,18 @@ export class GameService {
 
   constructor(private gameUtilityService: GameUtilityService) {}
 
-  public CreateGame(rowCount: number, columnCount: number): GameBoard {
+  public CreateGame(
+    rowCount: number,
+    columnCount: number,
+    level: number
+  ): GameBoard {
     const gameBoard: GameBoard = { grid: [] };
     for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
       // new row
       gameBoard.grid[rowIndex] = new Array<GameTile>();
       for (let colIndex = 0; colIndex < columnCount; colIndex++) {
         // grab a random entry
-        const tile = this.NewTile(rowIndex, colIndex);
+        const tile = this.NewTile(rowIndex, colIndex, level);
         gameBoard.grid[rowIndex][colIndex] = tile;
       }
     }
@@ -66,15 +70,18 @@ export class GameService {
     return gameBoard;
   }
 
-  public NewTile(rowIndex: number, colIndex: number): GameTile {
+  public NewTile(rowIndex: number, colIndex: number, level: number): GameTile {
+    const levelEmojis = EmojiList.list.find((l) => l.level === level);
     const emoji =
-      emojiData.icons[Math.floor(Math.random() * emojiData.icons.length)];
+      levelEmojis?.emojis[
+        Math.floor(Math.random() * levelEmojis?.emojis?.length)
+      ];
     // merge it with more value
     const tile = Object.assign(
       {
         colInx: colIndex,
         rowInx: rowIndex,
-        html: `&#x${emoji.code};`,
+        html: `&#x${emoji?.code};`,
         score: 0,
       },
       emoji
@@ -103,9 +110,13 @@ export class GameService {
     });
   }
 
-  public ApplyScoring(gameBoard: GameBoard, matchSet: Array<GameTile>): void {
+  public ApplyScoring(
+    gameBoard: GameBoard,
+    matchSet: Array<GameTile>,
+    level: number
+  ): void {
     for (const tile of matchSet) {
-      const score = gameBoard.grid[tile.rowInx][tile.colInx].score;
+      const score = gameBoard.grid[tile.rowInx][tile.colInx].score * level;
       gameBoard.grid[tile.rowInx][tile.colInx].score = score
         ? score * matchSet.length
         : matchSet.length;

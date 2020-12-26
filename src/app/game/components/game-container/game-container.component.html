@@ -7,7 +7,7 @@
         mat-raised-button
         color="accent"
         [disabled]="gameBoard.boardDisabled"
-        (click)="gameBoard.Hint(level)"
+        (click)="gameBoard.Hint()"
       >
         Hint
       </button>
@@ -24,6 +24,7 @@
   <app-game-board
     class="game-board"
     (scoreUpdated)="updateScore($event)"
+    (levelUpdated)="updateLevel($event)"
     #gameBoard
   ></app-game-board>
 </div>

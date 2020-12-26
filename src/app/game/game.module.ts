@@ -7,6 +7,7 @@ import { GameBoardTileComponent } from './components/game-board-tile/game-board-
 import { GameBoardRowComponent } from './components/game-board-row/game-board-row.component';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,11 @@ import { MatButtonModule } from '@angular/material/button';
     GameBoardTileComponent,
     GameBoardRowComponent,
   ],
-  imports: [CommonModule, GameRoutingModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    GameRoutingModule,
+    MatButtonModule,
+    MatProgressBarModule,
+  ],
 })
 export class GameModule {}
