@@ -24,14 +24,6 @@ $animation-scale-mobile: 3.3em;
     pointer-events: none;
   }
 
-  .emoji {
-    box-sizing: border-box;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    visibility: hidden;
-  }
   .tile-overlay {
     position: absolute;
     transition: transform 1s, font-size 1s, opacity 1s, margin-left 500ms,
