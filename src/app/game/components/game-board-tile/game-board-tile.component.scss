@@ -12,16 +12,20 @@ $animation-scale-mobile: 3.3em;
   height: $tile-scale;
   width: $tile-scale;
   font-size: 4em;
-  background-color: lightgray;
+  background-color: #dddddd;
   border-radius: 0.25em;
   margin: 0.1em;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 500ms;
   &__disabled {
     filter: grayscale(50%);
     pointer-events: none;
+  }
+
+  .tile-slide {
+    z-index: 1;
+    filter: blur(2px);
   }
 
   .tile-overlay {
@@ -30,23 +34,19 @@ $animation-scale-mobile: 3.3em;
       margin-top 500ms;
     &__slide-down {
       margin-top: $animation-scale;
-      z-index: 1;
-      filter: blur(2px);
+      @extend .tile-slide;
     }
     &__slide-up {
       margin-top: -$animation-scale;
-      z-index: 1;
-      filter: blur(2px);
+      @extend .tile-slide;
     }
     &__slide-right {
       margin-left: $animation-scale;
-      z-index: 1;
-      filter: blur(2px);
+      @extend .tile-slide;
     }
     &__slide-left {
       margin-left: -$animation-scale;
-      z-index: 1;
-      filter: blur(2px);
+      @extend .tile-slide;
     }
     &__reset-slide {
       transition: transform 1s, font-size 1s, opacity 1s;
