@@ -6,6 +6,15 @@
   <div
     class="tile-overlay"
     [innerHTML]="tile?.html"
+    [class.tile-overlay__disabled]="
+      disabled &&
+      !tile?.toRemove &&
+      !tile?.animateRemove &&
+      !tile?.animateSlideUp &&
+      !tile?.animateSlideRight &&
+      !tile?.animateSlideDown &&
+      !tile?.animateSlideLeft
+    "
     [class.tile-overlay__to-remove]="tile?.toRemove"
     [class.tile-overlay__remove]="tile?.animateRemove"
     [class.tile-overlay__slide-up]="tile?.animateSlideUp"

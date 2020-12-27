@@ -19,7 +19,6 @@ $animation-scale-mobile: 3.3em;
   justify-content: center;
   align-items: center;
   &__disabled {
-    filter: grayscale(50%);
     pointer-events: none;
   }
 
@@ -32,6 +31,9 @@ $animation-scale-mobile: 3.3em;
     position: absolute;
     transition: transform 1s, font-size 1s, opacity 1s, margin-left 500ms,
       margin-top 500ms;
+    &__disabled {
+      filter: blur(2px) grayscale(50%);
+    }
     &__slide-down {
       margin-top: $animation-scale;
       @extend .tile-slide;
