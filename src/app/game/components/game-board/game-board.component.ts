@@ -43,7 +43,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   private readonly GAME_BOARD_ROWS: number = 7;
   private readonly GAME_BOARD_COLUMNS: number = 5;
-  private readonly MATCH_SET_COUNT_NEXT_LEVEL = 1;
+  private readonly MATCH_SET_COUNT_NEXT_LEVEL = 10;
   private readonly AUTHORED_LEVEL_COUNT = 3;
 
   private subscription: Subject<boolean> = new Subject<boolean>();
