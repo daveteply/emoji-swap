@@ -43,7 +43,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   private readonly GAME_BOARD_ROWS: number = 7;
   private readonly GAME_BOARD_COLUMNS: number = 5;
-  private readonly MATCH_SET_COUNT_NEXT_LEVEL = 10;
+  private readonly MATCH_SET_COUNT_NEXT_LEVEL = 1;
+  private readonly AUTHORED_LEVEL_COUNT = 3;
 
   private subscription: Subject<boolean> = new Subject<boolean>();
 
@@ -136,7 +137,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
           case TileRemoveSteps.NextTile:
             this.gameService.ReIndexGrid(this.gameBoard);
             this.tileRemoveService.NextTile(
-              this.gameService.NewTile(0, 0, this.level)
+              this.gameService.NewTile(0, 0, this.levelToRender())
             );
             break;
 
@@ -224,7 +225,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.gameBoard = this.gameService.CreateGame(
       this.GAME_BOARD_ROWS,
       this.GAME_BOARD_COLUMNS,
-      this.level
+      this.levelToRender()
     );
 
     this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
@@ -242,12 +243,13 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   private nextLevel(): void {
     this.matchSetCount = 0;
     this.level++;
-    // temporary until more levels are added
-    if (this.level > 3) {
-      this.level = 1;
-    }
 
     this.levelUpdated.emit(this.level);
     this.NewGame(true);
+  }
+
+  private levelToRender(): number {
+    const next = this.level % this.AUTHORED_LEVEL_COUNT;
+    return next === 0 ? 3 : next;
   }
 }
