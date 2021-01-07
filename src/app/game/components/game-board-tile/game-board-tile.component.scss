@@ -29,10 +29,9 @@ $animation-scale-mobile: 3.3em;
 
   .tile-overlay {
     position: absolute;
-    transition: transform 1s, font-size 1s, opacity 1s, margin-left 500ms,
-      margin-top 500ms;
+    transition: margin-left 500ms, margin-top 500ms;
     &__disabled {
-      filter: blur(2px) grayscale(50%);
+      filter: blur(2px) grayscale(50%) brightness(0.7);
     }
     &__slide-down {
       margin-top: $animation-scale;
@@ -59,15 +58,24 @@ $animation-scale-mobile: 3.3em;
       animation: wobble 1s infinite;
     }
     &__remove {
-      transform: rotate(-365deg);
-      font-size: 0;
-      opacity: 0;
+      animation: remove 1s;
     }
     &__shutter {
       animation: shutter 250ms 2;
     }
     &__hint {
       animation: hint 500ms;
+    }
+  }
+
+  @keyframes remove {
+    0% {
+      font-size: 200%;
+    }
+    50% {
+      transform: rotate(-365deg);
+      font-size: 0;
+      opacity: 0;
     }
   }
 
