@@ -11,6 +11,7 @@ import { HammerConfig } from './hammer-config';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     HammerModule,
     BrowserAnimationsModule,
     MatToolbarModule,
+    MatTooltipModule,
   ],
   providers: [
     {

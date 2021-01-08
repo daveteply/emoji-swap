@@ -5,6 +5,12 @@
   grid-template-rows: 5em auto 1fr;
   height: 100vh;
 
+  header {
+    .spacer {
+      flex: 1 1 auto;
+    }
+  }
+
   .game-content {
     justify-self: center;
   }
