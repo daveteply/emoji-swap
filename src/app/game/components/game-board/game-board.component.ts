@@ -22,6 +22,7 @@ import {
   TileRemoveService,
   TileRemoveSteps,
 } from '../../services/tile-remove.service';
+import { AudioService, SoundType } from '../../../services/audio.service';
 
 @Component({
   selector: 'app-game-board',
@@ -57,7 +58,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     private gameService: GameService,
     private gameLoopService: GameLoopService,
     private tileRemoveService: TileRemoveService,
-    private gameInteractionsService: GameInteractionsService
+    private gameInteractionsService: GameInteractionsService,
+    private audioService: AudioService
   ) {}
 
   ngOnInit(): void {
@@ -126,7 +128,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       });
 
     this.tileRemoveService.tileRemoveState$
-      .pipe(delay(150))
+      .pipe(delay(100))
       .pipe(takeUntil(this.subscription))
       .subscribe((step) => {
         switch (step) {
@@ -135,6 +137,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
             break;
 
           case TileRemoveSteps.NextTile:
+            this.audioService.PlayAudio(SoundType.TileRemove);
             this.gameService.ReIndexGrid(this.gameBoard);
             this.tileRemoveService.NextTile(
               this.gameService.NewTile(0, 0, this.levelToRender())
@@ -229,6 +232,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     );
 
     this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
+
+    this.audioService.PlayAudio(SoundType.LevelChange);
   }
 
   public Hint(): void {
