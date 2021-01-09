@@ -1,6 +1,6 @@
 ## Welcome to Emoji Swap!
 
-<a href="demo-0.5/index.html">Demo</a>
+<a href="demo-0.6/">Demo</a>
 
 You can use the [editor on GitHub](https://github.com/daveteply/emoji-swap/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
