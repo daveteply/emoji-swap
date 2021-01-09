@@ -19,11 +19,11 @@ export const AudioDataList: AudioData = {
   list: [
     {
       type: AudioType.LevelChange,
-      element: new Audio('/assets/wav/mixkit-fast-sweeping-transition-164.wav'),
+      element: new Audio('assets/wav/mixkit-fast-sweeping-transition-164.wav'),
     },
     {
       type: AudioType.TileRemove,
-      element: new Audio('/assets/wav/mixkit-quick-swoosh-accent-1464.wav'),
+      element: new Audio('assets/wav/mixkit-quick-swoosh-accent-1464.wav'),
     },
   ],
 };
