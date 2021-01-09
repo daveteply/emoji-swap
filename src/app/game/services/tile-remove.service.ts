@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { AudioType } from 'src/app/services/audio-date';
+import { AudioService } from 'src/app/services/audio.service';
 import { GameBoard } from '../models/game-board';
 import { GameTile } from '../models/game-tile';
 
@@ -20,6 +22,8 @@ export class TileRemoveService {
   private tilesToRemove: Array<GameTile> = [];
   private currentTile!: GameTile;
   private newTile!: GameTile;
+
+  constructor(private audioService: AudioService) {}
 
   public tileRemoveState$ = this.tileRemoveStateSource.asObservable();
 
@@ -57,6 +61,7 @@ export class TileRemoveService {
     ].animateRemove = true;
 
     this.tileRemoveStateSource.next(TileRemoveSteps.ApplyDropClass);
+    this.audioService.PlayAudio(AudioType.TileRemove);
   }
 
   public ApplyDropClass(gameBoard: GameBoard): void {

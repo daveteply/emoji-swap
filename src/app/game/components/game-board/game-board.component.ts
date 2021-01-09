@@ -22,7 +22,8 @@ import {
   TileRemoveService,
   TileRemoveSteps,
 } from '../../services/tile-remove.service';
-import { AudioService, SoundType } from '../../../services/audio.service';
+import { AudioService } from '../../../services/audio.service';
+import { AudioType } from 'src/app/services/audio-date';
 
 @Component({
   selector: 'app-game-board',
@@ -137,7 +138,6 @@ export class GameBoardComponent implements OnInit, OnDestroy {
             break;
 
           case TileRemoveSteps.NextTile:
-            this.audioService.PlayAudio(SoundType.TileRemove);
             this.gameService.ReIndexGrid(this.gameBoard);
             this.tileRemoveService.NextTile(
               this.gameService.NewTile(0, 0, this.levelToRender())
@@ -233,7 +233,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
     this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
 
-    this.audioService.PlayAudio(SoundType.LevelChange);
+    this.audioService.PlayAudio(AudioType.LevelChange);
   }
 
   public Hint(): void {

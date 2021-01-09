@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { HammerConfig } from './hammer-config';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AudioContextModule } from 'angular-audio-context';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -20,6 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     AppRoutingModule,
     HammerModule,
     BrowserAnimationsModule,
+    AudioContextModule.forRoot('balanced'),
     MatToolbarModule,
     MatTooltipModule,
   ],
