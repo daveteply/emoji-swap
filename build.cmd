@@ -1,1 +1,0 @@
-ng build --prod --baseHref="https://daveteply.github.io/emoji-swap/demo/"
