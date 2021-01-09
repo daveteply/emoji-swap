@@ -6,6 +6,11 @@
   height: 100vh;
 
   header {
+    .home-link {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+    }
     .spacer {
       flex: 1 1 auto;
     }
