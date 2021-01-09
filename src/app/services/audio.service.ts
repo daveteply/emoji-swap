@@ -1,19 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { AudioContext } from 'angular-audio-context';
-
 import { AudioDataList, AudioType } from './audio-date';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AudioService {
+  private gainNode: any;
+
   constructor(private audioContext: AudioContext) {
+    // gain
+    this.gainNode = this.audioContext.createGain();
     // load context
     AudioDataList.list.forEach((audio) => {
       audio.track = this.audioContext.createMediaElementSource(audio.element);
-      audio.track.connect(this.audioContext.destination);
+      audio.track.connect(this.gainNode).connect(this.audioContext.destination);
     });
+  }
+
+  set Gain(gainValue: number) {
+    this.gainNode.gain.value = gainValue;
   }
 
   public async PlayAudio(audioType: AudioType): Promise<void> {

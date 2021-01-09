@@ -5,6 +5,13 @@
         >😺
         <h1>Emoji Swap!</h1></a
       >
+      <button (click)="ToggleAudio()" mat-icon-button aria-label="Sound On">
+        <mat-icon *ngIf="soundEnabled; else soundDisabled">volume_up</mat-icon>
+        <ng-template #soundDisabled>
+          <mat-icon>volume_off</mat-icon>
+        </ng-template>
+      </button>
+
       <span class="spacer"></span>
       <a
         href="https://github.com/daveteply/emoji-swap"

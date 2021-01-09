@@ -14,6 +14,8 @@ import { AudioContextModule } from 'angular-audio-context';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +27,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     AudioContextModule.forRoot('balanced'),
     MatToolbarModule,
     MatTooltipModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   providers: [
     {
