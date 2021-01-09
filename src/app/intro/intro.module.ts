@@ -5,8 +5,10 @@ import { IntroContainerComponent } from './components/intro-container/intro-cont
 
 import { RouterModule } from '@angular/router';
 
+import { MatButtonModule } from '@angular/material/button';
+
 @NgModule({
   declarations: [IntroContainerComponent],
-  imports: [CommonModule, IntroRoutingModule, RouterModule],
+  imports: [CommonModule, IntroRoutingModule, RouterModule, MatButtonModule],
 })
 export class IntroModule {}

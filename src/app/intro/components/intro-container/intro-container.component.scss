@@ -1,3 +1,9 @@
-p {
-  text-align: center;
+.content {
+  max-width: 30em;
+  padding: 5em;
+
+  p,
+  h2 {
+    text-align: center;
+  }
 }
