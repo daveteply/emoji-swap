@@ -1,23 +1,15 @@
 @import "/src/include-media";
 
-$tile-scale: 1.5em;
-$tile-scale-mobile: 1.75em;
+$tile-scale: 8em;
+$tile-scale-mobile: 6em;
 
 $animation-scale: 3.3em;
-$animation-scale-mobile: 3.3em;
 
 .game-tile {
-  user-select: none;
-  position: relative;
-  height: $tile-scale;
   width: $tile-scale;
-  font-size: 4em;
-  background-color: #dddddd;
-  border-radius: 0.25em;
-  margin: 0.1em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: $tile-scale;
+  position: relative;
+
   &__disabled {
     pointer-events: none;
   }
@@ -29,6 +21,21 @@ $animation-scale-mobile: 3.3em;
 
   .tile-overlay {
     position: absolute;
+
+    width: 90%;
+    height: 90%;
+    top: 0;
+    left: 0;
+
+    font-size: 4.5em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 0.1em;
+    background-color: #dddddd;
+
     transition: margin-left 500ms, margin-top 500ms;
     &__disabled {
       filter: blur(2px) grayscale(50%) brightness(0.7);
@@ -55,7 +62,7 @@ $animation-scale-mobile: 3.3em;
       margin-top: 0;
     }
     &__to-remove {
-      animation: wobble 1s infinite;
+      animation: wobble 500ms infinite;
     }
     &__remove {
       animation: remove 1s;
@@ -70,11 +77,11 @@ $animation-scale-mobile: 3.3em;
 
   @keyframes remove {
     0% {
-      font-size: 200%;
+      font-size: 250%;
     }
     50% {
       transform: rotate(-365deg);
-      font-size: 0;
+      font-size: 90%;
       opacity: 0;
     }
   }
@@ -82,11 +89,11 @@ $animation-scale-mobile: 3.3em;
   @keyframes wobble {
     0% {
       transform: rotate(10deg);
-      font-size: 90%;
+      font-size: 400%;
     }
     50% {
       transform: rotate(-10deg);
-      font-size: 120%;
+      font-size: 450%;
     }
   }
 
@@ -113,7 +120,9 @@ $animation-scale-mobile: 3.3em;
   .game-tile {
     height: $tile-scale-mobile;
     width: $tile-scale-mobile;
-    margin: 0.05em;
-    font-size: 3.05em;
+
+    .tile-overlay {
+      font-size: 3.35em;
+    }
   }
 }
