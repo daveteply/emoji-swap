@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { AudioType } from 'src/app/services/audio-date';
+import { AudioType } from 'src/app/services/audio-data';
 import { AudioService } from 'src/app/services/audio.service';
 import { GameBoard } from '../models/game-board';
 import { GameTile } from '../models/game-tile';

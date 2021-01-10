@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AudioContext } from 'angular-audio-context';
-import { AudioDataList, AudioType } from './audio-date';
+import { AudioDataList, AudioType } from './audio-data';
 
 @Injectable({
   providedIn: 'root',

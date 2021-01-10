@@ -23,7 +23,7 @@ import {
   TileRemoveSteps,
 } from '../../services/tile-remove.service';
 import { AudioService } from '../../../services/audio.service';
-import { AudioType } from 'src/app/services/audio-date';
+import { AudioType } from 'src/app/services/audio-data';
 
 @Component({
   selector: 'app-game-board',
@@ -90,6 +90,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
               );
               this.matchSetCount++;
               this.swapInProgress = false;
+              this.audioService.PlayAudio(AudioType.MatchFound);
             } else {
               // check for swap
               if (this.swapInProgress) {
@@ -172,6 +173,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
               this.gameInteractionsService.LocateAdjacentTile(this.gameBoard)
             ) {
               this.swapInProgress = true;
+              this.audioService.PlayAudio(AudioType.Swipe);
               this.gameInteractionsService.DoStep(
                 InteractionSteps.ApplyDirectionalAnimation
               );
@@ -196,9 +198,11 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
           case InteractionSteps.Shutter:
             this.gameInteractionsService.Shutter(this.gameBoard);
+            this.audioService.PlayAudio(AudioType.InvalidSwipe);
             break;
 
           case InteractionSteps.ShowHint:
+            this.audioService.PlayAudio(AudioType.Hint);
             this.gameInteractionsService.ApplyPotentials(
               this.gameBoard,
               this.potentialMatchSets,
