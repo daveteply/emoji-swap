@@ -6,7 +6,7 @@ A causal game inspired by classic tile-matching games like Bejeweled and Candy C
 
 [GitHub](https://github.com/daveteply/emoji-swap)
 
-### Header Discussion and Algorithm
+### Discussion and Algorithm
 
 #### Emoji use
 
@@ -18,6 +18,15 @@ Starting with the [Full Emoji List](https://unicode.org/emoji/charts/full-emoji-
 <div [innerHTML]="1F600"></div>
 ```
 
+#### Game Board
+
+The next bit of fun was to draw the game board or grid of emojis.  I initially thought to use [CSS Grid]( https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout), but decided that most breakpoints where going to be similar so good ole [Flexbox]( https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox) did the trick!
+
+Basic algorithm:
+1.	Start with a 2-D array in TypeScript ` grid: GameTile[][];`
+2.	Loop through each dimension's limit
+3.	Add a `GameTile` from a random list of emojis
+4.	See: src\app\game\services\game.service.ts: CreateGame(
 
 
 <!-- You can use the [editor on GitHub](https://github.com/daveteply/emoji-swap/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
