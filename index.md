@@ -2,7 +2,7 @@
 
 A causal game inspired by classic tile-matching games like Bejeweled and Candy Crush. This is an exercise in algorithmic tile matching and potential tile matching.
 
-[Demo](demo-0.1.0/)
+[Demo](demo-0.1.1/)
 
 [GitHub](https://github.com/daveteply/emoji-swap)
 
