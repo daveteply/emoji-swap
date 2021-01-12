@@ -16,21 +16,42 @@ export const EmojiList: EmojiLevelList = {
   list: [
     {
       level: 1,
-      title: 'Fun Emojis!',
+      title: 'Emojis!',
       emojis: [
-        {
-          code: '1F60E',
-          title: 'smiling face with sunglasses',
-        },
-        { code: '1F63A', title: 'grinning cat' },
-        { code: '1F43A', title: 'wolf' },
-        { code: '1F42C', title: 'dolphin' },
-        { code: '1F3E1', title: 'house with garden' },
-        { code: '1F9C7', title: 'waffle' },
+        { code: '1F600', title: 'grinning face' },
+        { code: '1F607', title: 'smiling face with halo' },
+        { code: '1F60D', title: 'smiling face with heart-eyes' },
+        { code: '1F92A', title: 'zany face' },
+        { code: '1F644', title: 'face with rolling eyes' },
+        { code: '1F60E', title: 'smiling face with sunglasses' },
       ],
     },
     {
       level: 2,
+      title: 'More faces',
+      emojis: [
+        { code: '1F913', title: 'nerd face' },
+        { code: '1F9D0', title: 'face with monocle' },
+        { code: '1F632', title: 'astonished face' },
+        { code: '1F628', title: 'fearful face' },
+        { code: '1F911', title: 'money-mouth face' },
+        { code: '1F973', title: 'partying face' },
+      ],
+    },
+    {
+      level: 3,
+      title: 'Costumes',
+      emojis: [
+        { code: '1F47A', title: 'goblin' },
+        { code: '1F920', title: 'cowboy hat face' },
+        { code: '1F921', title: 'clown face' },
+        { code: '1F47B', title: 'ghost' },
+        { code: '1F47D', title: 'alien' },
+        { code: '1F916', title: 'robot' },
+      ],
+    },
+    {
+      level: 4,
       title: 'Ground Transport',
       emojis: [
         { code: '1F694', title: 'oncoming police car' },
@@ -42,7 +63,7 @@ export const EmojiList: EmojiLevelList = {
       ],
     },
     {
-      level: 3,
+      level: 5,
       title: 'Sky',
       emojis: [
         { code: '1F319', title: 'crescent moon' },
@@ -55,3 +76,16 @@ export const EmojiList: EmojiLevelList = {
     },
   ],
 };
+
+// {
+//   level: 1,
+//   title: '',
+//   emojis: [
+//     { code: '', title: '' },
+//     { code: '', title: '' },
+//     { code: '', title: '' },
+//     { code: '', title: '' },
+//     { code: '', title: '' },
+//     { code: '', title: '' },
+//   ],
+// },

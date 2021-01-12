@@ -45,8 +45,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   private readonly GAME_BOARD_ROWS: number = 7;
   private readonly GAME_BOARD_COLUMNS: number = 5;
-  private readonly MATCH_SET_COUNT_NEXT_LEVEL = 10;
-  private readonly AUTHORED_LEVEL_COUNT = 3;
+  private readonly MATCH_SET_COUNT_NEXT_LEVEL = 8;
+  private readonly AUTHORED_LEVEL_COUNT = 5;
 
   private subscription: Subject<boolean> = new Subject<boolean>();
 
@@ -259,6 +259,6 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   private levelToRender(): number {
     const next = this.level % this.AUTHORED_LEVEL_COUNT;
-    return next === 0 ? 3 : next;
+    return next === 0 ? this.AUTHORED_LEVEL_COUNT : next;
   }
 }
