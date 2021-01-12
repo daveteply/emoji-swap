@@ -6,6 +6,20 @@ A causal game inspired by classic tile-matching games like Bejeweled and Candy C
 
 [GitHub](https://github.com/daveteply/emoji-swap)
 
+### Header Discussion and Algorithm
+
+#### Emoji use
+
+I thought of using emojis due to their popularity, fun, and wide-spread compatibility. The first trick was to get the emoji to render on a web page based on its code.
+
+Starting with the [Full Emoji List](https://unicode.org/emoji/charts/full-emoji-list.html), the first emoji listed is `1F600` which is the 😀 or “grinning face”.  After some work, I discovered that this is how to render an emoji using Angular:
+
+```
+<div [innerHTML]="1F600"></div>
+```
+
+
+
 <!-- You can use the [editor on GitHub](https://github.com/daveteply/emoji-swap/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
