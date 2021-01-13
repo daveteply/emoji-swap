@@ -203,6 +203,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
           case InteractionSteps.ShowHint:
             this.audioService.PlayAudio(AudioType.Hint);
+            this.gameService.ReIndexGrid(this.gameBoard);
             this.gameInteractionsService.ApplyPotentials(
               this.gameBoard,
               this.potentialMatchSets,
