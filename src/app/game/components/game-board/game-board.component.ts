@@ -228,6 +228,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       this.level = 1;
       this.levelUpdated.emit(this.level);
     }
+
+    this.matchSetCount = 0;
     this.matchProgress = 0;
 
     this.gameBoard = this.gameService.CreateGame(
@@ -237,7 +239,6 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     );
 
     this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
-
     this.audioService.PlayAudio(AudioType.LevelChange);
   }
 

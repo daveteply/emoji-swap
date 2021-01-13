@@ -61,6 +61,21 @@ $tile-scale: 6.5em;
     &__new-tile {
       animation: new-tile 500ms;
     }
+    &__new-tile-delay-1 {
+      animation-delay: 50ms;
+    }
+    &__new-tile-delay-2 {
+      animation-delay: 250ms;
+    }
+    &__new-tile-delay-3 {
+      animation-delay: 350ms;
+    }
+    &__new-tile-delay-4 {
+      animation-delay: 550ms;
+    }
+    &__new-tile-delay-5 {
+      animation-delay: 550ms;
+    }
     &__to-remove {
       border-radius: 3em;
       animation: wobble 500ms infinite;
