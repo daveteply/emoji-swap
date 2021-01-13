@@ -22,7 +22,7 @@ export const EmojiList: EmojiLevelList = {
         { code: '1F607', title: 'smiling face with halo' },
         { code: '1F60D', title: 'smiling face with heart-eyes' },
         { code: '1F92A', title: 'zany face' },
-        { code: '1F644', title: 'face with rolling eyes' },
+        { code: '1F923', title: 'rolling on the floor laughing' },
         { code: '1F60E', title: 'smiling face with sunglasses' },
       ],
     },
