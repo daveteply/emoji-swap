@@ -221,7 +221,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.subscription.complete();
   }
 
-  public NewGame(nextLevel: boolean = false): void {
+  public async NewGame(nextLevel: boolean = false): Promise<void> {
     if (!nextLevel) {
       this.score = 0;
       this.scoreUpdated.emit(this.score);
@@ -238,8 +238,9 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       this.levelToRender()
     );
 
-    this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
     this.audioService.PlayAudio(AudioType.LevelChange);
+    await this.delay(750);
+    this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
   }
 
   public Hint(): void {
@@ -262,5 +263,9 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   private levelToRender(): number {
     const next = this.level % this.AUTHORED_LEVEL_COUNT;
     return next === 0 ? this.AUTHORED_LEVEL_COUNT : next;
+  }
+
+  private delay(ms: number): Promise<void> {
+    return new Promise((p) => setTimeout(p, ms));
   }
 }
