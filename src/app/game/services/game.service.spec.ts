@@ -462,9 +462,6 @@ describe('GameService', () => {
       expect(potentialMatches.length).toBe(1);
 
       expect(mockBoard.grid[1][1].potential).toBeFalsy();
-
-      //gameService.ApplyPotentials(mockBoard, potentialMatches);
-      //expect(mockBoard.grid[1][1].potential).toBe(true);
     });
 
     describe('staggered', () => {

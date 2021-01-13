@@ -47,35 +47,4 @@ export class AudioService {
     oscillatorNode.start();
     oscillatorNode.stop(this.audioContext.currentTime + 0.5);
   }
-
-  // public AudioLoaded(): Observable<boolean> {
-  //   return new Observable((observer) => {
-  //     let loadedCount = 0;
-  //     const keyCount = Object.keys(this.audioData).length;
-  //     const audioLoaded = () => {
-  //       loadedCount++;
-  //       if (loadedCount === keyCount) {
-  //         observer.next();
-  //         observer.complete();
-  //       }
-  //     };
-
-  //     this.audioData.levelChange.oncanplaythrough = audioLoaded;
-  //     this.audioData.tileRemove.oncanplaythrough = audioLoaded;
-  //   });
-  // }
-
-  // public PlayAudio(soundType: SoundType): void {
-  //   switch (soundType) {
-  //     case SoundType.LevelChange:
-  //       this.audioData.levelChange.currentTime = 0;
-  //       this.audioData.levelChange.play();
-  //       break;
-
-  //     case SoundType.TileRemove:
-  //       this.audioData.tileRemove.currentTime = 0;
-  //       this.audioData.tileRemove.play();
-  //       break;
-  //   }
-  // }
 }
