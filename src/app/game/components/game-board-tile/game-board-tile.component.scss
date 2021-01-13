@@ -1,9 +1,6 @@
 @import "/src/include-media";
 
-$tile-scale: 8em;
-$tile-scale-mobile: 6em;
-
-$animation-scale: 3.3em;
+$tile-scale: 6.5em;
 
 .game-tile {
   width: $tile-scale;
@@ -27,7 +24,7 @@ $animation-scale: 3.3em;
     top: 0;
     left: 0;
 
-    font-size: 4.5em;
+    font-size: $tile-scale * 0.6;
 
     display: flex;
     justify-content: center;
@@ -41,19 +38,19 @@ $animation-scale: 3.3em;
       filter: blur(2px) grayscale(50%) brightness(0.7);
     }
     &__slide-down {
-      margin-top: $animation-scale;
+      margin-top: $tile-scale;
       @extend .tile-slide;
     }
     &__slide-up {
-      margin-top: -$animation-scale;
+      margin-top: -$tile-scale;
       @extend .tile-slide;
     }
     &__slide-right {
-      margin-left: $animation-scale;
+      margin-left: $tile-scale;
       @extend .tile-slide;
     }
     &__slide-left {
-      margin-left: -$animation-scale;
+      margin-left: -$tile-scale;
       @extend .tile-slide;
     }
     &__reset-slide {
@@ -78,24 +75,24 @@ $animation-scale: 3.3em;
 
   @keyframes remove {
     0% {
-      font-size: 250%;
+      font-size: $tile-scale * 1.01;
     }
     50% {
       transform: rotate(-365deg);
-      font-size: 90%;
+      font-size: $tile-scale * 0.5;
       opacity: 0;
     }
   }
 
   @keyframes wobble {
     0% {
-      transform: rotate(10deg);
-      font-size: 400%;
+      transform: rotate(45deg);
+      font-size: $tile-scale * 1.01;
     }
     50% {
-      transform: rotate(-10deg);
-      font-size: 450%;
-      border-radius: 2em;
+      transform: rotate(-45deg);
+      font-size: $tile-scale;
+      border-radius: 1em;
     }
   }
 
@@ -111,8 +108,12 @@ $animation-scale: 3.3em;
   }
 
   @keyframes hint {
+    0% {
+      border: 3px dotted green;
+      font-size: $tile-scale * 2;
+    }
     100% {
-      font-size: 500%;
+      font-size: $tile-scale * 0.5;
       opacity: 0;
     }
   }
@@ -120,11 +121,11 @@ $animation-scale: 3.3em;
 
 @include media("<tablet") {
   .game-tile {
-    height: $tile-scale-mobile;
-    width: $tile-scale-mobile;
+    height: $tile-scale * 0.75;
+    width: $tile-scale * 0.75;
 
     .tile-overlay {
-      font-size: 3.35em;
+      font-size: $tile-scale * 0.5;
     }
   }
 }
