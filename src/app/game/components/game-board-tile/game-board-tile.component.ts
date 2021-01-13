@@ -13,10 +13,17 @@ export class GameBoardTileComponent {
   @Input() tile!: GameTile;
   @Input() disabled!: boolean;
 
-  onSwipe(event: any): void {
-    this.gameInteractionsService.TileSwiped({
-      tile: this.tile,
-      direction: event?.direction,
-    });
+  private isPanning = false;
+
+  onPan(event: any): void {
+    if (!event?.isFinal && !this.isPanning) {
+      this.isPanning = true;
+      this.gameInteractionsService.TileSwiped({
+        tile: this.tile,
+        direction: event?.direction,
+      });
+    } else if (event?.isFinal) {
+      this.isPanning = false;
+    }
   }
 }

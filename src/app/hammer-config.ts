@@ -7,6 +7,6 @@ export class HammerConfig extends HammerGestureConfig {
   overrides = {
     pinch: { enable: false },
     rotate: { enable: false },
-    swipe: { direction: Hammer.DIRECTION_ALL },
+    pan: { direction: Hammer.DIRECTION_ALL },
   };
 }
