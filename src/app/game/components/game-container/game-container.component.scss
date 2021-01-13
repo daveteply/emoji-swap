@@ -1,3 +1,5 @@
+@import "/src/include-media";
+
 .game-container {
   .game-header {
     display: flex;
@@ -5,6 +7,19 @@
     .game-controls {
       button {
         margin-left: 0.5em;
+      }
+    }
+  }
+}
+
+@include media("<tablet") {
+  .game-container {
+    .game-header {
+      h2 {
+        font-size: 1.25em;
+      }
+      button {
+        line-height: 2em;
       }
     }
   }
