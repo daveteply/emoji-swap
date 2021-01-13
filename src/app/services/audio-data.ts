@@ -21,7 +21,7 @@ export const AudioDataList: AudioData = {
   list: [
     {
       type: AudioType.LevelChange,
-      element: new Audio('assets/wav/mixkit-fast-sweeping-transition-164.wav'),
+      element: new Audio('assets/wav/mixkit-magic-festive-melody-2986.wav'),
     },
     {
       type: AudioType.Swipe,
