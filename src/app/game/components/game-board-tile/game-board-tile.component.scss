@@ -58,6 +58,9 @@ $tile-scale: 6.5em;
       margin-left: 0;
       margin-top: 0;
     }
+    &__new-tile {
+      animation: new-tile 500ms;
+    }
     &__to-remove {
       border-radius: 3em;
       animation: wobble 500ms infinite;
@@ -70,6 +73,20 @@ $tile-scale: 6.5em;
     }
     &__hint {
       animation: hint 500ms;
+    }
+  }
+
+  @keyframes new-tile {
+    0% {
+      font-size: 0;
+      opacity: 0;
+    }
+    50% {
+      font-size: $tile-scale;
+    }
+    100% {
+      font-size: $tile-scale * 0.6;
+      opacity: 1;
     }
   }
 

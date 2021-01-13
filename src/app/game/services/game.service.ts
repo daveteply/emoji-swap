@@ -83,6 +83,7 @@ export class GameService {
         rowInx: rowIndex,
         html: `&#x${emoji?.code};`,
         score: 0,
+        isNew: true,
       },
       emoji
     );
@@ -106,6 +107,7 @@ export class GameService {
 
         gameBoard.grid[rowInx][colInx].animateShutter = false;
         gameBoard.grid[rowInx][colInx].potential = false;
+        gameBoard.grid[rowInx][colInx].isNew = false;
       });
     });
   }

@@ -6,6 +6,7 @@ export interface GameTile {
   colInx: number;
   rowInx: number;
 
+  isNew?: boolean;
   matched?: boolean;
   potential?: boolean;
   score: number;
