@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EmojiList } from '../emoji-data';
+import { MATCH_MINIUM_LENGTH } from '../game-constants';
 import { GameBoard } from '../models/game-board';
 import { GameTile } from '../models/game-tile';
 import { GameUtilityService } from './game-utility.service';
@@ -30,8 +31,6 @@ const allDirections = [
   Direction.W,
   Direction.NW,
 ];
-
-const MATCH_MINIUM_LENGTH = 3;
 
 @Injectable({
   providedIn: 'root',
@@ -110,29 +109,6 @@ export class GameService {
         gameBoard.grid[rowInx][colInx].isNew = 0;
       });
     });
-  }
-
-  public ApplyScoring(
-    gameBoard: GameBoard,
-    matchSet: Array<GameTile>,
-    level: number
-  ): void {
-    for (const tile of matchSet) {
-      const score = gameBoard.grid[tile.rowInx][tile.colInx].score * level;
-      gameBoard.grid[tile.rowInx][tile.colInx].score = score
-        ? score * matchSet.length
-        : matchSet.length;
-    }
-  }
-
-  public TallyScore(gameBoard: GameBoard): number {
-    let score = 0;
-    gameBoard?.grid.forEach((row) =>
-      row.forEach((tile) => {
-        score += tile.score;
-      })
-    );
-    return score;
   }
 
   public FindMatchesAndPotentials(gameBoard: GameBoard): void {

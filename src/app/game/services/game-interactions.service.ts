@@ -4,6 +4,7 @@ import { GameBoard } from '../models/game-board';
 import { GameTile } from '../models/game-tile';
 import { PlayerTile } from '../models/player-tile';
 import { GameUtilityService } from './game-utility.service';
+import { ScoringService } from './scoring.service';
 
 // https://hammerjs.github.io/api/#constants
 export enum PlayerSwipeDirection {
@@ -34,7 +35,10 @@ export class GameInteractionsService {
 
   private isSwapBack = false;
 
-  constructor(private gameUtilityService: GameUtilityService) {}
+  constructor(
+    private gameUtilityService: GameUtilityService,
+    private scoringService: ScoringService
+  ) {}
 
   public DoStep(step: InteractionSteps): void {
     this.gameInteractionStateSource.next(step);
@@ -45,6 +49,8 @@ export class GameInteractionsService {
     this.playerTile = playerTile;
     this.adjacentTile = {} as GameTile;
     this.gameInteractionStateSource.next(InteractionSteps.LocateAdjacentTile);
+
+    this.scoringService.TimerStop();
   }
 
   public LocateAdjacentTile(gameBoard: GameBoard): boolean {

@@ -24,6 +24,13 @@ import {
 } from '../../services/tile-remove.service';
 import { AudioService } from '../../../services/audio.service';
 import { AudioType } from 'src/app/services/audio-data';
+import { ScoringService } from '../../services/scoring.service';
+import {
+  AUTHORED_LEVEL_COUNT,
+  GAME_BOARD_COLUMNS,
+  GAME_BOARD_ROWS,
+  MATCH_SET_COUNT_NEXT_LEVEL,
+} from '../../game-constants';
 
 @Component({
   selector: 'app-game-board',
@@ -43,11 +50,6 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   private currentMatchSet: Array<GameTile> = [];
   private potentialMatchSets: Array<Array<GameTile>> = [];
 
-  private readonly GAME_BOARD_ROWS: number = 7;
-  private readonly GAME_BOARD_COLUMNS: number = 5;
-  private readonly MATCH_SET_COUNT_NEXT_LEVEL = 8;
-  private readonly AUTHORED_LEVEL_COUNT = 5;
-
   private subscription: Subject<boolean> = new Subject<boolean>();
 
   private swapInProgress = false;
@@ -60,6 +62,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     private gameLoopService: GameLoopService,
     private tileRemoveService: TileRemoveService,
     private gameInteractionsService: GameInteractionsService,
+    private scoringService: ScoringService,
     private audioService: AudioService
   ) {}
 
@@ -84,39 +87,46 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
           case GameLoopSteps.RemoveMatchSet:
             if (this.matchSets.length) {
+              this.audioService.PlayAudio(AudioType.MatchFound);
               this.currentMatchSet = this.matchSets.shift() as Array<GameTile>;
+
+              // kick off the deletion sequence for the current match set
               this.tileRemoveService.StartTileDeletion(
                 this.currentMatchSet.map((t) => Object.assign({}, t))
               );
+
               this.matchSetCount++;
               this.swapInProgress = false;
-              this.audioService.PlayAudio(AudioType.MatchFound);
             } else {
-              // check for swap
+              // if no matches, and in the middle of a swap, swap back
               if (this.swapInProgress) {
                 this.gameInteractionsService.DoStep(InteractionSteps.SwapBack);
                 this.swapInProgress = false;
               }
               if (this.potentialMatchSets.length) {
                 this.gameLoopService.DoStep(GameLoopSteps.UnlockBoard);
+              } else {
+                // TODO: end level
               }
+
+              this.scoringService.TimerStart();
             }
             break;
 
           case GameLoopSteps.ApplyScoring:
-            this.gameService.ApplyScoring(
+            this.scoringService.ApplyScoring(
               this.gameBoard,
               this.currentMatchSet,
               this.level
             );
-            this.score += this.gameService.TallyScore(this.gameBoard);
+            this.score += this.scoringService.TallyScore(this.gameBoard);
             this.scoreUpdated.emit(this.score);
 
             this.matchProgress =
-              (this.matchSetCount / this.MATCH_SET_COUNT_NEXT_LEVEL) * 100;
+              (this.matchSetCount / MATCH_SET_COUNT_NEXT_LEVEL) * 100;
 
             // level change
-            if (this.matchSetCount >= this.MATCH_SET_COUNT_NEXT_LEVEL) {
+            if (this.matchSetCount >= MATCH_SET_COUNT_NEXT_LEVEL) {
               this.nextLevel();
             } else {
               this.gameLoopService.DoStep(GameLoopSteps.FindMatches);
@@ -213,7 +223,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.NewGame();
+    this.StartLevel();
   }
 
   ngOnDestroy(): void {
@@ -221,7 +231,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.subscription.complete();
   }
 
-  public async NewGame(nextLevel: boolean = false): Promise<void> {
+  public async StartLevel(nextLevel: boolean = false): Promise<void> {
     if (!nextLevel) {
       this.score = 0;
       this.scoreUpdated.emit(this.score);
@@ -229,17 +239,20 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       this.levelUpdated.emit(this.level);
     }
 
+    this.scoringService.TimerReset();
+
     this.matchSetCount = 0;
     this.matchProgress = 0;
 
     this.gameBoard = this.gameService.CreateGame(
-      this.GAME_BOARD_ROWS,
-      this.GAME_BOARD_COLUMNS,
+      GAME_BOARD_ROWS,
+      GAME_BOARD_COLUMNS,
       this.levelToRender()
     );
 
     this.audioService.PlayAudio(AudioType.LevelChange);
     await this.delay(750);
+
     this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
   }
 
@@ -257,12 +270,12 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.level++;
 
     this.levelUpdated.emit(this.level);
-    this.NewGame(true);
+    this.StartLevel(true);
   }
 
   private levelToRender(): number {
-    const next = this.level % this.AUTHORED_LEVEL_COUNT;
-    return next === 0 ? this.AUTHORED_LEVEL_COUNT : next;
+    const next = this.level % AUTHORED_LEVEL_COUNT;
+    return next === 0 ? AUTHORED_LEVEL_COUNT : next;
   }
 
   private delay(ms: number): Promise<void> {
