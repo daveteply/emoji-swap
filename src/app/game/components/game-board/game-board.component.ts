@@ -90,15 +90,6 @@ export class GameBoardComponent implements OnInit, OnDestroy {
               this.audioService.PlayAudio(AudioType.MatchFound);
               this.currentMatchSet = this.matchSets.shift() as Array<GameTile>;
 
-              // apply scoring to start animations
-              this.scoringService.ApplyScoring(
-                this.gameBoard,
-                this.currentMatchSet,
-                this.level
-              );
-              this.score += this.scoringService.TallyScore(this.gameBoard);
-              this.scoreUpdated.emit(this.score);
-
               // kick off the deletion sequence for the current match set
               this.tileRemoveService.StartTileDeletion(
                 this.currentMatchSet.map((t) => Object.assign({}, t))
@@ -125,6 +116,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
           case GameLoopSteps.CompleteLoop:
             this.matchProgress =
               (this.matchSetCount / MATCH_SET_COUNT_NEXT_LEVEL) * 100;
+
+            this.updateScore();
 
             // level change
             if (this.matchSetCount >= MATCH_SET_COUNT_NEXT_LEVEL) {
@@ -272,6 +265,16 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
     this.levelUpdated.emit(this.level);
     this.StartLevel(true);
+  }
+
+  private updateScore(): void {
+    this.scoringService.ApplyScoring(
+      this.gameBoard,
+      this.currentMatchSet,
+      this.level
+    );
+    this.score += this.scoringService.TallyScore(this.gameBoard);
+    this.scoreUpdated.emit(this.score);
   }
 
   private levelToRender(): number {
