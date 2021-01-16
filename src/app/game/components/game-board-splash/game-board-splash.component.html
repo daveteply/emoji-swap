@@ -1,0 +1,28 @@
+<div class="splash-content">
+  <div class="splash-items">
+    <div
+      class="splash-item time-bonus"
+      [class.time-bonus__splash]="timeBonus"
+      *ngIf="timeBonus"
+    >
+      Fast match!<br /><br />
+      +{{ timeBonus }}
+    </div>
+    <div
+      class="splash-item super-time-bonus"
+      [class.super-time-bonus__splash]="superTimeBonus"
+      *ngIf="superTimeBonus"
+    >
+      Super fast match!<br /><br />
+      +{{ superTimeBonus }}
+    </div>
+    <div
+      class="splash-item match-bonus"
+      [class.match-bonus__splash]="matchLengthBonus"
+      *ngIf="matchLengthBonus"
+    >
+      Long Match Series!<br /><br />
+      +{{ matchLengthBonus }}
+    </div>
+  </div>
+</div>

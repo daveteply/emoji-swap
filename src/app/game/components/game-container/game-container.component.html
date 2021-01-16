@@ -21,9 +21,14 @@
       </button>
     </div>
   </div>
-  <app-game-board
-    (scoreUpdated)="updateScore($event)"
-    (levelUpdated)="updateLevel($event)"
-    #gameBoard
-  ></app-game-board>
+  <div class="game-board-content">
+    <app-game-board
+      (scoreUpdated)="updateScore($event)"
+      (levelUpdated)="updateLevel($event)"
+      #gameBoard
+    ></app-game-board>
+    <app-game-board-splash
+      class="game-splash-container"
+    ></app-game-board-splash>
+  </div>
 </div>

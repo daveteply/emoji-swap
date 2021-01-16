@@ -5,6 +5,9 @@ export enum AudioType {
   TileRemove,
   InvalidSwipe,
   Hint,
+  TimeBonus,
+  SuperTimeBonus,
+  MatchLengthBonus,
 }
 
 export interface AudioData {
@@ -46,6 +49,18 @@ export const AudioDataList: AudioData = {
     {
       type: AudioType.Hint,
       element: new Audio('assets/wav/mixkit-fast-swipe-zoom-2627.wav'),
+    },
+    {
+      type: AudioType.TimeBonus,
+      element: new Audio('assets/wav/mixkit-game-flute-bonus-2313.wav'),
+    },
+    {
+      type: AudioType.SuperTimeBonus,
+      element: new Audio('assets/wav/mixkit-game-bonus-reached-2065.wav'),
+    },
+    {
+      type: AudioType.MatchLengthBonus,
+      element: new Audio('assets/wav/mixkit-choir-harp-bless-657.wav'),
     },
   ],
 };

@@ -7,12 +7,14 @@ import { GameBoardTileComponent } from './components/game-board-tile/game-board-
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { GameBoardSplashComponent } from './components/game-board-splash/game-board-splash.component';
 
 @NgModule({
   declarations: [
     GameContainerComponent,
     GameBoardComponent,
     GameBoardTileComponent,
+    GameBoardSplashComponent,
   ],
   imports: [
     CommonModule,
