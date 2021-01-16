@@ -143,7 +143,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
             break;
 
           case TileRemoveSteps.NextTile:
-            this.gameService.ReIndexGrid(this.gameBoard, false);
+            this.gameService.ReIndexGrid(this.gameBoard);
             this.tileRemoveService.NextTile(
               this.gameService.NewTile(0, 0, this.levelToRender())
             );
