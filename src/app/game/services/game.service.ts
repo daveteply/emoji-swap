@@ -81,7 +81,7 @@ export class GameService {
         colInx: colIndex,
         rowInx: rowIndex,
         html: `&#x${emoji?.code};`,
-        score: 0,
+        score: { baseScore: 0 },
         isNew: Math.floor(Math.random() * 5),
       },
       emoji
@@ -97,7 +97,7 @@ export class GameService {
 
         gameBoard.grid[rowInx][colInx].matched = false;
         gameBoard.grid[rowInx][colInx].potential = false;
-        gameBoard.grid[rowInx][colInx].score = 0;
+        gameBoard.grid[rowInx][colInx].score = { baseScore: 0 };
 
         gameBoard.grid[rowInx][colInx].animateSlideUp = false;
         gameBoard.grid[rowInx][colInx].animateSlideRight = false;

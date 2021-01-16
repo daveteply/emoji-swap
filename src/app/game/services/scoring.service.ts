@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TIME_BONUS_CAP } from '../game-constants';
+import { MATCH_MINIUM_LENGTH, TIME_BONUS_CAP } from '../game-constants';
 import { GameBoard } from '../models/game-board';
 import { GameTile } from '../models/game-tile';
 
@@ -40,23 +40,20 @@ export class ScoringService {
     level: number
   ): void {
     for (const tile of matchSet) {
-      let score = 1;
+      gameBoard.grid[tile.rowInx][tile.colInx].score.baseScore = level;
 
       // time bonus
       if (this.elapsed && this.elapsed <= TIME_BONUS_CAP) {
-        const timeBonus = Math.floor((1 / this.elapsed) * TIME_BONUS_CAP);
-        score *= timeBonus;
+        gameBoard.grid[tile.rowInx][tile.colInx].score.timeBonus = Math.floor(
+          (1 / this.elapsed) * TIME_BONUS_CAP
+        );
       }
 
       // match length bonus
-      if (matchSet.length > TIME_BONUS_CAP) {
-        score *= matchSet.length;
+      if (matchSet.length > MATCH_MINIUM_LENGTH) {
+        gameBoard.grid[tile.rowInx][tile.colInx].score.matchLengthBonus =
+          matchSet.length;
       }
-
-      // level multiplier
-      score *= level;
-
-      gameBoard.grid[tile.rowInx][tile.colInx].score = score;
     }
 
     this.elapsed = 0;
@@ -66,7 +63,14 @@ export class ScoringService {
     let score = 0;
     gameBoard?.grid.forEach((row) =>
       row.forEach((tile) => {
-        score += tile.score;
+        let tileScore = tile.score.baseScore;
+        if (tile.score.timeBonus) {
+          tileScore *= tile.score.timeBonus;
+        }
+        if (tile.score.matchLengthBonus) {
+          tileScore *= tile.score.matchLengthBonus;
+        }
+        score += tileScore;
       })
     );
     return score;

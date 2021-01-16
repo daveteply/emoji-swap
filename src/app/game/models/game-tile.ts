@@ -1,3 +1,5 @@
+import { TileScore } from './score';
+
 export interface GameTile {
   code: string;
   title: string;
@@ -9,7 +11,7 @@ export interface GameTile {
   isNew?: number;
   matched?: boolean;
   potential?: boolean;
-  score: number;
+  score: TileScore;
 
   toRemove?: boolean;
   animateRemove?: boolean;
