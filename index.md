@@ -2,7 +2,7 @@
 
 A causal game inspired by classic tile-matching games like Bejeweled and Candy Crush. This is an exercise in algorithmic tile matching and potential tile matching.
 
-**[Demo](demo-0.1.2/)** Play the game!
+**[Demo](demo-0.1.3/)** Play the game!
 
 [GitHub](https://github.com/daveteply/emoji-swap) A link to the project source
 
@@ -12,7 +12,7 @@ A causal game inspired by classic tile-matching games like Bejeweled and Candy C
 
 I thought of using emojis due to their popularity, fun, and wide-spread compatibility. The first trick was to get the emoji to render on a web page based on its code.
 
-Starting with the [Full Emoji List](https://unicode.org/emoji/charts/full-emoji-list.html), the first emoji listed is `1F600` which is the 😀 or “grinning face”.  After some work, I discovered that this is how to render an emoji using Angular:
+Starting with the [Full Emoji List](https://unicode.org/emoji/charts/full-emoji-list.html), the first emoji listed is `1F600` which is the 😀 or “grinning face”. After some work, I discovered that this is how to render an emoji using Angular:
 
 ```
 <div [innerHTML]="1F600"></div>
@@ -20,14 +20,14 @@ Starting with the [Full Emoji List](https://unicode.org/emoji/charts/full-emoji-
 
 #### Game Board
 
-The next bit of fun was to draw the game board or grid of emojis.  I initially thought to use [CSS Grid]( https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout), but decided that most breakpoints where going to be similar so good ole [Flexbox]( https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox) did the trick!
+The next bit of fun was to draw the game board or grid of emojis. I initially thought to use [CSS Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout), but decided that most breakpoints where going to be similar so good ole [Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox) did the trick!
 
 Basic algorithm:
-1.	Start with a 2-D array in TypeScript ` grid: GameTile[][];`
-2.	Loop through each dimension's limit
-3.	Add a `GameTile` from a random list of emojis
-4.	See: src\app\game\services\game.service.ts: CreateGame(
 
+1. Start with a 2-D array in TypeScript ` grid: GameTile[][];`
+2. Loop through each dimension's limit
+3. Add a `GameTile` from a random list of emojis
+4. See: src\app\game\services\game.service.ts: CreateGame(
 
 <!-- You can use the [editor on GitHub](https://github.com/daveteply/emoji-swap/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
