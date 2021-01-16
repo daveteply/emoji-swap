@@ -89,7 +89,7 @@ export class GameService {
     return tile;
   }
 
-  public ReIndexGrid(gameBoard: GameBoard): void {
+  public ReIndexGrid(gameBoard: GameBoard, resetScore: boolean = true): void {
     gameBoard?.grid?.forEach((row, rowInx) => {
       row.forEach((tile, colInx) => {
         gameBoard.grid[rowInx][colInx].colInx = colInx;
@@ -97,7 +97,10 @@ export class GameService {
 
         gameBoard.grid[rowInx][colInx].matched = false;
         gameBoard.grid[rowInx][colInx].potential = false;
-        gameBoard.grid[rowInx][colInx].score = { baseScore: 0 };
+
+        if (resetScore) {
+          gameBoard.grid[rowInx][colInx].score = { baseScore: 0 };
+        }
 
         gameBoard.grid[rowInx][colInx].animateSlideUp = false;
         gameBoard.grid[rowInx][colInx].animateSlideRight = false;

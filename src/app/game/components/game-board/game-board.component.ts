@@ -90,6 +90,15 @@ export class GameBoardComponent implements OnInit, OnDestroy {
               this.audioService.PlayAudio(AudioType.MatchFound);
               this.currentMatchSet = this.matchSets.shift() as Array<GameTile>;
 
+              // apply scoring to start animations
+              this.scoringService.ApplyScoring(
+                this.gameBoard,
+                this.currentMatchSet,
+                this.level
+              );
+              this.score += this.scoringService.TallyScore(this.gameBoard);
+              this.scoreUpdated.emit(this.score);
+
               // kick off the deletion sequence for the current match set
               this.tileRemoveService.StartTileDeletion(
                 this.currentMatchSet.map((t) => Object.assign({}, t))
@@ -113,15 +122,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
             }
             break;
 
-          case GameLoopSteps.ApplyScoring:
-            this.scoringService.ApplyScoring(
-              this.gameBoard,
-              this.currentMatchSet,
-              this.level
-            );
-            this.score += this.scoringService.TallyScore(this.gameBoard);
-            this.scoreUpdated.emit(this.score);
-
+          case GameLoopSteps.CompleteLoop:
             this.matchProgress =
               (this.matchSetCount / MATCH_SET_COUNT_NEXT_LEVEL) * 100;
 
@@ -149,7 +150,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
             break;
 
           case TileRemoveSteps.NextTile:
-            this.gameService.ReIndexGrid(this.gameBoard);
+            this.gameService.ReIndexGrid(this.gameBoard, false);
             this.tileRemoveService.NextTile(
               this.gameService.NewTile(0, 0, this.levelToRender())
             );
@@ -168,7 +169,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
             break;
 
           case TileRemoveSteps.Complete:
-            this.gameLoopService.DoStep(GameLoopSteps.ApplyScoring);
+            this.gameLoopService.DoStep(GameLoopSteps.CompleteLoop);
             break;
         }
       });

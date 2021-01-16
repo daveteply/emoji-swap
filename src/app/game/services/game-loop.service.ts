@@ -5,7 +5,7 @@ export enum GameLoopSteps {
   LockBoard,
   FindMatches,
   RemoveMatchSet,
-  ApplyScoring,
+  CompleteLoop,
   UnlockBoard,
 }
 
