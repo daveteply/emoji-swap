@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { of } from 'rxjs';
 import { AudioService } from 'src/app/services/audio.service';
 import { GameInteractionsService } from '../../services/game-interactions.service';
@@ -21,9 +22,16 @@ describe('GameBoardComponent', () => {
   let scoringServiceStub: Partial<ScoringService>;
   let audioServiceStub: Partial<AudioService>;
 
-  gameLoopServiceStub = { gameLoopState$: of() };
+  gameServiceStub = {
+    CreateGame: () => {
+      return { grid: [] };
+    },
+  };
+  gameLoopServiceStub = { gameLoopState$: of(), DoStep: () => {} };
   tileRemoveServiceStub = { tileRemoveState$: of() };
   gameInteractionsServiceStub = { gameInteractionState$: of() };
+  scoringServiceStub = { TimerReset: () => {} };
+  audioServiceStub = { PlayAudio: async () => {} };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -39,6 +47,7 @@ describe('GameBoardComponent', () => {
         { provide: ScoringService, useValue: scoringServiceStub },
         { provide: AudioService, useValue: audioServiceStub },
       ],
+      imports: [MatProgressBarModule],
     }).compileComponents();
   });
 
@@ -51,7 +60,7 @@ describe('GameBoardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  fit('should create', () => {
     expect(component).toBeTruthy();
   });
 });
