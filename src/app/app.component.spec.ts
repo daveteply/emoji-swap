@@ -1,12 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { ScoringService } from './game/services/scoring.service';
+import { AudioService } from './services/audio.service';
 
 describe('AppComponent', () => {
+  let audioServiceStub: Partial<AudioService>;
+  let scoringServiceStub: Partial<ScoringService>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [AppComponent],
+      providers: [
+        { provide: AudioService, useValue: audioServiceStub },
+        { provide: ScoringService, useValue: scoringServiceStub },
+      ],
     }).compileComponents();
   });
 
