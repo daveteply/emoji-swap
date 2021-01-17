@@ -56,7 +56,7 @@ export const AudioDataList: AudioData = {
     },
     {
       type: AudioType.SuperTimeBonus,
-      element: new Audio('assets/wav/mixkit-game-bonus-reached-2065.wav'),
+      element: new Audio('assets/wav/mixkit-achievement-bell-600.wav'),
     },
     {
       type: AudioType.MatchLengthBonus,
