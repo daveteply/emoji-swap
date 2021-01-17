@@ -33,7 +33,7 @@ export const EmojiList: EmojiLevelList = {
         { code: '1F913', title: 'nerd face' },
         { code: '1F9D0', title: 'face with monocle' },
         { code: '1F632', title: 'astonished face' },
-        { code: '1F628', title: 'fearful face' },
+        { code: '1F608', title: 'smiling face with horns' },
         { code: '1F911', title: 'money-mouth face' },
         { code: '1F973', title: 'partying face' },
       ],
