@@ -49,6 +49,14 @@ $theme: mat-light-theme(
       box-shadow: 0 0 0.1em 0.5em #82b1ff;
       animation: base-effect 4s;
     }
+    .cascade__splash {
+      background-image: radial-gradient(
+        mat-color($accent),
+        mat-color($primary)
+      );
+      box-shadow: 0 0 0.5em 1em mat-color($primary);
+      animation: base-effect 4s;
+    }
   }
 }
 
@@ -63,6 +71,7 @@ $theme: mat-light-theme(
   }
   100% {
     opacity: 0;
+    font-size: 400%;
   }
 }
 

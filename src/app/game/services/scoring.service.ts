@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { AudioType } from 'src/app/services/audio-data';
 import { AudioService } from 'src/app/services/audio.service';
 import {
+  CASCADE_BONUS,
   HINT_REDUCTION,
   MATCH_MINIUM_LENGTH,
   TIME_BONUS_CAP,
@@ -54,6 +55,16 @@ export class ScoringService {
       scoreValue: scoreDeduction,
     });
     return scoreDeduction;
+  }
+
+  public ApplyCascade(level: number, cascadeLength: number): number {
+    const cascadeBonus = level * cascadeLength * CASCADE_BONUS;
+    this.gameScoringStateSource.next({
+      scoreType: ScoreType.CascadeBonus,
+      scoreValue: cascadeBonus,
+    });
+    this.audioService.PlayAudio(AudioType.RareBonus);
+    return cascadeBonus;
   }
 
   public ApplyScoring(

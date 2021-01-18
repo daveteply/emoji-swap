@@ -45,6 +45,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   private level = 1;
   private matchSetCount = 0;
   public matchProgress = 0;
+  private cascadeCount = 0;
 
   private matchSets: Array<Array<GameTile>> = [];
   private currentMatchSet: Array<GameTile> = [];
@@ -96,6 +97,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
               );
 
               this.matchSetCount++;
+              this.cascadeCount++;
               this.swapInProgress = false;
             } else {
               // if no matches, and in the middle of a swap, swap back
@@ -108,6 +110,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
               } else {
                 // TODO: end level
               }
+
+              this.cascadeBonus();
 
               this.scoringService.TimerStart();
             }
@@ -237,6 +241,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
     this.matchSetCount = 0;
     this.matchProgress = 0;
+    this.cascadeCount = 0;
 
     this.gameBoard = this.gameService.CreateGame(
       GAME_BOARD_ROWS,
@@ -263,6 +268,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   private nextLevel(): void {
     this.matchSetCount = 0;
+    this.cascadeBonus();
     this.level++;
 
     this.levelUpdated.emit(this.level);
@@ -277,6 +283,17 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     );
     this.score += this.scoringService.TallyScore(this.gameBoard);
     this.scoreUpdated.emit(this.score);
+  }
+
+  private cascadeBonus(): void {
+    if (this.cascadeCount > 1) {
+      this.score += this.scoringService.ApplyCascade(
+        this.level,
+        this.cascadeCount
+      );
+      this.scoreUpdated.emit(this.score);
+    }
+    this.cascadeCount = 0;
   }
 
   private levelToRender(): number {

@@ -10,6 +10,7 @@
       [class.splash-item__match-length-bonus]="
         item.scoreType === scoreType.MatchLengthBonus
       "
+      [class.cascade__splash]="item.scoreType === scoreType.CascadeBonus"
       [class.hint__splash]="item.scoreType === scoreType.HintLoss"
     >
       <div [ngSwitch]="item.scoreType">
@@ -18,6 +19,7 @@
         <span *ngSwitchCase="scoreType.MatchLengthBonus"
           >Long Match Series!</span
         >
+        <span *ngSwitchCase="scoreType.CascadeBonus">Cascading matches!</span>
         <span *ngSwitchCase="scoreType.HintLoss">Hint taken!</span>
       </div>
       <br />

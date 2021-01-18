@@ -2,8 +2,8 @@ export enum ScoreType {
   TimeBonus,
   SuperTimeBonus,
   MatchLengthBonus,
-  HintLoss,
   CascadeBonus,
+  HintLoss,
 }
 
 export interface TileScore {
