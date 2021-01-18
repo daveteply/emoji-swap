@@ -1,6 +1,8 @@
 @import "/src/include-media";
 
 .game-container {
+  overflow: hidden;
+
   .game-header {
     display: flex;
     justify-content: space-evenly;
