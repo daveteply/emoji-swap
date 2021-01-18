@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { MATCH_MINIUM_LENGTH } from 'src/app/game/game-constants';
 
 @Component({
   selector: 'app-intro-container',
   templateUrl: './intro-container.component.html',
   styleUrls: ['./intro-container.component.scss'],
 })
-export class IntroContainerComponent implements OnInit {
-  constructor() {}
-  ngOnInit(): void {}
+export class IntroContainerComponent {
+  public matchLength = MATCH_MINIUM_LENGTH;
 }
