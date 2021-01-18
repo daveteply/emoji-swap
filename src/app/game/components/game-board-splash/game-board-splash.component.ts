@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ScoreType } from '../../models/score';
+import { ScoreType, TileScoreSplash } from '../../models/score';
 import { ScoringService } from '../../services/scoring.service';
 
 @Component({
@@ -13,33 +13,30 @@ export class GameBoardSplashComponent implements OnInit, OnDestroy {
   private subscription: Subject<boolean> = new Subject<boolean>();
   constructor(private scoringService: ScoringService) {}
 
+  private readonly DECAY_TIME = 4000;
+
   public timeBonus?: number;
   public superTimeBonus?: number;
   public matchLengthBonus?: number;
+  public hintLoss?: number;
+
+  public splashItems: TileScoreSplash[] = [];
+
+  public scoreType = ScoreType;
 
   ngOnInit(): void {
     this.scoringService.gameScoreState$
       .pipe(takeUntil(this.subscription))
-      .subscribe((scoreSplash) => {
-        switch (scoreSplash.scoreType) {
-          case ScoreType.Reset:
-            this.timeBonus = 0;
-            this.superTimeBonus = 0;
-            this.matchLengthBonus = 0;
-            break;
+      .subscribe((scoreSplash: TileScoreSplash) => {
+        // remove expired elements
+        this.splashItems = this.splashItems.filter(
+          (item) =>
+            item.timestamp && Date.now() - item.timestamp < this.DECAY_TIME
+        );
 
-          case ScoreType.TimeBonus:
-            this.timeBonus = scoreSplash.scoreValue;
-            break;
-
-          case ScoreType.SuperTimeBonus:
-            this.superTimeBonus = scoreSplash.scoreValue;
-            break;
-
-          case ScoreType.MatchLengthBonus:
-            this.matchLengthBonus = scoreSplash.scoreValue;
-            break;
-        }
+        this.splashItems?.push(
+          Object.assign({ timestamp: Date.now() }, scoreSplash)
+        );
       });
   }
 

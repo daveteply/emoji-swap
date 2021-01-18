@@ -5,3 +5,4 @@ export const AUTHORED_LEVEL_COUNT = 5;
 export const TIME_SUPER_BONUS_CAP = 1500;
 export const TIME_BONUS_CAP = 4000;
 export const MATCH_MINIUM_LENGTH = 3;
+export const HINT_REDUCTION = 25;

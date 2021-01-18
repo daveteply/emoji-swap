@@ -250,9 +250,11 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
   }
 
-  public Hint(): void {
+  public UseHint(): void {
     this.gameInteractionsService.DoStep(InteractionSteps.ShowHint);
-    const scoreDeduction = this.level * 25;
+
+    const scoreDeduction = this.scoringService.ApplyHint(this.level);
+
     if (this.score - scoreDeduction > Number.MIN_SAFE_INTEGER) {
       this.score -= scoreDeduction;
       this.scoreUpdated.emit(this.score);

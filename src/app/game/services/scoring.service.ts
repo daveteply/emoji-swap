@@ -1,9 +1,9 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AudioType } from 'src/app/services/audio-data';
 import { AudioService } from 'src/app/services/audio.service';
 import {
+  HINT_REDUCTION,
   MATCH_MINIUM_LENGTH,
   TIME_BONUS_CAP,
   TIME_SUPER_BONUS_CAP,
@@ -20,7 +20,6 @@ export class ScoringService {
   public gameScoreState$ = this.gameScoringStateSource.asObservable();
 
   private intervalId = 0;
-
   private elapsed = 0;
   private isRunning = false;
 
@@ -48,6 +47,15 @@ export class ScoringService {
     this.TimerStop();
   }
 
+  public ApplyHint(level: number): number {
+    const scoreDeduction = level * HINT_REDUCTION;
+    this.gameScoringStateSource.next({
+      scoreType: ScoreType.HintLoss,
+      scoreValue: scoreDeduction,
+    });
+    return scoreDeduction;
+  }
+
   public ApplyScoring(
     gameBoard: GameBoard,
     matchSet: Array<GameTile>,
@@ -56,8 +64,6 @@ export class ScoringService {
     let timeBonusTotal = 0;
     let superTimeBonusTotal = 0;
     let matchLengthBonusTotal = 0;
-
-    this.gameScoringStateSource.next({ scoreType: ScoreType.Reset });
 
     for (const tile of matchSet) {
       gameBoard.grid[tile.rowInx][tile.colInx].score.baseScore = level;

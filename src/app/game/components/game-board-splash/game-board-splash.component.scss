@@ -33,46 +33,36 @@ $theme: mat-light-theme(
       border-radius: 1em;
       white-space: nowrap;
       text-align: center;
-    }
-
-    .time-bonus {
-      &__splash {
-        animation: fade-in-out 2.5s, font-zoom 2.5s;
+      letter-spacing: 0.1em;
+      &__time-bonus {
+        animation: base-effect 4s;
+      }
+      &__super-time-bonus {
+        animation: base-effect 4s, wobble 1s alternate;
+      }
+      &__match-length-bonus {
+        animation: base-effect 4s;
       }
     }
-
-    .super-time-bonus {
-      &__splash {
-        animation: fade-in-out 4s, font-zoom 3s, wobble 1s alternate;
-      }
-    }
-
-    .match-bonus {
-      &__splash {
-        animation: fade-in-out 4s, font-zoom 2.5s;
-      }
+    .hint__splash {
+      background-color: #0d47a1;
+      box-shadow: 0 0 0.1em 0.5em #82b1ff;
+      animation: base-effect 4s;
     }
   }
 }
 
-@keyframes fade-in-out {
+@keyframes base-effect {
   0% {
     opacity: 0;
+    font-size: 0;
   }
   50% {
     opacity: 0.8;
+    font-size: 300%;
   }
   100% {
     opacity: 0;
-  }
-}
-
-@keyframes font-zoom {
-  0% {
-    font-size: 0;
-  }
-  100% {
-    font-size: 300%;
   }
 }
 

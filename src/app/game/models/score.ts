@@ -2,7 +2,8 @@ export enum ScoreType {
   TimeBonus,
   SuperTimeBonus,
   MatchLengthBonus,
-  Reset,
+  HintLoss,
+  CascadeBonus,
 }
 
 export interface TileScore {
@@ -15,4 +16,5 @@ export interface TileScore {
 export interface TileScoreSplash {
   scoreType: ScoreType;
   scoreValue?: number;
+  timestamp?: number;
 }

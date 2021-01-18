@@ -1,28 +1,31 @@
 <div class="splash-content">
   <div class="splash-items">
     <div
-      class="splash-item time-bonus"
-      [class.time-bonus__splash]="timeBonus"
-      *ngIf="timeBonus"
+      class="splash-item"
+      *ngFor="let item of splashItems"
+      [class.splash-item__time-bonus]="item.scoreType === scoreType.TimeBonus"
+      [class.splash-item__super-time-bonus]="
+        item.scoreType === scoreType.SuperTimeBonus
+      "
+      [class.splash-item__match-length-bonus]="
+        item.scoreType === scoreType.MatchLengthBonus
+      "
+      [class.hint__splash]="item.scoreType === scoreType.HintLoss"
     >
-      Fast match!<br /><br />
-      +{{ timeBonus }}
-    </div>
-    <div
-      class="splash-item super-time-bonus"
-      [class.super-time-bonus__splash]="superTimeBonus"
-      *ngIf="superTimeBonus"
-    >
-      Super fast match!<br /><br />
-      +{{ superTimeBonus }}
-    </div>
-    <div
-      class="splash-item match-bonus"
-      [class.match-bonus__splash]="matchLengthBonus"
-      *ngIf="matchLengthBonus"
-    >
-      Long Match Series!<br /><br />
-      +{{ matchLengthBonus }}
+      <div [ngSwitch]="item.scoreType">
+        <span *ngSwitchCase="scoreType.TimeBonus">Fast match!</span>
+        <span *ngSwitchCase="scoreType.SuperTimeBonus">Super fast match!</span>
+        <span *ngSwitchCase="scoreType.MatchLengthBonus"
+          >Long Match Series!</span
+        >
+        <span *ngSwitchCase="scoreType.HintLoss">Hint taken!</span>
+      </div>
+      <br />
+      <span *ngIf="item.scoreType === scoreType.HintLoss; else negativeScore"
+        >-</span
+      >
+      <ng-template #negativeScore>+</ng-template>
+      <span>{{ item.scoreValue }}</span>
     </div>
   </div>
 </div>
