@@ -6,8 +6,7 @@ export enum AudioType {
   InvalidSwipe,
   Hint,
   TimeBonus,
-  SuperTimeBonus,
-  MatchLengthBonus,
+  RareBonus,
 }
 
 export interface AudioData {
@@ -55,11 +54,7 @@ export const AudioDataList: AudioData = {
       element: new Audio('assets/wav/mixkit-game-flute-bonus-2313.wav'),
     },
     {
-      type: AudioType.SuperTimeBonus,
-      element: new Audio('assets/wav/mixkit-achievement-bell-600.wav'),
-    },
-    {
-      type: AudioType.MatchLengthBonus,
+      type: AudioType.RareBonus,
       element: new Audio('assets/wav/mixkit-choir-harp-bless-657.wav'),
     },
   ],

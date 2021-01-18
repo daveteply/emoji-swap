@@ -103,7 +103,7 @@ export class ScoringService {
         scoreType: ScoreType.SuperTimeBonus,
         scoreValue: superTimeBonusTotal,
       });
-      this.audioService.PlayAudio(AudioType.SuperTimeBonus);
+      this.audioService.PlayAudio(AudioType.RareBonus);
     }
 
     if (timeBonusTotal) {
@@ -119,7 +119,7 @@ export class ScoringService {
         scoreType: ScoreType.MatchLengthBonus,
         scoreValue: matchLengthBonusTotal,
       });
-      this.audioService.PlayAudio(AudioType.MatchLengthBonus);
+      this.audioService.PlayAudio(AudioType.RareBonus);
     }
 
     this.elapsed = 0;
