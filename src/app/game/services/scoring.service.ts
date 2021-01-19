@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import { AudioType } from 'src/app/services/audio-data';
 import { AudioService } from 'src/app/services/audio.service';
 import {
@@ -11,20 +10,20 @@ import {
 } from '../game-constants';
 import { GameBoard } from '../models/game-board';
 import { GameTile } from '../models/game-tile';
-import { ScoreType, TileScoreSplash } from '../models/score';
+import { GameSplashService, SplashType } from './game-splash.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScoringService {
-  private gameScoringStateSource = new Subject<TileScoreSplash>();
-  public gameScoreState$ = this.gameScoringStateSource.asObservable();
-
   private intervalId = 0;
   private elapsed = 0;
   private isRunning = false;
 
-  constructor(private audioService: AudioService) {}
+  constructor(
+    private audioService: AudioService,
+    private gameSplashService: GameSplashService
+  ) {}
 
   public TimerStart(): void {
     this.isRunning = !this.isRunning;
@@ -50,8 +49,8 @@ export class ScoringService {
 
   public ApplyHint(level: number): number {
     const scoreDeduction = level * HINT_REDUCTION;
-    this.gameScoringStateSource.next({
-      scoreType: ScoreType.HintLoss,
+    this.gameSplashService.DoSplash({
+      splashType: SplashType.HintLoss,
       scoreValue: scoreDeduction,
     });
     return scoreDeduction;
@@ -59,8 +58,8 @@ export class ScoringService {
 
   public ApplyCascade(level: number, cascadeLength: number): number {
     const cascadeBonus = level * cascadeLength * CASCADE_BONUS;
-    this.gameScoringStateSource.next({
-      scoreType: ScoreType.CascadeBonus,
+    this.gameSplashService.DoSplash({
+      splashType: SplashType.CascadeBonus,
       scoreValue: cascadeBonus,
     });
     this.audioService.PlayAudio(AudioType.RareBonus);
@@ -110,24 +109,24 @@ export class ScoringService {
     }
 
     if (superTimeBonusTotal) {
-      this.gameScoringStateSource.next({
-        scoreType: ScoreType.SuperTimeBonus,
+      this.gameSplashService.DoSplash({
+        splashType: SplashType.SuperTimeBonus,
         scoreValue: superTimeBonusTotal,
       });
       this.audioService.PlayAudio(AudioType.RareBonus);
     }
 
     if (timeBonusTotal) {
-      this.gameScoringStateSource.next({
-        scoreType: ScoreType.TimeBonus,
+      this.gameSplashService.DoSplash({
+        splashType: SplashType.TimeBonus,
         scoreValue: timeBonusTotal,
       });
       this.audioService.PlayAudio(AudioType.TimeBonus);
     }
 
     if (matchLengthBonusTotal) {
-      this.gameScoringStateSource.next({
-        scoreType: ScoreType.MatchLengthBonus,
+      this.gameSplashService.DoSplash({
+        splashType: SplashType.MatchLengthBonus,
         scoreValue: matchLengthBonusTotal,
       });
       this.audioService.PlayAudio(AudioType.RareBonus);

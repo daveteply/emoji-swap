@@ -34,6 +34,7 @@ $theme: mat-light-theme(
       white-space: nowrap;
       text-align: center;
       letter-spacing: 0.1em;
+      line-height: 120%;
       &__time-bonus {
         animation: base-effect 4s;
       }
@@ -43,19 +44,22 @@ $theme: mat-light-theme(
       &__match-length-bonus {
         animation: base-effect 4s;
       }
-    }
-    .hint__splash {
-      background-color: #0d47a1;
-      box-shadow: 0 0 0.1em 0.5em #82b1ff;
-      animation: base-effect 4s;
-    }
-    .cascade__splash {
-      background-image: radial-gradient(
-        mat-color($accent),
-        mat-color($primary)
-      );
-      box-shadow: 0 0 0.5em 1em mat-color($primary);
-      animation: base-effect 4s;
+      &__no-more-matches {
+        animation: base-effect 4s;
+      }
+      &__hint {
+        background-color: #0d47a1;
+        box-shadow: 0 0 0.5em 1em #82b1ff;
+        animation: base-effect 4s;
+      }
+      &__cascade {
+        background-image: radial-gradient(
+          mat-color($accent),
+          mat-color($primary)
+        );
+        box-shadow: 0 0 0.5em 1em mat-color($primary);
+        animation: base-effect 4s;
+      }
     }
   }
 }
@@ -72,6 +76,7 @@ $theme: mat-light-theme(
   100% {
     opacity: 0;
     font-size: 400%;
+    letter-spacing: 0.5em;
   }
 }
 

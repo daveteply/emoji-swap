@@ -31,6 +31,10 @@ import {
   GAME_BOARD_ROWS,
   MATCH_SET_COUNT_NEXT_LEVEL,
 } from '../../game-constants';
+import {
+  GameSplashService,
+  SplashType,
+} from '../../services/game-splash.service';
 
 @Component({
   selector: 'app-game-board',
@@ -64,7 +68,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     private tileRemoveService: TileRemoveService,
     private gameInteractionsService: GameInteractionsService,
     private scoringService: ScoringService,
-    private audioService: AudioService
+    private audioService: AudioService,
+    private gameSplashService: GameSplashService
   ) {}
 
   ngOnInit(): void {
@@ -108,7 +113,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
               if (this.potentialMatchSets.length) {
                 this.gameLoopService.DoStep(GameLoopSteps.UnlockBoard);
               } else {
-                // TODO: end level
+                this.noMoreMoves();
               }
 
               this.cascadeBonus();
@@ -264,6 +269,20 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       this.score -= scoreDeduction;
       this.scoreUpdated.emit(this.score);
     }
+  }
+
+  private async noMoreMoves(): Promise<void> {
+    this.scoringService.TimerReset();
+    this.gameBoard = this.gameService.CreateGame(
+      GAME_BOARD_ROWS,
+      GAME_BOARD_COLUMNS,
+      this.levelToRender()
+    );
+    this.gameSplashService.DoSplash({
+      splashType: SplashType.NoMoreMoves,
+    });
+    await this.delay(1000);
+    this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
   }
 
   private nextLevel(): void {

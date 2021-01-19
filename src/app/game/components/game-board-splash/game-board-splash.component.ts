@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ScoreType, TileScoreSplash } from '../../models/score';
-import { ScoringService } from '../../services/scoring.service';
+import {
+  GameSplash,
+  GameSplashService,
+  SplashType,
+} from '../../services/game-splash.service';
 
 @Component({
   selector: 'app-game-board-splash',
@@ -11,7 +14,7 @@ import { ScoringService } from '../../services/scoring.service';
 })
 export class GameBoardSplashComponent implements OnInit, OnDestroy {
   private subscription: Subject<boolean> = new Subject<boolean>();
-  constructor(private scoringService: ScoringService) {}
+  constructor(private gameSplashService: GameSplashService) {}
 
   private readonly DECAY_TIME = 4000;
 
@@ -20,14 +23,14 @@ export class GameBoardSplashComponent implements OnInit, OnDestroy {
   public matchLengthBonus?: number;
   public hintLoss?: number;
 
-  public splashItems: TileScoreSplash[] = [];
+  public splashItems: GameSplash[] = [];
 
-  public scoreType = ScoreType;
+  public splashType = SplashType;
 
   ngOnInit(): void {
-    this.scoringService.gameScoreState$
+    this.gameSplashService.gameSplashState$
       .pipe(takeUntil(this.subscription))
-      .subscribe((scoreSplash: TileScoreSplash) => {
+      .subscribe((scoreSplash: GameSplash) => {
         // remove expired elements
         this.splashItems = this.splashItems.filter(
           (item) =>

@@ -3,31 +3,39 @@
     <div
       class="splash-item"
       *ngFor="let item of splashItems"
-      [class.splash-item__time-bonus]="item.scoreType === scoreType.TimeBonus"
+      [class.splash-item__time-bonus]="item.splashType === splashType.TimeBonus"
       [class.splash-item__super-time-bonus]="
-        item.scoreType === scoreType.SuperTimeBonus
+        item.splashType === splashType.SuperTimeBonus
       "
       [class.splash-item__match-length-bonus]="
-        item.scoreType === scoreType.MatchLengthBonus
+        item.splashType === splashType.MatchLengthBonus
       "
-      [class.cascade__splash]="item.scoreType === scoreType.CascadeBonus"
-      [class.hint__splash]="item.scoreType === scoreType.HintLoss"
+      [class.splash-item__cascade]="item.splashType === splashType.CascadeBonus"
+      [class.splash-item__hint]="item.splashType === splashType.HintLoss"
+      [class.splash-item__no-more-matches]="
+        item.splashType === splashType.NoMoreMoves
+      "
     >
-      <div [ngSwitch]="item.scoreType">
-        <span *ngSwitchCase="scoreType.TimeBonus">Fast match!</span>
-        <span *ngSwitchCase="scoreType.SuperTimeBonus">Super fast match!</span>
-        <span *ngSwitchCase="scoreType.MatchLengthBonus"
+      <div [ngSwitch]="item.splashType">
+        <span *ngSwitchCase="splashType.TimeBonus">Fast match!</span>
+        <span *ngSwitchCase="splashType.SuperTimeBonus">Super fast match!</span>
+        <span *ngSwitchCase="splashType.MatchLengthBonus"
           >Long Match Series!</span
         >
-        <span *ngSwitchCase="scoreType.CascadeBonus">Cascading matches!</span>
-        <span *ngSwitchCase="scoreType.HintLoss">Hint taken!</span>
+        <span *ngSwitchCase="splashType.CascadeBonus">Cascading matches!</span>
+        <div *ngSwitchCase="splashType.HintLoss">Hint taken!</div>
+        <span *ngSwitchCase="splashType.NoMoreMoves"
+          >No moves;<br />Reshuffling!</span
+        >
       </div>
-      <br />
-      <span *ngIf="item.scoreType === scoreType.HintLoss; else negativeScore"
-        >-</span
-      >
-      <ng-template #negativeScore>+</ng-template>
-      <span>{{ item.scoreValue }}</span>
+      <div *ngIf="item?.scoreValue">
+        <span
+          *ngIf="item.splashType === splashType.HintLoss; else negativeScore"
+          >-</span
+        >
+        <ng-template #negativeScore>+</ng-template>
+        <span *ngIf="item.scoreValue">{{ item?.scoreValue }}</span>
+      </div>
     </div>
   </div>
 </div>
