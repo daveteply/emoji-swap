@@ -10,8 +10,6 @@ describe('GameBoardSplashComponent', () => {
 
   let scoringServiceStub: Partial<ScoringService>;
 
-  scoringServiceStub = { gameScoreState$: of() };
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [GameBoardSplashComponent],
