@@ -321,9 +321,8 @@ export class GameService {
     });
 
     if (potentials.length >= MATCH_MINIUM_LENGTH) {
-      for (let i = 0; i < potentials.length; i++) {
-        const targetCode = potentials[i]?.code;
-        const targets = potentials.filter((f) => f?.code === targetCode);
+      for (const targetCode of potentials) {
+        const targets = potentials.filter((f) => f?.code === targetCode.code);
         if (targets.length >= MATCH_MINIUM_LENGTH) {
           this.potentialMatchSets.push(targets);
           return;
