@@ -94,10 +94,4 @@ export class TileRemoveService {
     // loop
     this.tileRemoveStateSource.next(TileRemoveSteps.NextTile);
   }
-
-  private debugColumn(colInx: number, gameBoard: GameBoard): void {
-    for (let rowInx = 0; rowInx < gameBoard.grid.length; rowInx++) {
-      console.log('    ', rowInx, gameBoard.grid[rowInx][colInx]);
-    }
-  }
 }

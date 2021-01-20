@@ -16,4 +16,10 @@ export class GameUtilityService {
       rowInx > -1 && colInx > -1 && rowInx < rowInxLim && colInx < colInxLim
     );
   }
+
+  // public DebugColumn(colInx: number, gameBoard: GameBoard): void {
+  //   for (let rowInx = 0; rowInx < gameBoard.grid.length; rowInx++) {
+  //     console.log('    ', rowInx, gameBoard.grid[rowInx][colInx]);
+  //   }
+  // }
 }
