@@ -123,8 +123,10 @@ export class GameService {
         cardinalDirections.forEach((dir) => {
           // start with new candidate list for each tile before testing matches
           this.candidateMatches = [Object.assign({}, tile)];
+          // search for matches; also searches for potential matches
           this.directionalSearch(dir, tile, gameBoard);
 
+          // the search is recursive, after it returns there could exist a fully realized match set
           if (this.candidateMatches.length >= MATCH_MINIUM_LENGTH) {
             this.candidateMatches.forEach((candidateMatch) => {
               gameBoard.grid[candidateMatch.rowInx][
@@ -143,7 +145,7 @@ export class GameService {
           }
         });
 
-        // check for staggered potentials
+        // check for staggered potentials as they are an independent type of match
         this.potentialSearchStaggered(tile, gameBoard);
       });
     });
@@ -246,7 +248,7 @@ export class GameService {
         ) {
           if (nextTile.code === tile.code) {
             this.potentialMatchSets.push([...this.candidateMatches, nextTile]);
-            // only concerned with a single potential match
+            // only concerned with first potential match found, so return
             return;
           }
         }
