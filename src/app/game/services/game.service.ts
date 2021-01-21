@@ -106,7 +106,6 @@ export class GameService {
         gameBoard.grid[rowInx][colInx].animateSlideLeft = false;
 
         gameBoard.grid[rowInx][colInx].animateShutter = false;
-        gameBoard.grid[rowInx][colInx].potential = false;
         gameBoard.grid[rowInx][colInx].isNew = 0;
       });
     });
