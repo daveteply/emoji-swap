@@ -198,8 +198,8 @@ export class GameService {
   // |a|b|X|
   private potentialSearch(tile: GameTile, gameBoard: GameBoard): void {
     // check each surrounding tile; skip the 'start' of the search
-    let nextRowInx = 0;
-    let nextColInx = 0;
+    let nextRowInx = tile.rowInx;
+    let nextColInx = tile.colInx;
 
     for (const dir of allDirections) {
       switch (dir) {
