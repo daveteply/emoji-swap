@@ -43,6 +43,7 @@ import {
 })
 export class GameBoardComponent implements OnInit, OnDestroy {
   public boardDisabled = false;
+  public hintDisabled = false;
   public gameBoard!: GameBoard;
 
   private score = 0;
@@ -104,6 +105,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
               this.matchSetCount++;
               this.cascadeCount++;
               this.swapInProgress = false;
+
+              this.hintDisabled = false;
             } else {
               // if no matches, and in the middle of a swap, swap back
               if (this.swapInProgress) {
@@ -244,6 +247,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
     this.scoringService.TimerReset();
 
+    this.hintDisabled = false;
+
     this.matchSetCount = 0;
     this.matchProgress = 0;
     this.cascadeCount = 0;
@@ -255,12 +260,13 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     );
 
     this.audioService.PlayAudio(AudioType.LevelChange);
-    await this.delay(750);
+    await this.forceDelay(750);
 
     this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
   }
 
   public UseHint(): void {
+    this.hintDisabled = true;
     this.gameInteractionsService.DoStep(InteractionSteps.ShowHint);
 
     const scoreDeduction = this.scoringService.ApplyHint(this.level);
@@ -281,7 +287,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.gameSplashService.DoSplash({
       splashType: SplashType.NoMoreMoves,
     });
-    await this.delay(1000);
+    await this.forceDelay(1000);
     this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
   }
 
@@ -320,7 +326,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     return next === 0 ? AUTHORED_LEVEL_COUNT : next;
   }
 
-  private delay(ms: number): Promise<void> {
+  private forceDelay(ms: number): Promise<void> {
     return new Promise((p) => setTimeout(p, ms));
   }
 }

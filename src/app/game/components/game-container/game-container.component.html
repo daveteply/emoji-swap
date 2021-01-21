@@ -6,16 +6,18 @@
       <button
         mat-raised-button
         color="accent"
-        [disabled]="gameBoard.boardDisabled"
-        (click)="gameBoard.UseHint()"
+        [disabled]="
+          gameBoardComponent.boardDisabled || gameBoardComponent.hintDisabled
+        "
+        (click)="gameBoardComponent.UseHint()"
       >
         Hint
       </button>
       <button
         mat-raised-button
         color="accent"
-        [disabled]="gameBoard.boardDisabled"
-        (click)="gameBoard.StartLevel()"
+        [disabled]="gameBoardComponent.boardDisabled"
+        (click)="gameBoardComponent.StartLevel()"
       >
         New Game
       </button>
@@ -25,7 +27,7 @@
     <app-game-board
       (scoreUpdated)="updateScore($event)"
       (levelUpdated)="updateLevel($event)"
-      #gameBoard
+      #gameBoardComponent
     ></app-game-board>
     <app-game-board-splash
       class="game-splash-container"
