@@ -49,18 +49,18 @@ For each tile...
      1. add tile to candidate list
      1. recurse until the next tile doesn't match
   3. is candidate list length within threshold? (note: this allows for any length match!)
-  <img src="images/find-matches.png" alt="find matches diagram" />
+  <img src="images/find-matches.png" alt="find matches diagram" width="150px" />
   
 If the candidate list happens to be 1 less then the threshold...
 1. perform potential match
   1. from the previous tile, look in diagonal directions for potential match
-  <img src="images/potential.png" alt="find potential matches diagram" />
+  <img src="images/potential.png" alt="find potential matches diagram" width="150px" />
   
 2. extended potential match
   1. from the previous tile, in the same direction
        1. skip next tile
        2. check next tile
-       <img src="images/potential-extended.png" alt="find extended potential matches diagram" />
+       <img src="images/potential-extended.png" alt="find extended potential matches diagram" width="150px" />
 
 There is another category of potential matches - staggered matches. These are searched during the initial find algorithm as it must be acted upon each tile.
 For each tile...
@@ -70,7 +70,7 @@ For each tile...
    1. start with the first tile in list
    2. filter remaining tiles that match list
    3. if length of filtered list meets the threshold, potential match found!
-   <img src="images/potential-staggered.png" alt="find staggered potential matches diagram" />
+   <img src="images/potential-staggered.png" alt="find staggered potential matches diagram" width="150px" />
 
 <!-- You can use the [editor on GitHub](https://github.com/daveteply/emoji-swap/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
