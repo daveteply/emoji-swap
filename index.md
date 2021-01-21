@@ -8,14 +8,14 @@ A causal game inspired by classic tile-matching games like Bejeweled and Candy C
 
 ### Discussion and Algorithm
 
-#### Emoji use
+#### Emoji Rendering
 
 I thought of using emojis due to their popularity, fun, and wide-spread compatibility. The first trick was to get the emoji to render on a web page based on its code.
 
 Starting with the [Full Emoji List](https://unicode.org/emoji/charts/full-emoji-list.html), the first emoji listed is `1F600` which is the 😀 or “grinning face”. After some work, I discovered that this is how to render an emoji using Angular:
 
 ```
-<div [innerHTML]="1F600"></div>
+<div [innerHTML]="&#x1F600"></div>
 ```
 
 #### Game Board
@@ -25,9 +25,22 @@ The next bit of fun was to draw the game board or grid of emojis. I initially th
 Basic algorithm:
 
 1. Start with a 2-D array in TypeScript ` grid: GameTile[][];`
-2. Loop through each dimension's limit
+2. Loop through each dimension's limit (row and column)
 3. Add a `GameTile` from a random list of emojis
-4. See: src\app\game\services\game.service.ts: CreateGame(
+4. See: src\app\game\services\game.service.ts: `CreateGame(`
+
+#### Finding Matches
+
+For the game to function, I needed a mechanism that would quickly tell me if there existed a match on the board.  This mechanism would then be ready for any scenerio:
+- after the game board was established
+  - new game instance
+  - level change
+  - reshuffle
+- after player interaction
+- after a previously found match was removed and new tiles added
+This would equip the game with the ability to react to any of the above events.
+
+
 
 <!-- You can use the [editor on GitHub](https://github.com/daveteply/emoji-swap/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
