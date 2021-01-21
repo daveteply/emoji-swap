@@ -29,9 +29,9 @@ Basic algorithm:
 3. Add a `GameTile` from a random list of emojis
 4. See: src\app\game\services\game.service.ts: `CreateGame(`
 
-#### Finding Matches
+#### Finding Matches and Potential Matches
 
-For the game to function, I needed a mechanism that would quickly tell me if there existed a match on the board.  This mechanism would then be ready for any scenerio:
+For the game to function, I needed a mechanism that would quickly tell me if there existed a match on the board.  This mechanism would then be ready for any scenario:
 - after the game board was established
   - new game instance
   - level change
@@ -40,7 +40,37 @@ For the game to function, I needed a mechanism that would quickly tell me if the
 - after a previously found match was removed and new tiles added
 This would equip the game with the ability to react to any of the above events.
 
+Matching Algorithm:
 
+For each tile...
+1. for each [cardinal direction](https://en.wikipedia.org/wiki/Cardinal_direction)...
+  1. is this tile within the grid? 
+  2. does this tile have the same emoji code?
+     1. add tile to candidate list
+     1. recurse until the next tile doesn't match
+  3. is candidate list length within threshold? (note: this allows for any length match!)
+  <img src="images/find-matches.png" alt="find matches diagram" />
+  
+If the candidate list happens to be 1 less then the threshold...
+1. perform potential match
+  1. from the previous tile, look in diagonal directions for potential match
+  <img src="images/potential.png" alt="find potential matches diagram" />
+  
+2. extended potential match
+  1. from the previous tile, in the same direction
+       1. skip next tile
+       2. check next tile
+       <img src="images/potential-extended.png" alt="find extended potential matches diagram" />
+
+There is another category of potential matches - staggered matches. These are searched during the initial find algorithm as it must be acted upon each tile.
+For each tile...
+1. search in all cardinal directions
+2. if tile is within grid, add to list
+3. after all directions have been searched
+   1. start with the first tile in list
+   2. filter remaining tiles that match list
+   3. if length of filtered list meets the threshold, potential match found!
+   <img src="images/potential-staggered.png" alt="find staggered potential matches diagram" />
 
 <!-- You can use the [editor on GitHub](https://github.com/daveteply/emoji-swap/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
