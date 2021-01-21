@@ -292,8 +292,8 @@ export class GameService {
   private potentialSearchStaggered(tile: GameTile, gameBoard: GameBoard): void {
     const potentials: Array<GameTile> = new Array<GameTile>();
 
-    let nextRowInx = 0;
-    let nextColInx = 0;
+    let nextRowInx = tile.rowInx;
+    let nextColInx = tile.colInx;
 
     cardinalDirections.forEach((dir) => {
       nextRowInx = tile.rowInx;
