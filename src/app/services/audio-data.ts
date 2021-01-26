@@ -7,6 +7,8 @@ export enum AudioType {
   Hint,
   TimeBonus,
   RareBonus,
+  LevelModal,
+  GameOver,
 }
 
 export interface AudioData {
@@ -56,6 +58,14 @@ export const AudioDataList: AudioData = {
     {
       type: AudioType.RareBonus,
       element: new Audio('assets/wav/mixkit-choir-harp-bless-657.wav'),
+    },
+    {
+      type: AudioType.LevelModal,
+      element: new Audio('assets/wav/mixkit-winning-chimes-2015.wav'),
+    },
+    {
+      type: AudioType.GameOver,
+      element: new Audio('assets/wav/mixkit-fairytale-game-over-1945.wav'),
     },
   ],
 };
