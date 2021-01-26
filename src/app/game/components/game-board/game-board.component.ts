@@ -31,10 +31,8 @@ import {
   GAME_BOARD_ROWS,
   MATCH_SET_COUNT_NEXT_LEVEL,
 } from '../../game-constants';
-import {
-  GameSplashService,
-  SplashType,
-} from '../../services/game-splash.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LevelCompleteComponent } from '../level-complete/level-complete.component';
 
 @Component({
   selector: 'app-game-board',
@@ -47,6 +45,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   public gameBoard!: GameBoard;
 
   private score = 0;
+  private levelScore = 0;
   private level = 1;
   private matchSetCount = 0;
   public matchProgress = 0;
@@ -70,7 +69,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     private gameInteractionsService: GameInteractionsService,
     private scoringService: ScoringService,
     private audioService: AudioService,
-    private gameSplashService: GameSplashService
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -116,7 +115,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
               if (this.potentialMatchSets.length) {
                 this.gameLoopService.DoStep(GameLoopSteps.UnlockBoard);
               } else {
-                this.noMoreMoves();
+                this.showLevelDialog(true);
               }
 
               this.cascadeBonus();
@@ -133,7 +132,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
             // level change
             if (this.matchSetCount >= MATCH_SET_COUNT_NEXT_LEVEL) {
-              this.nextLevel();
+              this.showLevelDialog();
             } else {
               this.gameLoopService.DoStep(GameLoopSteps.FindMatches);
             }
@@ -252,6 +251,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.matchSetCount = 0;
     this.matchProgress = 0;
     this.cascadeCount = 0;
+    this.levelScore = 0;
 
     this.gameBoard = this.gameService.CreateGame(
       GAME_BOARD_ROWS,
@@ -273,22 +273,9 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
     if (this.score - scoreDeduction > Number.MIN_SAFE_INTEGER) {
       this.score -= scoreDeduction;
+      this.levelScore -= scoreDeduction;
       this.scoreUpdated.emit(this.score);
     }
-  }
-
-  private async noMoreMoves(): Promise<void> {
-    this.scoringService.TimerReset();
-    this.gameBoard = this.gameService.CreateGame(
-      GAME_BOARD_ROWS,
-      GAME_BOARD_COLUMNS,
-      this.levelToRender()
-    );
-    this.gameSplashService.DoSplash({
-      splashType: SplashType.NoMoreMoves,
-    });
-    await this.forceDelay(1000);
-    this.gameLoopService.DoStep(GameLoopSteps.LockBoard);
   }
 
   private nextLevel(): void {
@@ -306,16 +293,20 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       this.currentMatchSet,
       this.level
     );
-    this.score += this.scoringService.TallyScore(this.gameBoard);
+    const pointsGained = this.scoringService.TallyScore(this.gameBoard);
+    this.levelScore += pointsGained;
+    this.score += pointsGained;
     this.scoreUpdated.emit(this.score);
   }
 
   private cascadeBonus(): void {
     if (this.cascadeCount > 1) {
-      this.score += this.scoringService.ApplyCascade(
+      const bonus = this.scoringService.ApplyCascade(
         this.level,
         this.cascadeCount
       );
+      this.score += bonus;
+      this.levelScore += bonus;
       this.scoreUpdated.emit(this.score);
     }
     this.cascadeCount = 0;
@@ -328,5 +319,18 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   private forceDelay(ms: number): Promise<void> {
     return new Promise((p) => setTimeout(p, ms));
+  }
+
+  private showLevelDialog(noMoreMoves: boolean = false): void {
+    const dialogRef = this.dialog.open(LevelCompleteComponent, {
+      data: { level: this.level, noMoreMoves, levelScore: this.levelScore },
+    });
+    dialogRef.afterClosed().subscribe((newGame) => {
+      if (newGame) {
+        this.StartLevel();
+      } else {
+        this.nextLevel();
+      }
+    });
   }
 }

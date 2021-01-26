@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>
+  <span *ngIf="gameStats?.noMoreMoves; else showLevel"
+    ><p>No More Moves</p>
+    <p>Game Over</p>
+  </span>
+  <ng-template #showLevel>Level {{ gameStats?.level }}: Complete!</ng-template>
+</h1>
+<div mat-dialog-content>
+  <p>Points this level: {{ gameStats?.levelScore | number: "1.0":"en-US" }}</p>
+</div>
+<div mat-dialog-actions>
+  <button
+    *ngIf="!gameStats?.noMoreMoves; else onlyNewGame"
+    mat-stroked-button
+    color="accent"
+    (click)="newGame()"
+  >
+    New Game
+  </button>
+  <ng-template #onlyNewGame>
+    <button mat-raised-button color="accent" (click)="newGame()">
+      New Game
+    </button>
+  </ng-template>
+  <button
+    *ngIf="!gameStats?.noMoreMoves"
+    mat-raised-button
+    color="accent"
+    cdkFocusInitial
+    (click)="nextLevel()"
+  >
+    Continue
+  </button>
+</div>
