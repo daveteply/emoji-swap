@@ -464,6 +464,42 @@ describe('GameService', () => {
       expect(mockBoard.grid[1][1].potential).toBeFalsy();
     });
 
+    it('[bug fix] not find spaced potential', () => {
+      mockBoard.grid[0][0].code = 'A';
+      mockBoard.grid[1][2].code = 'A';
+      mockBoard.grid[2][2].code = 'A';
+      gameService.FindMatchesAndPotentials(mockBoard);
+      const potentialMatches = gameService.currentPotentialMatches;
+      expect(potentialMatches.length).toBe(0);
+    });
+
+    it('[bug fix] not find 3 or 4 cluster as potential', () => {
+      mockBoard.grid[1][2].code = 'A';
+      mockBoard.grid[2][1].code = 'A';
+      mockBoard.grid[2][2].code = 'A';
+      gameService.FindMatchesAndPotentials(mockBoard);
+      const potentialMatches = gameService.currentPotentialMatches;
+      expect(potentialMatches.length).toBe(0);
+    });
+
+    it('north', () => {
+      mockBoard.grid[0][0].code = 'A';
+      mockBoard.grid[1][1].code = 'A';
+      mockBoard.grid[2][1].code = 'A';
+      gameService.FindMatchesAndPotentials(mockBoard);
+      const potentialMatches = gameService.currentPotentialMatches;
+      expect(potentialMatches.length).toBe(1);
+    });
+
+    it('west', () => {
+      mockBoard.grid[1][0].code = 'A';
+      mockBoard.grid[2][1].code = 'A';
+      mockBoard.grid[2][2].code = 'A';
+      gameService.FindMatchesAndPotentials(mockBoard);
+      const potentialMatches = gameService.currentPotentialMatches;
+      expect(potentialMatches.length).toBe(1);
+    });
+
     describe('staggered', () => {
       describe('3 staggered', () => {
         it('upper left', () => {

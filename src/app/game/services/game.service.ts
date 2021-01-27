@@ -187,7 +187,7 @@ export class GameService {
     } else {
       if (this.candidateMatches.length === MATCH_MINIUM_LENGTH - 1) {
         // check for potentials
-        this.potentialSearch(tile, gameBoard);
+        this.potentialSearch(dir, tile, gameBoard);
         this.potentialExtended(dir, tile, gameBoard);
         return;
       }
@@ -196,12 +196,26 @@ export class GameService {
 
   // |X|X|c|
   // |a|b|X|
-  private potentialSearch(tile: GameTile, gameBoard: GameBoard): void {
+  private potentialSearch(
+    dir: Direction,
+    tile: GameTile,
+    gameBoard: GameBoard
+  ): void {
     // check each surrounding tile; skip the 'start' of the search
     let nextRowInx = tile.rowInx;
     let nextColInx = tile.colInx;
 
-    for (const dir of allDirections) {
+    // establish search directions based on current direction
+    const dirInx = allDirections.findIndex((d) => d === dir);
+    let dirLeft = dirInx - 1;
+    if (dirLeft < 0) {
+      dirLeft = allDirections.length - 1;
+    }
+    // no need to check as cardinal direction is not at bottom edge of array
+    let dirRight = dirInx + 1;
+    const searchDirections = [allDirections[dirLeft], allDirections[dirRight]];
+
+    for (const dir of searchDirections) {
       switch (dir) {
         case Direction.N:
           nextRowInx = tile.rowInx - 1;
