@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AudioService } from 'src/app/services/audio.service';
 import { GameBoardSplashComponent } from '../game-board-splash/game-board-splash.component';
 import { GameBoardTileComponent } from '../game-board-tile/game-board-tile.component';
@@ -14,6 +15,8 @@ describe('GameContainerComponent', () => {
 
   let audioServiceStub: Partial<AudioService>;
 
+  audioServiceStub = { PlayAudio: async () => {} };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
@@ -23,7 +26,7 @@ describe('GameContainerComponent', () => {
         GameBoardSplashComponent,
         LevelCompleteComponent,
       ],
-      imports: [MatDialogModule],
+      imports: [MatProgressBarModule, MatDialogModule],
       providers: [{ provide: AudioService, useValue: audioServiceStub }],
     }).compileComponents();
   });
