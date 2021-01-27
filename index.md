@@ -1,7 +1,7 @@
 
 ## Welcome to 😺 Emoji Swap!
 
-**[Demo](demo-0.2.0/)** Play the game!
+**[Demo](demo-1.0.0/)** Play the game!
 
 **[GitHub](https://github.com/daveteply/emoji-swap)** A link to the project source
 
