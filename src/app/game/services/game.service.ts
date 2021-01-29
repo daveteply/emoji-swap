@@ -212,11 +212,11 @@ export class GameService {
       dirLeft = allDirections.length - 1;
     }
     // no need to check as cardinal direction is not at bottom edge of array
-    let dirRight = dirInx + 1;
+    const dirRight = dirInx + 1;
     const searchDirections = [allDirections[dirLeft], allDirections[dirRight]];
 
-    for (const dir of searchDirections) {
-      switch (dir) {
+    for (const searchDirection of searchDirections) {
+      switch (searchDirection) {
         case Direction.N:
           nextRowInx = tile.rowInx - 1;
           break;

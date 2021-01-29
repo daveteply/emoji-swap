@@ -548,9 +548,9 @@ describe('GameService', () => {
       mockBoard.grid[2][2].code = 'A';
       gameService.FindMatchesAndPotentials(mockBoard);
       const matchSets = gameService.currentMatchSets;
-      //gameService.ApplyScoring(mockBoard, matchSets);
-      //const tally = gameService.TallyScore(mockBoard);
-      //expect(tally).toBe(9);
+      // gameService.ApplyScoring(mockBoard, matchSets);
+      // const tally = gameService.TallyScore(mockBoard);
+      // expect(tally).toBe(9);
     });
   });
 });
