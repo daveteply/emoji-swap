@@ -61,6 +61,12 @@ $theme: mat-light-theme(
         box-shadow: 0 0 0.5em 1em mat-color($primary);
         animation: base-effect 4s;
       }
+      &__level-complete {
+        background-color: #ffffff;
+        color: mat-color($primary);
+        animation: base-effect 4s 500ms, in-from-top 4s,
+          rainbow-cycle 0.5s infinite;
+      }
     }
   }
 }
@@ -87,5 +93,41 @@ $theme: mat-light-theme(
   }
   50% {
     transform: rotate(45deg);
+  }
+}
+
+@keyframes in-from-top {
+  0% {
+    margin-top: -30em;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
+
+@keyframes rainbow-cycle {
+  0% {
+    box-shadow: 0 0 0.5em 1em red;
+    background-color: red;
+  }
+  20% {
+    box-shadow: 0 0 0.5em 1em orange;
+    background-color: orange;
+  }
+  40% {
+    box-shadow: 0 0 0.5em 1em yellow;
+    background-color: yellow;
+  }
+  60% {
+    box-shadow: 0 0 0.5em 1em green;
+    background-color: green;
+  }
+  80% {
+    box-shadow: 0 0 0.5em 1em blue;
+    background-color: blue;
+  }
+  100% {
+    box-shadow: 0 0 0.5em 1em indigo;
+    background-color: indigo;
   }
 }

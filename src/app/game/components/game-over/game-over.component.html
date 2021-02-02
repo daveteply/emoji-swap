@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>
+  <span
+    ><p>No More Moves</p>
+    <p>Game Over</p>
+  </span>
+</h1>
+<div mat-dialog-content>
+  <p>Points this level: {{ gameStats?.levelScore | number: "1.0":"en-US" }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="accent" (click)="newGame()">New Game</button>
+  <button mat-raised-button color="accent" cdkFocusInitial (click)="exit()">
+    Exit
+  </button>
+</div>

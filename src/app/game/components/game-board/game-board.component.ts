@@ -32,7 +32,12 @@ import {
   MATCH_SET_COUNT_NEXT_LEVEL,
 } from '../../game-constants';
 import { MatDialog } from '@angular/material/dialog';
-import { LevelCompleteComponent } from '../level-complete/level-complete.component';
+import {
+  GameSplashService,
+  SplashType,
+} from '../../services/game-splash.service';
+import { GameOverComponent } from '../game-over/game-over.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-board',
@@ -66,10 +71,12 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     private gameService: GameService,
     private gameLoopService: GameLoopService,
     private tileRemoveService: TileRemoveService,
+    private gameSplashService: GameSplashService,
     private gameInteractionsService: GameInteractionsService,
     private scoringService: ScoringService,
     private audioService: AudioService,
-    public dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -115,7 +122,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
               if (this.potentialMatchSets.length) {
                 this.gameLoopService.DoStep(GameLoopSteps.UnlockBoard);
               } else {
-                this.showLevelDialog(true);
+                this.showGameOverDialog(true);
               }
 
               this.cascadeBonus();
@@ -132,7 +139,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
             // level change
             if (this.matchSetCount >= MATCH_SET_COUNT_NEXT_LEVEL) {
-              this.showLevelDialog();
+              this.nextLevel();
             } else {
               this.gameLoopService.DoStep(GameLoopSteps.FindMatches);
             }
@@ -284,6 +291,9 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.level++;
 
     this.levelUpdated.emit(this.level);
+
+    this.gameSplashService.DoSplash({ splashType: SplashType.LevelComplete });
+
     this.StartLevel(true);
   }
 
@@ -321,15 +331,15 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     return new Promise((p) => setTimeout(p, ms));
   }
 
-  private showLevelDialog(noMoreMoves: boolean = false): void {
-    const dialogRef = this.dialog.open(LevelCompleteComponent, {
+  private showGameOverDialog(noMoreMoves: boolean = false): void {
+    const dialogRef = this.dialog.open(GameOverComponent, {
       data: { level: this.level, noMoreMoves, levelScore: this.levelScore },
     });
     dialogRef.afterClosed().subscribe((newGame) => {
       if (newGame) {
         this.StartLevel();
       } else {
-        this.nextLevel();
+        this.router.navigate(['/']);
       }
     });
   }

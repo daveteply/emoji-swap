@@ -14,6 +14,7 @@ export enum SplashType {
   CascadeBonus,
   HintLoss,
   NoMoreMoves,
+  LevelComplete,
 }
 
 @Injectable({

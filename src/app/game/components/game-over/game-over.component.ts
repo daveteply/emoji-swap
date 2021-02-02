@@ -5,28 +5,26 @@ import { AudioService } from 'src/app/services/audio.service';
 import { GameStats } from '../../models/game-stats';
 
 @Component({
-  selector: 'app-level-complete',
-  templateUrl: './level-complete.component.html',
-  styleUrls: ['./level-complete.component.scss'],
+  selector: 'app-game-over',
+  templateUrl: './game-over.component.html',
+  styleUrls: ['./game-over.component.scss'],
 })
-export class LevelCompleteComponent implements OnInit {
+export class GameOverComponent implements OnInit {
   constructor(
-    public dialogRef: MatDialogRef<LevelCompleteComponent>,
+    public dialogRef: MatDialogRef<GameOverComponent>,
     @Inject(MAT_DIALOG_DATA) public gameStats: GameStats,
     private audioService: AudioService
   ) {}
 
   ngOnInit(): void {
-    this.audioService.PlayAudio(
-      this.gameStats?.noMoreMoves ? AudioType.GameOver : AudioType.LevelModal
-    );
+    this.audioService.PlayAudio(AudioType.GameOver);
   }
 
   newGame(): void {
     this.dialogRef.close(true);
   }
 
-  nextLevel(): void {
+  exit(): void {
     this.dialogRef.close(false);
   }
 }

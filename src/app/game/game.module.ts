@@ -5,11 +5,11 @@ import { GameContainerComponent } from './components/game-container/game-contain
 import { GameBoardComponent } from './components/game-board/game-board.component';
 import { GameBoardTileComponent } from './components/game-board-tile/game-board-tile.component';
 import { GameBoardSplashComponent } from './components/game-board-splash/game-board-splash.component';
-import { LevelCompleteComponent } from './components/level-complete/level-complete.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { GameOverComponent } from './components/game-over/game-over.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     GameBoardComponent,
     GameBoardTileComponent,
     GameBoardSplashComponent,
-    LevelCompleteComponent,
+    GameOverComponent,
   ],
   imports: [
     CommonModule,
