@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AudioService } from 'src/app/services/audio.service';
 import { GameBoardSplashComponent } from '../game-board-splash/game-board-splash.component';
 import { GameBoardTileComponent } from '../game-board-tile/game-board-tile.component';
 import { GameBoardComponent } from '../game-board/game-board.component';
-import { LevelCompleteComponent } from '../level-complete/level-complete.component';
+import { GameOverComponent } from '../game-over/game-over.component';
 
 import { GameContainerComponent } from './game-container.component';
 
@@ -24,9 +25,9 @@ describe('GameContainerComponent', () => {
         GameBoardComponent,
         GameBoardTileComponent,
         GameBoardSplashComponent,
-        LevelCompleteComponent,
+        GameOverComponent,
       ],
-      imports: [MatProgressBarModule, MatDialogModule],
+      imports: [MatProgressBarModule, MatDialogModule, RouterTestingModule],
       providers: [{ provide: AudioService, useValue: audioServiceStub }],
     }).compileComponents();
   });
