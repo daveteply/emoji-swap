@@ -27,8 +27,8 @@ import { AudioType } from 'src/app/services/audio-data';
 import { ScoringService } from '../../services/scoring.service';
 import {
   AUTHORED_LEVEL_COUNT,
-  GAME_BOARD_COLUMNS,
-  GAME_BOARD_ROWS,
+  DEFAULT_GAME_BOARD_COLUMNS_COUNT,
+  DEFAULT_GAME_BOARD_ROW_COUNT,
   MATCH_SET_COUNT_NEXT_LEVEL,
 } from '../../game-constants';
 import { MatDialog } from '@angular/material/dialog';
@@ -55,6 +55,9 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   private matchSetCount = 0;
   public matchProgress = 0;
   private cascadeCount = 0;
+
+  private gridRows = DEFAULT_GAME_BOARD_ROW_COUNT;
+  private gridColumns = DEFAULT_GAME_BOARD_COLUMNS_COUNT;
 
   private matchSets: Array<Array<GameTile>> = [];
   private currentMatchSet: Array<GameTile> = [];
@@ -261,8 +264,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
     this.levelScore = 0;
 
     this.gameBoard = this.gameService.CreateGame(
-      GAME_BOARD_ROWS,
-      GAME_BOARD_COLUMNS,
+      DEFAULT_GAME_BOARD_ROW_COUNT,
+      DEFAULT_GAME_BOARD_COLUMNS_COUNT,
       this.levelToRender()
     );
 

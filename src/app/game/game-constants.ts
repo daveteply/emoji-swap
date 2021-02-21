@@ -1,6 +1,6 @@
 // default grid
-export const GAME_BOARD_ROWS = 7;
-export const GAME_BOARD_COLUMNS = 5;
+export const DEFAULT_GAME_BOARD_ROW_COUNT = 7;
+export const DEFAULT_GAME_BOARD_COLUMNS_COUNT = 5;
 
 // level
 export const MATCH_SET_COUNT_NEXT_LEVEL = 8;
