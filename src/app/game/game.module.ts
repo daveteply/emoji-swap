@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GameOverComponent } from './components/game-over/game-over.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { GameOverComponent } from './components/game-over/game-over.component';
     MatButtonModule,
     MatProgressBarModule,
     MatDialogModule,
+    MatIconModule,
   ],
 })
 export class GameModule {}

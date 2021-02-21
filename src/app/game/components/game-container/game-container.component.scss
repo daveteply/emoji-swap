@@ -1,18 +1,42 @@
 @import "/src/include-media";
 
 .game-container {
-  .game-header {
-    display: flex;
-    justify-content: space-evenly;
-    .game-controls {
-      button {
-        margin-left: 0.5em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas: "controls board stats";
+
+  .game-stats {
+    .stat {
+      margin: 1em 0;
+      grid-area: stats;
+      font-size: larger;
+      .level-value {
+        font-weight: bold;
+      }
+      .score-value {
+        font-weight: bold;
+        font-size: xx-large;
       }
     }
   }
+
+  .game-controls {
+    grid-area: controls;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    button {
+      margin: 0.5em;
+    }
+  }
+
   .game-board-content {
+    grid-area: board;
+    justify-self: center;
     position: relative;
   }
+
   .game-splash-container {
     pointer-events: none;
     position: absolute;
@@ -25,6 +49,41 @@
 
 @include media("<tablet") {
   .game-container {
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+      "stats controls"
+      "board board";
+    .game-stats {
+      display: flex;
+      .stat {
+        margin: 0.5em;
+        font-size: medium;
+        .level-value {
+          font-weight: bold;
+        }
+        .score-value {
+          font-weight: bold;
+          font-size: large;
+        }
+      }
+    }
+    .game-controls {
+      flex-direction: row;
+      align-items: unset;
+      justify-content: flex-end;
+      button {
+        margin: 0.5em;
+        line-height: 2em;
+      }
+      .hint-button {
+        .hint-button-text {
+          display: none;
+        }
+      }
+      .mat-stroked-button {
+        min-width: 0;
+      }
+    }
     .game-header {
       h2 {
         font-size: 1.25em;
