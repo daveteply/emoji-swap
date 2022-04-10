@@ -1,0 +1,6 @@
+{
+	"appId": "com.daveteply.emojiswap",
+	"appName": "emoji-swap",
+	"webDir": "dist/emoji-swap",
+	"bundledWebRuntime": false
+}
