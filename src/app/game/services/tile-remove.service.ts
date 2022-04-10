@@ -56,9 +56,7 @@ export class TileRemoveService {
   }
 
   public ApplyRemoveClass(gameBoard: GameBoard): void {
-    gameBoard.grid[this.currentTile.rowInx][
-      this.currentTile.colInx
-    ].animateRemove = true;
+    gameBoard.grid[this.currentTile.rowInx][this.currentTile.colInx].animateRemove = true;
 
     this.tileRemoveStateSource.next(TileRemoveSteps.ApplyDropClass);
     this.audioService.PlayAudio(AudioType.TileRemove);
@@ -68,9 +66,7 @@ export class TileRemoveService {
     let nextRowInx = this.currentTile.rowInx;
     while (nextRowInx > 0) {
       nextRowInx--;
-      gameBoard.grid[nextRowInx][
-        this.currentTile.colInx
-      ].animateSlideDown = true;
+      gameBoard.grid[nextRowInx][this.currentTile.colInx].animateSlideDown = true;
     }
 
     this.tileRemoveStateSource.next(TileRemoveSteps.Shift);

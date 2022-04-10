@@ -1,5 +1,5 @@
 // default grid
-export const DEFAULT_GAME_BOARD_ROW_COUNT = 7;
+export const DEFAULT_GAME_BOARD_ROW_COUNT = 8;
 export const DEFAULT_GAME_BOARD_COLUMNS_COUNT = 5;
 
 // level

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { MATCH_MINIUM_LENGTH } from 'src/app/constants';
 import { EmojiList } from '../emoji-data';
-import { MATCH_MINIUM_LENGTH } from '../game-constants';
 import { GameBoard } from '../models/game-board';
 import { GameTile } from '../models/game-tile';
 import { GameUtilityService } from './game-utility.service';
@@ -15,12 +15,7 @@ enum Direction {
   W,
   NW,
 }
-const cardinalDirections = [
-  Direction.N,
-  Direction.E,
-  Direction.S,
-  Direction.W,
-] as const;
+const cardinalDirections = [Direction.N, Direction.E, Direction.S, Direction.W] as const;
 const allDirections = [
   Direction.N,
   Direction.NE,
@@ -50,11 +45,7 @@ export class GameService {
 
   constructor(private gameUtilityService: GameUtilityService) {}
 
-  public CreateGame(
-    rowCount: number,
-    columnCount: number,
-    level: number
-  ): GameBoard {
+  public CreateGame(rowCount: number, columnCount: number, level: number): GameBoard {
     const gameBoard: GameBoard = { grid: [] };
     for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
       // new row
@@ -71,10 +62,7 @@ export class GameService {
 
   public NewTile(rowIndex: number, colIndex: number, level: number): GameTile {
     const levelEmojis = EmojiList.list.find((l) => l.level === level);
-    const emoji =
-      levelEmojis?.emojis[
-        Math.floor(Math.random() * levelEmojis?.emojis?.length)
-      ];
+    const emoji = levelEmojis?.emojis[Math.floor(Math.random() * levelEmojis?.emojis?.length)];
     // merge it with more value
     const tile = Object.assign(
       {
@@ -128,9 +116,7 @@ export class GameService {
           // the search is recursive, after it returns there could exist a fully realized match set
           if (this.candidateMatches.length >= MATCH_MINIUM_LENGTH) {
             this.candidateMatches.forEach((candidateMatch) => {
-              gameBoard.grid[candidateMatch.rowInx][
-                candidateMatch.colInx
-              ].matched = true;
+              gameBoard.grid[candidateMatch.rowInx][candidateMatch.colInx].matched = true;
             });
 
             // de-dup other match sets
@@ -150,11 +136,7 @@ export class GameService {
     });
   }
 
-  private directionalSearch(
-    dir: Direction,
-    tile: GameTile,
-    gameBoard: GameBoard
-  ): void {
+  private directionalSearch(dir: Direction, tile: GameTile, gameBoard: GameBoard): void {
     // set direction
     let nextRowInx = tile.rowInx;
     let nextColInx = tile.colInx;
@@ -173,9 +155,7 @@ export class GameService {
         nextColInx = tile.colInx - 1;
     }
 
-    if (
-      !this.gameUtilityService.WithinGrid(nextRowInx, nextColInx, gameBoard)
-    ) {
+    if (!this.gameUtilityService.WithinGrid(nextRowInx, nextColInx, gameBoard)) {
       return;
     }
 
@@ -196,11 +176,7 @@ export class GameService {
 
   // |X|X|c|
   // |a|b|X|
-  private potentialSearch(
-    dir: Direction,
-    tile: GameTile,
-    gameBoard: GameBoard
-  ): void {
+  private potentialSearch(dir: Direction, tile: GameTile, gameBoard: GameBoard): void {
     // check each surrounding tile; skip the 'start' of the search
     let nextRowInx = tile.rowInx;
     let nextColInx = tile.colInx;
@@ -247,18 +223,12 @@ export class GameService {
           break;
       }
 
-      if (
-        this.gameUtilityService.WithinGrid(nextRowInx, nextColInx, gameBoard)
-      ) {
+      if (this.gameUtilityService.WithinGrid(nextRowInx, nextColInx, gameBoard)) {
         const nextTile = gameBoard.grid[nextRowInx][nextColInx];
 
         // skip original tile from current direction
         const initialTile = this.candidateMatches[0];
-        if (
-          nextTile &&
-          nextTile.rowInx !== initialTile.rowInx &&
-          nextTile.colInx !== initialTile.colInx
-        ) {
+        if (nextTile && nextTile.rowInx !== initialTile.rowInx && nextTile.colInx !== initialTile.colInx) {
           if (nextTile.code === tile.code) {
             this.potentialMatchSets.push([...this.candidateMatches, nextTile]);
             // only concerned with first potential match found, so return
@@ -270,11 +240,7 @@ export class GameService {
   }
 
   // |X|X||a|X|
-  private potentialExtended(
-    dir: Direction,
-    tile: GameTile,
-    gameBoard: GameBoard
-  ): void {
+  private potentialExtended(dir: Direction, tile: GameTile, gameBoard: GameBoard): void {
     // set direction
     let nextRowInx = tile.rowInx;
     let nextColInx = tile.colInx;
@@ -327,9 +293,7 @@ export class GameService {
           break;
       }
 
-      if (
-        this.gameUtilityService.WithinGrid(nextRowInx, nextColInx, gameBoard)
-      ) {
+      if (this.gameUtilityService.WithinGrid(nextRowInx, nextColInx, gameBoard)) {
         const nextTile = gameBoard.grid[nextRowInx][nextColInx];
         potentials.push(nextTile);
       }

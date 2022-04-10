@@ -1,27 +1,12 @@
-import {
-  Component,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { GameBoard } from '../../models/game-board';
-import {
-  GameInteractionsService,
-  InteractionSteps,
-} from '../../services/game-interactions.service';
+import { GameInteractionsService, InteractionSteps } from '../../services/game-interactions.service';
 import { GameService } from '../../services/game.service';
 import { delay, takeUntil } from 'rxjs/operators';
 import { GameTile } from '../../models/game-tile';
-import {
-  GameLoopService,
-  GameLoopSteps,
-} from '../../services/game-loop.service';
+import { GameLoopService, GameLoopSteps } from '../../services/game-loop.service';
 import { Subject } from 'rxjs';
-import {
-  TileRemoveService,
-  TileRemoveSteps,
-} from '../../services/tile-remove.service';
+import { TileRemoveService, TileRemoveSteps } from '../../services/tile-remove.service';
 import { AudioService } from '../../../services/audio.service';
 import { AudioType } from 'src/app/services/audio-data';
 import { ScoringService } from '../../services/scoring.service';
@@ -30,12 +15,9 @@ import {
   DEFAULT_GAME_BOARD_COLUMNS_COUNT,
   DEFAULT_GAME_BOARD_ROW_COUNT,
   MATCH_SET_COUNT_NEXT_LEVEL,
-} from '../../game-constants';
+} from '../../../constants';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  GameSplashService,
-  SplashType,
-} from '../../services/game-splash.service';
+import { GameSplashService, SplashType } from '../../services/game-splash.service';
 import { GameOverComponent } from '../game-over/game-over.component';
 import { Router } from '@angular/router';
 
@@ -55,9 +37,6 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   private matchSetCount = 0;
   public matchProgress = 0;
   private cascadeCount = 0;
-
-  private gridRows = DEFAULT_GAME_BOARD_ROW_COUNT;
-  private gridColumns = DEFAULT_GAME_BOARD_COLUMNS_COUNT;
 
   private matchSets: Array<Array<GameTile>> = [];
   private currentMatchSet: Array<GameTile> = [];
@@ -107,9 +86,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
               this.currentMatchSet = this.matchSets.shift() as Array<GameTile>;
 
               // kick off the deletion sequence for the current match set
-              this.tileRemoveService.StartTileDeletion(
-                this.currentMatchSet.map((t) => Object.assign({}, t))
-              );
+              this.tileRemoveService.StartTileDeletion(this.currentMatchSet.map((t) => Object.assign({}, t)));
 
               this.matchSetCount++;
               this.cascadeCount++;
@@ -135,8 +112,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
             break;
 
           case GameLoopSteps.CompleteLoop:
-            this.matchProgress =
-              (this.matchSetCount / MATCH_SET_COUNT_NEXT_LEVEL) * 100;
+            this.matchProgress = (this.matchSetCount / MATCH_SET_COUNT_NEXT_LEVEL) * 100;
 
             this.updateScore();
 
@@ -165,9 +141,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
           case TileRemoveSteps.NextTile:
             this.gameService.ReIndexGrid(this.gameBoard);
-            this.tileRemoveService.NextTile(
-              this.gameService.NewTile(0, 0, this.levelToRender())
-            );
+            this.tileRemoveService.NextTile(this.gameService.NewTile(0, 0, this.levelToRender()));
             break;
 
           case TileRemoveSteps.ApplyRemoveClass:
@@ -194,21 +168,15 @@ export class GameBoardComponent implements OnInit, OnDestroy {
       .subscribe((step) => {
         switch (step) {
           case InteractionSteps.LocateAdjacentTile:
-            if (
-              this.gameInteractionsService.LocateAdjacentTile(this.gameBoard)
-            ) {
+            if (this.gameInteractionsService.LocateAdjacentTile(this.gameBoard)) {
               this.swapInProgress = true;
               this.audioService.PlayAudio(AudioType.Swipe);
-              this.gameInteractionsService.DoStep(
-                InteractionSteps.ApplyDirectionalAnimation
-              );
+              this.gameInteractionsService.DoStep(InteractionSteps.ApplyDirectionalAnimation);
             }
             break;
 
           case InteractionSteps.ApplyDirectionalAnimation:
-            this.gameInteractionsService.SetDirectionalAnimationClass(
-              this.gameBoard
-            );
+            this.gameInteractionsService.SetDirectionalAnimationClass(this.gameBoard);
             break;
 
           case InteractionSteps.Swap:
@@ -229,11 +197,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
           case InteractionSteps.ShowHint:
             this.audioService.PlayAudio(AudioType.Hint);
             this.gameService.ReIndexGrid(this.gameBoard);
-            this.gameInteractionsService.ApplyPotentials(
-              this.gameBoard,
-              this.potentialMatchSets,
-              true
-            );
+            this.gameInteractionsService.ApplyPotentials(this.gameBoard, this.potentialMatchSets, true);
             break;
         }
       });
@@ -301,11 +265,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
   }
 
   private updateScore(): void {
-    this.scoringService.ApplyScoring(
-      this.gameBoard,
-      this.currentMatchSet,
-      this.level
-    );
+    this.scoringService.ApplyScoring(this.gameBoard, this.currentMatchSet, this.level);
     const pointsGained = this.scoringService.TallyScore(this.gameBoard);
     this.levelScore += pointsGained;
     this.score += pointsGained;
@@ -314,10 +274,7 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   private cascadeBonus(): void {
     if (this.cascadeCount > 1) {
-      const bonus = this.scoringService.ApplyCascade(
-        this.level,
-        this.cascadeCount
-      );
+      const bonus = this.scoringService.ApplyCascade(this.level, this.cascadeCount);
       this.score += bonus;
       this.levelScore += bonus;
       this.scoreUpdated.emit(this.score);

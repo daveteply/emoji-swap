@@ -20,13 +20,6 @@ import { MatIconModule } from '@angular/material/icon';
     GameBoardSplashComponent,
     GameOverComponent,
   ],
-  imports: [
-    CommonModule,
-    GameRoutingModule,
-    MatButtonModule,
-    MatProgressBarModule,
-    MatDialogModule,
-    MatIconModule,
-  ],
+  imports: [CommonModule, GameRoutingModule, MatButtonModule, MatProgressBarModule, MatDialogModule, MatIconModule],
 })
 export class GameModule {}

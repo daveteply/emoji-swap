@@ -54,18 +54,14 @@ $theme: mat-light-theme(
         animation: base-effect 4s;
       }
       &__cascade {
-        background-image: radial-gradient(
-          mat-color($accent),
-          mat-color($primary)
-        );
+        background-image: radial-gradient(mat-color($accent), mat-color($primary));
         box-shadow: 0 0 0.5em 1em mat-color($primary);
         animation: base-effect 4s;
       }
       &__level-complete {
         background-color: #ffffff;
         color: mat-color($primary);
-        animation: base-effect 4s 500ms, in-from-top 4s,
-          rainbow-cycle 0.5s infinite;
+        animation: base-effect 4s 500ms, in-from-top 4s, rainbow-cycle 0.5s infinite;
       }
     }
   }

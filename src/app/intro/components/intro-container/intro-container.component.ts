@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MATCH_MINIUM_LENGTH } from 'src/app/game/game-constants';
+import { MATCH_MINIUM_LENGTH } from 'src/app/constants';
 
 @Component({
   selector: 'app-intro-container',

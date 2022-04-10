@@ -76,16 +76,3 @@ export const EmojiList: EmojiLevelList = {
     },
   ],
 };
-
-// {
-//   level: 1,
-//   title: '',
-//   emojis: [
-//     { code: '', title: '' },
-//     { code: '', title: '' },
-//     { code: '', title: '' },
-//     { code: '', title: '' },
-//     { code: '', title: '' },
-//     { code: '', title: '' },
-//   ],
-// },

@@ -1,11 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import {
-  GameSplash,
-  GameSplashService,
-  SplashType,
-} from '../../services/game-splash.service';
+import { GameSplash, GameSplashService, SplashType } from '../../services/game-splash.service';
 
 @Component({
   selector: 'app-game-board-splash',
@@ -28,19 +24,14 @@ export class GameBoardSplashComponent implements OnInit, OnDestroy {
   public splashType = SplashType;
 
   ngOnInit(): void {
-    this.gameSplashService.gameSplashState$
-      .pipe(takeUntil(this.subscription))
-      .subscribe((scoreSplash: GameSplash) => {
-        // remove expired elements
-        this.splashItems = this.splashItems.filter(
-          (item) =>
-            item.timestamp && Date.now() - item.timestamp < this.DECAY_TIME
-        );
+    this.gameSplashService.gameSplashState$.pipe(takeUntil(this.subscription)).subscribe((scoreSplash: GameSplash) => {
+      // remove expired elements
+      this.splashItems = this.splashItems.filter(
+        (item) => item.timestamp && Date.now() - item.timestamp < this.DECAY_TIME
+      );
 
-        this.splashItems?.push(
-          Object.assign({ timestamp: Date.now() }, scoreSplash)
-        );
-      });
+      this.splashItems?.push(Object.assign({ timestamp: Date.now() }, scoreSplash));
+    });
   }
 
   ngOnDestroy(): void {

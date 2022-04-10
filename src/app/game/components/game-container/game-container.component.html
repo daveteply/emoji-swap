@@ -4,16 +4,10 @@
       mat-stroked-button
       color="accent"
       class="hint-button"
-      [disabled]="
-        gameBoardComponent.boardDisabled || gameBoardComponent.hintDisabled
-      "
+      [disabled]="gameBoardComponent.boardDisabled || gameBoardComponent.hintDisabled"
       (click)="gameBoardComponent.UseHint()"
     >
-      <mat-icon
-        aria-hidden="false"
-        aria-label="Hint button to reveal a possible match"
-        >lightbulb</mat-icon
-      >
+      <mat-icon aria-hidden="false" aria-label="Hint button to reveal a possible match">lightbulb</mat-icon>
       <span class="hint-button-text">Hint</span>
     </button>
     <button
@@ -38,8 +32,7 @@
       <span class="level-value">{{ level }}</span>
     </div>
     <div class="stat">
-      <small>Score: </small
-      ><span class="score-value">{{ score | number: "1.0" }}</span>
+      <small>Score: </small><span class="score-value">{{ score | number: "1.0" }}</span>
     </div>
   </div>
   <app-game-board-splash class="game-splash-container"></app-game-board-splash>

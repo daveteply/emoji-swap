@@ -28,9 +28,7 @@ export const AudioDataList: AudioData = {
     },
     {
       type: AudioType.Swipe,
-      element: new Audio(
-        'assets/wav/mixkit-robot-positive-item-acquired-3205.wav'
-      ),
+      element: new Audio('assets/wav/mixkit-robot-positive-item-acquired-3205.wav'),
     },
     {
       type: AudioType.MatchFound,
@@ -42,9 +40,7 @@ export const AudioDataList: AudioData = {
     },
     {
       type: AudioType.InvalidSwipe,
-      element: new Audio(
-        'assets/wav/mixkit-high-tech-notification-bleep-2519.wav'
-      ),
+      element: new Audio('assets/wav/mixkit-high-tech-notification-bleep-2519.wav'),
     },
     {
       type: AudioType.Hint,

@@ -7,7 +7,7 @@ import {
   MATCH_MINIUM_LENGTH,
   TIME_BONUS_CAP,
   TIME_SUPER_BONUS_CAP,
-} from '../game-constants';
+} from '../../constants';
 import { GameBoard } from '../models/game-board';
 import { GameTile } from '../models/game-tile';
 import { GameSplashService, SplashType } from './game-splash.service';
@@ -20,10 +20,7 @@ export class ScoringService {
   private elapsed = 0;
   private isRunning = false;
 
-  constructor(
-    private audioService: AudioService,
-    private gameSplashService: GameSplashService
-  ) {}
+  constructor(private audioService: AudioService, private gameSplashService: GameSplashService) {}
 
   public TimerStart(): void {
     this.isRunning = !this.isRunning;
@@ -66,11 +63,7 @@ export class ScoringService {
     return cascadeBonus;
   }
 
-  public ApplyScoring(
-    gameBoard: GameBoard,
-    matchSet: Array<GameTile>,
-    level: number
-  ): void {
+  public ApplyScoring(gameBoard: GameBoard, matchSet: Array<GameTile>, level: number): void {
     let timeBonusTotal = 0;
     let superTimeBonusTotal = 0;
     let matchLengthBonusTotal = 0;
@@ -81,16 +74,12 @@ export class ScoringService {
       // time bonus
       if (this.elapsed) {
         if (this.elapsed <= TIME_SUPER_BONUS_CAP) {
-          const timeBonusSuper =
-            level * Math.floor((1 / this.elapsed) * TIME_BONUS_CAP) * 2;
-          gameBoard.grid[tile.rowInx][
-            tile.colInx
-          ].score.timeBonusSuper = timeBonusSuper;
+          const timeBonusSuper = level * Math.floor((1 / this.elapsed) * TIME_BONUS_CAP) * 2;
+          gameBoard.grid[tile.rowInx][tile.colInx].score.timeBonusSuper = timeBonusSuper;
 
           superTimeBonusTotal += timeBonusSuper;
         } else if (this.elapsed <= TIME_BONUS_CAP) {
-          const timeBonus =
-            level * Math.floor((1 / this.elapsed) * TIME_BONUS_CAP);
+          const timeBonus = level * Math.floor((1 / this.elapsed) * TIME_BONUS_CAP);
           gameBoard.grid[tile.rowInx][tile.colInx].score.timeBonus = timeBonus;
 
           timeBonusTotal += timeBonus;
@@ -100,9 +89,7 @@ export class ScoringService {
       // match length bonus
       if (matchSet.length > MATCH_MINIUM_LENGTH) {
         const matchLengthBonus = level * matchSet.length;
-        gameBoard.grid[tile.rowInx][
-          tile.colInx
-        ].score.matchLengthBonus = matchLengthBonus;
+        gameBoard.grid[tile.rowInx][tile.colInx].score.matchLengthBonus = matchLengthBonus;
 
         matchLengthBonusTotal += matchLengthBonus;
       }

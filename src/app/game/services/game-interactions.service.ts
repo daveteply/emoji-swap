@@ -35,10 +35,7 @@ export class GameInteractionsService {
 
   private isSwapBack = false;
 
-  constructor(
-    private gameUtilityService: GameUtilityService,
-    private scoringService: ScoringService
-  ) {}
+  constructor(private gameUtilityService: GameUtilityService, private scoringService: ScoringService) {}
 
   public DoStep(step: InteractionSteps): void {
     this.gameInteractionStateSource.next(step);
@@ -84,9 +81,7 @@ export class GameInteractionsService {
     // }
 
     // shutter
-    gameBoard.grid[this.playerTile.tile.rowInx][
-      this.playerTile.tile.colInx
-    ].animateShutter = false;
+    gameBoard.grid[this.playerTile.tile.rowInx][this.playerTile.tile.colInx].animateShutter = false;
     this.gameInteractionStateSource.next(InteractionSteps.Shutter);
     return false;
   }
@@ -94,39 +89,23 @@ export class GameInteractionsService {
   public SetDirectionalAnimationClass(gameBoard: GameBoard): void {
     switch (this.playerTile.direction) {
       case PlayerSwipeDirection.Up:
-        gameBoard.grid[this.playerTile.tile.rowInx][
-          this.playerTile.tile.colInx
-        ].animateSlideUp = true;
-        gameBoard.grid[this.adjacentTile.rowInx][
-          this.adjacentTile.colInx
-        ].animateSlideDown = true;
+        gameBoard.grid[this.playerTile.tile.rowInx][this.playerTile.tile.colInx].animateSlideUp = true;
+        gameBoard.grid[this.adjacentTile.rowInx][this.adjacentTile.colInx].animateSlideDown = true;
         break;
 
       case PlayerSwipeDirection.Right:
-        gameBoard.grid[this.playerTile.tile.rowInx][
-          this.playerTile.tile.colInx
-        ].animateSlideRight = true;
-        gameBoard.grid[this.adjacentTile.rowInx][
-          this.adjacentTile.colInx
-        ].animateSlideLeft = true;
+        gameBoard.grid[this.playerTile.tile.rowInx][this.playerTile.tile.colInx].animateSlideRight = true;
+        gameBoard.grid[this.adjacentTile.rowInx][this.adjacentTile.colInx].animateSlideLeft = true;
         break;
 
       case PlayerSwipeDirection.Down:
-        gameBoard.grid[this.playerTile.tile.rowInx][
-          this.playerTile.tile.colInx
-        ].animateSlideDown = true;
-        gameBoard.grid[this.adjacentTile.rowInx][
-          this.adjacentTile.colInx
-        ].animateSlideUp = true;
+        gameBoard.grid[this.playerTile.tile.rowInx][this.playerTile.tile.colInx].animateSlideDown = true;
+        gameBoard.grid[this.adjacentTile.rowInx][this.adjacentTile.colInx].animateSlideUp = true;
         break;
 
       case PlayerSwipeDirection.Left:
-        gameBoard.grid[this.playerTile.tile.rowInx][
-          this.playerTile.tile.colInx
-        ].animateSlideLeft = true;
-        gameBoard.grid[this.adjacentTile.rowInx][
-          this.adjacentTile.colInx
-        ].animateSlideRight = true;
+        gameBoard.grid[this.playerTile.tile.rowInx][this.playerTile.tile.colInx].animateSlideLeft = true;
+        gameBoard.grid[this.adjacentTile.rowInx][this.adjacentTile.colInx].animateSlideRight = true;
         break;
     }
 
@@ -134,21 +113,13 @@ export class GameInteractionsService {
   }
 
   public Swap(gameBoard: GameBoard): void {
-    const saveCurrent = Object.assign(
-      {},
-      gameBoard.grid[this.playerTile.tile.rowInx][this.playerTile.tile.colInx]
-    );
+    const saveCurrent = Object.assign({}, gameBoard.grid[this.playerTile.tile.rowInx][this.playerTile.tile.colInx]);
 
-    const saveAdjacent = Object.assign(
-      {},
-      gameBoard.grid[this.adjacentTile.rowInx][this.adjacentTile.colInx]
-    );
+    const saveAdjacent = Object.assign({}, gameBoard.grid[this.adjacentTile.rowInx][this.adjacentTile.colInx]);
 
-    gameBoard.grid[this.playerTile.tile.rowInx][this.playerTile.tile.colInx] =
-      saveAdjacent;
+    gameBoard.grid[this.playerTile.tile.rowInx][this.playerTile.tile.colInx] = saveAdjacent;
 
-    gameBoard.grid[this.adjacentTile.rowInx][this.adjacentTile.colInx] =
-      saveCurrent;
+    gameBoard.grid[this.adjacentTile.rowInx][this.adjacentTile.colInx] = saveCurrent;
   }
 
   public SwapBack(): void {
@@ -159,22 +130,13 @@ export class GameInteractionsService {
   }
 
   public Shutter(gameBoard: GameBoard): void {
-    gameBoard.grid[this.playerTile.tile.rowInx][
-      this.playerTile.tile.colInx
-    ].animateShutter = true;
+    gameBoard.grid[this.playerTile.tile.rowInx][this.playerTile.tile.colInx].animateShutter = true;
   }
 
-  public ApplyPotentials(
-    gameBoard: GameBoard,
-    potentialMatchSets: Array<Array<GameTile>>,
-    random: boolean
-  ): void {
+  public ApplyPotentials(gameBoard: GameBoard, potentialMatchSets: Array<Array<GameTile>>, random: boolean): void {
     if (gameBoard && potentialMatchSets?.length) {
       if (random) {
-        const targetMatchSet =
-          potentialMatchSets[
-            Math.floor(Math.random() * potentialMatchSets.length)
-          ];
+        const targetMatchSet = potentialMatchSets[Math.floor(Math.random() * potentialMatchSets.length)];
         this.applyPotentialClass(targetMatchSet, gameBoard);
       } else {
         for (const potentialMatchSet of potentialMatchSets) {
@@ -184,10 +146,7 @@ export class GameInteractionsService {
     }
   }
 
-  private applyPotentialClass(
-    potentialMatchSet: Array<GameTile>,
-    gameBoard: GameBoard
-  ): void {
+  private applyPotentialClass(potentialMatchSet: Array<GameTile>, gameBoard: GameBoard): void {
     for (const tile of potentialMatchSet) {
       gameBoard.grid[tile.rowInx][tile.colInx].potential = true;
     }
