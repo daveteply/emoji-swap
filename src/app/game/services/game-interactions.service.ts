@@ -58,32 +58,30 @@ export class GameInteractionsService {
     let nextColInx = this.playerTile.tile.colInx;
 
     // https://hammerjs.github.io/api/#constants DIRECTION_NONE 	1
-    if (this.playerTile.direction !== 1) {
-      switch (this.playerTile.direction) {
-        case PlayerSwipeDirection.Up:
-          nextRowInx--;
-          break;
+    // if (this.playerTile.direction !== 1) {
+    switch (this.playerTile.direction) {
+      case PlayerSwipeDirection.Up:
+        nextRowInx--;
+        break;
 
-        case PlayerSwipeDirection.Right:
-          nextColInx++;
-          break;
+      case PlayerSwipeDirection.Right:
+        nextColInx++;
+        break;
 
-        case PlayerSwipeDirection.Down:
-          nextRowInx++;
-          break;
+      case PlayerSwipeDirection.Down:
+        nextRowInx++;
+        break;
 
-        case PlayerSwipeDirection.Left:
-          nextColInx--;
-          break;
-      }
-
-      if (
-        this.gameUtilityService.WithinGrid(nextRowInx, nextColInx, gameBoard)
-      ) {
-        this.adjacentTile = gameBoard.grid[nextRowInx][nextColInx];
-        return true;
-      }
+      case PlayerSwipeDirection.Left:
+        nextColInx--;
+        break;
     }
+
+    if (this.gameUtilityService.WithinGrid(nextRowInx, nextColInx, gameBoard)) {
+      this.adjacentTile = gameBoard.grid[nextRowInx][nextColInx];
+      return true;
+    }
+    // }
 
     // shutter
     gameBoard.grid[this.playerTile.tile.rowInx][
@@ -146,13 +144,11 @@ export class GameInteractionsService {
       gameBoard.grid[this.adjacentTile.rowInx][this.adjacentTile.colInx]
     );
 
-    gameBoard.grid[this.playerTile.tile.rowInx][
-      this.playerTile.tile.colInx
-    ] = saveAdjacent;
+    gameBoard.grid[this.playerTile.tile.rowInx][this.playerTile.tile.colInx] =
+      saveAdjacent;
 
-    gameBoard.grid[this.adjacentTile.rowInx][
-      this.adjacentTile.colInx
-    ] = saveCurrent;
+    gameBoard.grid[this.adjacentTile.rowInx][this.adjacentTile.colInx] =
+      saveCurrent;
   }
 
   public SwapBack(): void {

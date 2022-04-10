@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AudioService } from './services/audio.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'ejw-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

@@ -1,9 +1,9 @@
+import { NgModule } from '@angular/core';
 import {
   BrowserModule,
   HammerModule,
   HAMMER_GESTURE_CONFIG,
 } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,8 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HammerModule,
     BrowserAnimationsModule,
+    HammerModule,
     AudioContextModule.forRoot('balanced'),
     MatToolbarModule,
     MatTooltipModule,
