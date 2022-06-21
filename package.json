@@ -23,6 +23,7 @@
     "@capacitor/android": "^3.4.3",
     "@capacitor/angular": "^2.0.3",
     "@capacitor/core": "latest",
+    "@capacitor/device": "^1.1.2",
     "@types/hammerjs": "^2.0.41",
     "angular-audio-context": "^32.0.5",
     "hammerjs": "^2.0.8",
