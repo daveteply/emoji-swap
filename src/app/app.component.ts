@@ -12,7 +12,7 @@ import { ConfirmNavComponent } from './components/confirm-nav/confirm-nav.compon
 })
 export class AppComponent implements OnInit {
   soundEnabled: boolean = true;
-  showAudio: boolean = false;
+  isWeb: boolean = false;
   appIcon = String.fromCodePoint(0x1f63a);
 
   constructor(private audioService: AudioService, private router: Router, private dialog: MatDialog) {}
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     // device info
     Device.getInfo().then((deviceInfo) => {
-      this.showAudio = deviceInfo.platform === 'web';
+      this.isWeb = deviceInfo.platform === 'web';
     });
   }
 
