@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
@@ -11,7 +12,7 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, MatToolbarModule],
+      imports: [RouterTestingModule, MatToolbarModule, MatDialogModule],
       declarations: [AppComponent],
       providers: [
         { provide: AudioService, useValue: audioServiceStub },

@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>You sure...</h1>
+<p>This will end your current game and go back to the main page!</p>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close cdkFocusInitial>Keep playing</button>
+  <button mat-button [mat-dialog-close]="true">Ok</button>
+</div>

@@ -8,13 +8,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AudioContextModule } from 'angular-audio-context';
 
+import { ConfirmNavComponent } from './components/confirm-nav/confirm-nav.component';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ConfirmNavComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,6 +28,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatTooltipModule,
     MatIconModule,
     MatButtonModule,
+    MatDialogModule,
   ],
   providers: [
     {
