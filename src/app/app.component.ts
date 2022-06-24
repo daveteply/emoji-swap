@@ -10,6 +10,7 @@ import { Device } from '@capacitor/device';
 export class AppComponent implements OnInit {
   soundEnabled: boolean = true;
   showAudio: boolean = false;
+  appIcon = String.fromCodePoint(0x1f63a);
 
   constructor(private audioService: AudioService) {}
 

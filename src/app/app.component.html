@@ -2,7 +2,7 @@
   <header>
     <mat-toolbar color="primary">
       <a routerLink="" class="home-link"
-        >😺
+        ><span class="icon">{{ appIcon }}</span>
         <h1>Emoji Swap!</h1></a
       >
       <button *ngIf="showAudio" (click)="ToggleAudio()" mat-icon-button aria-label="Sound On">
