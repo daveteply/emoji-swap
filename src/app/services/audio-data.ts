@@ -24,43 +24,39 @@ export const AudioDataList: AudioData = {
   list: [
     {
       type: AudioType.LevelChange,
-      element: new Audio('assets/wav/mixkit-magic-festive-melody-2986.wav'),
+      element: new Audio('assets/audio/mixkit-magic-festive-melody-2986.mp3'),
     },
     {
       type: AudioType.Swipe,
-      element: new Audio('assets/wav/mixkit-robot-positive-item-acquired-3205.wav'),
+      element: new Audio('assets/audio/mixkit-robot-positive-item-acquired-3205.mp3'),
     },
     {
       type: AudioType.MatchFound,
-      element: new Audio('assets/wav/mixkit-fairy-magic-sparkle-871.wav'),
+      element: new Audio('assets/audio/mixkit-fairy-magic-sparkle-871.mp3'),
     },
     {
       type: AudioType.TileRemove,
-      element: new Audio('assets/wav/mixkit-bubbly-achievement-tone-3193.wav'),
+      element: new Audio('assets/audio/mixkit-bubbly-achievement-tone-3193.mp3'),
     },
     {
       type: AudioType.InvalidSwipe,
-      element: new Audio('assets/wav/mixkit-high-tech-notification-bleep-2519.wav'),
+      element: new Audio('assets/audio/mixkit-high-tech-notification-bleep-2519.mp3'),
     },
     {
       type: AudioType.Hint,
-      element: new Audio('assets/wav/mixkit-fast-swipe-zoom-2627.wav'),
+      element: new Audio('assets/audio/mixkit-fast-swipe-zoom-2627.mp3'),
     },
     {
       type: AudioType.TimeBonus,
-      element: new Audio('assets/wav/mixkit-game-flute-bonus-2313.wav'),
+      element: new Audio('assets/audio/mixkit-game-flute-bonus-2313.mp3'),
     },
     {
       type: AudioType.RareBonus,
-      element: new Audio('assets/wav/mixkit-choir-harp-bless-657.wav'),
+      element: new Audio('assets/audio/mixkit-choir-harp-bless-657.mp3'),
     },
-    // {
-    //   type: AudioType.LevelModal,
-    //   element: new Audio('assets/wav/mixkit-winning-chimes-2015.wav'),
-    // },
     {
       type: AudioType.GameOver,
-      element: new Audio('assets/wav/mixkit-fairytale-game-over-1945.wav'),
+      element: new Audio('assets/audio/mixkit-fairytale-game-over-1945.mp3'),
     },
   ],
 };
