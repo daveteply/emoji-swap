@@ -1,9 +1,14 @@
-@import "/src/include-media";
+@import "../style-values";
 
 #app-container {
+  height: 100%;
   display: grid;
-  grid-template-rows: 5em auto 7em;
-  height: 100vh;
+  grid-template-rows: 4.5em auto 7em;
+
+  @media screen and (min-width: $default-app-width) {
+    margin: auto;
+    max-width: $default-app-width;
+  }
 
   header {
     .home-link {
@@ -21,17 +26,18 @@
     }
   }
 
-  .game-content {
-    justify-self: center;
-  }
-
   footer {
     margin: 1em;
     border-radius: 1em;
+    max-width: 600px;
     background-color: lightgray;
     .footer-content {
       text-align: center;
       padding: 1em;
     }
   }
+}
+
+.mat-toolbar {
+  height: 56px;
 }

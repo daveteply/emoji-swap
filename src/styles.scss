@@ -1,7 +1,18 @@
+@import "./style-values";
 @import "./style-fonts";
 
 html,
 body {
   height: 100%;
   margin: 0;
+
+  @media screen and (min-width: $default-app-width) {
+    background: linear-gradient(
+      90deg,
+      rgb(15, 15, 15) 0%,
+      rgb(255, 255, 255) 10%,
+      rgb(255, 255, 255) 90%,
+      rgb(15, 15, 15) 100%
+    );
+  }
 }

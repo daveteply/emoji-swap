@@ -1,8 +1,10 @@
-<div class="game-board">
-  <div *ngFor="let row of gameBoard.grid">
-    <div class="grid-column">
+<div id="game-board">
+  <div class="grid-rows">
+    <div *ngFor="let row of gameBoard.grid" class="grid-row">
       <app-game-board-tile *ngFor="let tile of row" [tile]="tile" [disabled]="boardDisabled"></app-game-board-tile>
     </div>
   </div>
-  <mat-progress-bar mode="determinate" [value]="matchProgress"></mat-progress-bar>
+  <div class="main-progress">
+    <mat-progress-bar mode="determinate" [value]="matchProgress"></mat-progress-bar>
+  </div>
 </div>

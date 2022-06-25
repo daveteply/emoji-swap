@@ -1,23 +1,34 @@
-<div class="game-container">
-  <div class="game-controls">
-    <button
-      mat-stroked-button
-      color="accent"
-      class="hint-button"
-      [disabled]="gameBoardComponent.boardDisabled || gameBoardComponent.hintDisabled"
-      (click)="gameBoardComponent.UseHint()"
-    >
-      <mat-icon aria-hidden="false" aria-label="Hint button to reveal a possible match">lightbulb</mat-icon>
-      <span class="hint-button-text">Hint</span>
-    </button>
-    <button
-      mat-raised-button
-      color="accent"
-      [disabled]="gameBoardComponent.boardDisabled"
-      (click)="gameBoardComponent.StartLevel()"
-    >
-      New Game
-    </button>
+<div id="game-container">
+  <div class="controls">
+    <div class="game-stats">
+      <div class="stat">
+        <small>Level </small>
+        <span class="level-value"
+          ><span> {{ level }}</span></span
+        >
+      </div>
+      <div class="stat">
+        <small>Score </small><span class="score-value">{{ score | number: "1.0" }}</span>
+      </div>
+    </div>
+    <div>
+      <button
+        mat-icon-button
+        color="accent"
+        [disabled]="gameBoardComponent.boardDisabled || gameBoardComponent.hintDisabled"
+        (click)="gameBoardComponent.UseHint()"
+      >
+        <mat-icon aria-hidden="false" aria-label="Hint button to reveal a possible match">help</mat-icon>
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        [disabled]="gameBoardComponent.boardDisabled"
+        (click)="gameBoardComponent.StartLevel()"
+      >
+        New Game
+      </button>
+    </div>
   </div>
   <div class="game-board-content">
     <app-game-board
@@ -25,15 +36,6 @@
       (levelUpdated)="updateLevel($event)"
       #gameBoardComponent
     ></app-game-board>
-  </div>
-  <div class="game-stats">
-    <div class="stat">
-      <small>Level: </small>
-      <span class="level-value">{{ level }}</span>
-    </div>
-    <div class="stat">
-      <small>Score: </small><span class="score-value">{{ score | number: "1.0" }}</span>
-    </div>
   </div>
   <app-game-board-splash class="game-splash-container"></app-game-board-splash>
 </div>

@@ -1,36 +1,34 @@
-@import "/src/include-media";
+@import "../../../../style-values.scss";
 
-.game-container {
-  display: grid;
-  grid-template-rows: auto;
+#game-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
-  .game-stats {
-    .stat {
-      margin: 1em 0;
-      grid-area: stats;
-      font-size: larger;
-      .level-value {
-        font-weight: bold;
-      }
-      .score-value {
-        font-weight: bold;
-        font-size: xx-large;
-      }
-    }
-  }
-
-  .game-controls {
-    grid-area: controls;
+  .controls {
+    margin: 0 0.5em 0.5em 0.5em;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    button {
-      margin: 0.5em;
+    justify-content: space-between;
+
+    .game-stats {
+      display: flex;
+      align-items: center;
+      .stat {
+        margin-right: 1em;
+        font-size: larger;
+        .level-value {
+          font-weight: bold;
+        }
+        .score-value {
+          font-weight: bold;
+          font-size: x-large;
+        }
+      }
     }
   }
 
   .game-board-content {
-    grid-area: board;
+    flex: auto 1;
     justify-self: center;
     position: relative;
   }
@@ -42,53 +40,5 @@
     left: 0;
     width: 100%;
     height: 100%;
-  }
-}
-
-@include media("<tablet") {
-  .game-container {
-    grid-template-columns: 2fr 1fr;
-    grid-template-areas:
-      "stats controls"
-      "board board";
-    .game-stats {
-      display: flex;
-      .stat {
-        margin: 0.5em;
-        font-size: medium;
-        .level-value {
-          font-weight: bold;
-        }
-        .score-value {
-          font-weight: bold;
-          font-size: large;
-        }
-      }
-    }
-    .game-controls {
-      flex-direction: row;
-      align-items: unset;
-      justify-content: flex-end;
-      button {
-        margin: 0.5em;
-        line-height: 2em;
-      }
-      .hint-button {
-        .hint-button-text {
-          display: none;
-        }
-      }
-      .mat-stroked-button {
-        min-width: 0;
-      }
-    }
-    .game-header {
-      h2 {
-        font-size: 1.25em;
-      }
-      button {
-        line-height: 2em;
-      }
-    }
   }
 }

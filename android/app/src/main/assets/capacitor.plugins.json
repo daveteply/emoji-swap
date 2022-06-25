@@ -1,6 +1,6 @@
 [
-  {
-    "pkg": "@capacitor/device",
-    "classpath": "com.capacitorjs.plugins.device.DevicePlugin"
-  }
+	{
+		"pkg": "@capacitor/device",
+		"classpath": "com.capacitorjs.plugins.device.DevicePlugin"
+	}
 ]
