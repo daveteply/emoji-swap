@@ -1,9 +1,9 @@
-<div class="site-container">
+<div id="app-container">
   <header>
     <mat-toolbar color="primary">
       <button (click)="navHome()" class="home-link">
         <span class="icon">{{ appIcon }}</span>
-        <h1>Emoji Swap!</h1>
+        <h1>{{ appTitle }}</h1>
       </button>
       <button *ngIf="isWeb" (click)="ToggleAudio()" mat-icon-button aria-label="Sound On">
         <mat-icon *ngIf="soundEnabled; else soundDisabled">volume_up</mat-icon>

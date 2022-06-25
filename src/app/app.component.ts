@@ -4,6 +4,7 @@ import { Device } from '@capacitor/device';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmNavComponent } from './components/confirm-nav/confirm-nav.component';
+import { APP_TITLE } from './constants';
 
 @Component({
   selector: 'ejw-root',
@@ -14,6 +15,7 @@ export class AppComponent implements OnInit {
   soundEnabled: boolean = true;
   isWeb: boolean = false;
   appIcon = String.fromCodePoint(0x1f63a);
+  appTitle = APP_TITLE;
 
   constructor(private audioService: AudioService, private router: Router, private dialog: MatDialog) {}
 
