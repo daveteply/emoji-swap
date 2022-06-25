@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MATCH_MINIUM_LENGTH } from 'src/app/constants';
-import { EmojiList } from '../emoji-data';
 import { GameBoard } from '../models/game-board';
 import { GameTile } from '../models/game-tile';
+import { EmojiSequence, GameTileTextureService } from './game-tile-texture.service';
 import { GameUtilityService } from './game-utility.service';
 
 enum Direction {
@@ -31,9 +31,11 @@ const allDirections = [
   providedIn: 'root',
 })
 export class GameService {
-  private candidateMatches: Array<GameTile> = new Array<GameTile>();
+  private candidateMatches: GameTile[] = [];
   private matchSets: Array<Array<GameTile>> = [];
   private potentialMatchSets: Array<Array<GameTile>> = [];
+
+  private currentLevelTileTextures: EmojiSequence[] = [];
 
   get currentMatchSets(): Array<Array<GameTile>> {
     return this.matchSets;
@@ -43,15 +45,18 @@ export class GameService {
     return this.potentialMatchSets;
   }
 
-  constructor(private gameUtilityService: GameUtilityService) {}
+  constructor(private gameUtilityService: GameUtilityService, private gameTileTextureService: GameTileTextureService) {}
 
   public CreateGame(rowCount: number, columnCount: number, level: number): GameBoard {
+    // establish new emoji set for current level
+    this.currentLevelTileTextures = this.gameTileTextureService.RandomEmojiCodeList(6);
+
+    // build game board
     const gameBoard: GameBoard = { grid: [] };
     for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
       // new row
       gameBoard.grid[rowIndex] = new Array<GameTile>();
       for (let colIndex = 0; colIndex < columnCount; colIndex++) {
-        // grab a random entry
         const tile = this.NewTile(rowIndex, colIndex, level);
         gameBoard.grid[rowIndex][colIndex] = tile;
       }
@@ -61,16 +66,18 @@ export class GameService {
   }
 
   public NewTile(rowIndex: number, colIndex: number, level: number): GameTile {
-    const levelEmojis = EmojiList.list.find((l) => l.level === level);
-    const emoji = levelEmojis?.emojis[Math.floor(Math.random() * levelEmojis?.emojis?.length)];
+    const targetEmoji = this.currentLevelTileTextures[Math.floor(Math.random() * this.currentLevelTileTextures.length)];
+    const emoji = String.fromCodePoint(...targetEmoji.sequence);
     // merge it with more value
     const tile = Object.assign(
       {
         colInx: colIndex,
         rowInx: rowIndex,
-        html: `&#x${emoji?.code};`,
+        html: emoji,
         score: { baseScore: 0 },
         isNew: Math.floor(Math.random() * 5),
+        title: targetEmoji.desc,
+        code: targetEmoji.sequence.join(),
       },
       emoji
     );

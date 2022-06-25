@@ -25,9 +25,11 @@
     "@capacitor/core": "latest",
     "@capacitor/device": "^1.1.2",
     "@types/hammerjs": "^2.0.41",
+    "@types/shuffle-array": "^1.0.2",
     "angular-audio-context": "^32.0.5",
     "hammerjs": "^2.0.8",
     "rxjs": "~7.5.0",
+    "shuffle-array": "^1.0.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
