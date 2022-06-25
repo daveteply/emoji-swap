@@ -1,0 +1,7 @@
+@use "@angular/material" as mat;
+
+$rcl-typography: mat.define-typography-config(
+  $font-family: "Orbitron",
+);
+
+@include mat.core($rcl-typography);
