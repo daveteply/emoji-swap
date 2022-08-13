@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MATCH_MINIUM_LENGTH } from 'src/app/constants';
+import { APP_TITLE, MATCH_MINIUM_LENGTH } from 'src/app/constants';
 
 @Component({
   selector: 'app-intro-container',
@@ -8,4 +8,6 @@ import { MATCH_MINIUM_LENGTH } from 'src/app/constants';
 })
 export class IntroContainerComponent {
   public matchLength = MATCH_MINIUM_LENGTH;
+
+  appTitle = APP_TITLE;
 }

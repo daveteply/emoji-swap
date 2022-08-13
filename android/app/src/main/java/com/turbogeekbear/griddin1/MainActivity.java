@@ -1,4 +1,4 @@
-package com.daveteply.emojiswap;
+package com.turbogeekbear.griddin1;
 
 import com.getcapacitor.BridgeActivity;
 

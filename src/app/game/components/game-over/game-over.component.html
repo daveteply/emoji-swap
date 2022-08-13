@@ -5,7 +5,7 @@
   </span>
 </h1>
 <div mat-dialog-content>
-  <p>Points this level: {{ gameStats?.levelScore | number: "1.0":"en-US" }}</p>
+  <p>Points this level: {{ gameStats.levelScore | number: "1.0":"en-US" }}</p>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button color="accent" (click)="newGame()">New Game</button>

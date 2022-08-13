@@ -1,4 +1,4 @@
-export const APP_TITLE = 'App Title';
+export const APP_TITLE = 'Griddin';
 
 // default grid
 export const DEFAULT_GAME_BOARD_ROW_COUNT = 8;

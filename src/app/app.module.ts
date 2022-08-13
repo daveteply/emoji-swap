@@ -6,8 +6,6 @@ import { AppComponent } from './app.component';
 import { HammerConfig } from './hammer-config';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AudioContextModule } from 'angular-audio-context';
-
 import { ConfirmNavComponent } from './components/confirm-nav/confirm-nav.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -21,9 +19,8 @@ import { MatDialogModule } from '@angular/material/dialog';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
     HammerModule,
-    AudioContextModule.forRoot('balanced'),
+    BrowserAnimationsModule,
     MatToolbarModule,
     MatTooltipModule,
     MatIconModule,

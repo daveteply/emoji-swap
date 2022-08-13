@@ -1,18 +1,21 @@
 <div class="content">
-  <h2>Welcome to Emoji Swap!</h2>
-  <p>This is a game that is very similar to other tile matching games like Bejeweled and Candy Crash.</p>
-  <p>
-    To play: Drag tiles up, down, right or left to match
-    <b> at least {{ matchLength }} emojis</b>. Swiping on a mobile device works great, too!
-  </p>
-  <p>How high can you score?!</p>
-  <p>
-    <button mat-raised-button color="accent" routerLink="game">Play the Game!</button>
-  </p>
-  <p class="audio-mention">
-    Game sound effects provided by<br />
+  <div>
+    <h2>Welcome to {{ appTitle }}!</h2>
+    <h3>To play:</h3>
+    <p class="instructions">
+      Swap tiles up, down, right or left to match
+      <b> at least {{ matchLength }} tiles</b> on the grid.
+    </p>
+    <br />
+    <p>How high can you score?</p>
+    <p>
+      <button mat-raised-button color="accent" routerLink="game">Play the Game!</button>
+    </p>
+  </div>
+  <div class="audio-mention">
+    <p>Game sound effects provided by:</p>
     <a href="https://mixkit.co" target="_blank">
       <img src="assets/mixkit-logo.png" class="mixkit-logo" alt="Mixkit Logo" />
     </a>
-  </p>
+  </div>
 </div>

@@ -1,32 +1,32 @@
 <div class="game-tile" (pan)="onPan($event)" [class.game-tile__disabled]="disabled">
   <div
     class="tile-overlay"
-    [innerHTML]="tile?.html"
+    [innerHTML]="tile.html"
     [class.tile-overlay__disabled]="
       disabled &&
-      !tile?.toRemove &&
-      !tile?.animateRemove &&
-      !tile?.animateSlideUp &&
-      !tile?.animateSlideRight &&
-      !tile?.animateSlideDown &&
-      !tile?.animateSlideLeft
+      !tile.toRemove &&
+      !tile.animateRemove &&
+      !tile.animateSlideUp &&
+      !tile.animateSlideRight &&
+      !tile.animateSlideDown &&
+      !tile.animateSlideLeft
     "
-    [class.tile-overlay__to-remove]="tile?.toRemove"
-    [class.tile-overlay__remove]="tile?.animateRemove"
-    [class.tile-overlay__slide-up]="tile?.animateSlideUp"
-    [class.tile-overlay__slide-right]="tile?.animateSlideRight"
-    [class.tile-overlay__slide-down]="tile?.animateSlideDown"
-    [class.tile-overlay__slide-left]="tile?.animateSlideLeft"
+    [class.tile-overlay__to-remove]="tile.toRemove"
+    [class.tile-overlay__remove]="tile.animateRemove"
+    [class.tile-overlay__slide-up]="tile.animateSlideUp"
+    [class.tile-overlay__slide-right]="tile.animateSlideRight"
+    [class.tile-overlay__slide-down]="tile.animateSlideDown"
+    [class.tile-overlay__slide-left]="tile.animateSlideLeft"
     [class.tile-overlay__reset-slide]="
-      !tile?.animateSlideDown && !tile?.animateSlideUp && !tile?.animateSlideRight && !tile?.animateSlideLeft
+      !tile.animateSlideDown && !tile.animateSlideUp && !tile.animateSlideRight && !tile.animateSlideLeft
     "
-    [class.tile-overlay__shutter]="tile?.animateShutter"
-    [class.tile-overlay__hint]="tile?.potential"
-    [class.tile-overlay__new-tile]="tile?.isNew"
-    [class.tile-overlay__new-tile-delay-1]="tile?.isNew === 1"
-    [class.tile-overlay__new-tile-delay-2]="tile?.isNew === 2"
-    [class.tile-overlay__new-tile-delay-3]="tile?.isNew === 3"
-    [class.tile-overlay__new-tile-delay-4]="tile?.isNew === 4"
-    [class.tile-overlay__new-tile-delay-5]="tile?.isNew === 5"
+    [class.tile-overlay__shutter]="tile.animateShutter"
+    [class.tile-overlay__hint]="tile.potential"
+    [class.tile-overlay__new-tile]="tile.isNew"
+    [class.tile-overlay__new-tile-delay-1]="tile.isNew === 1"
+    [class.tile-overlay__new-tile-delay-2]="tile.isNew === 2"
+    [class.tile-overlay__new-tile-delay-3]="tile.isNew === 3"
+    [class.tile-overlay__new-tile-delay-4]="tile.isNew === 4"
+    [class.tile-overlay__new-tile-delay-5]="tile.isNew === 5"
   ></div>
 </div>

@@ -23,6 +23,7 @@ describe('GameBoardTileComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(GameBoardTileComponent);
     component = fixture.componentInstance;
+    component.tile = { code: '1', title: 'test title', html: 'html', colInx: 0, rowInx: 0, score: { baseScore: 1 } };
     fixture.detectChanges();
   });
 

@@ -1,16 +1,20 @@
 .content {
+  height: 100%;
   max-width: 30em;
-  padding: 5em;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 
-  p,
-  h2 {
-    text-align: center;
+  .instructions {
+    max-width: 20em;
+    margin: auto;
   }
 
   .audio-mention {
     margin-top: 3em;
     .mixkit-logo {
-      height: 5em;
+      height: 6em;
     }
   }
 }

@@ -2,15 +2,15 @@
   <header>
     <mat-toolbar color="primary">
       <button (click)="navHome()" class="home-link">
-        <span class="icon">{{ appIcon }}</span>
+        <!-- <span class="icon">{{ appIcon }}</span> -->
         <h1>{{ appTitle }}</h1>
       </button>
-      <button *ngIf="isWeb" (click)="ToggleAudio()" mat-icon-button aria-label="Sound On">
+      <!-- <button *ngIf="isWeb" (click)="ToggleAudio()" mat-icon-button aria-label="Sound On">
         <mat-icon *ngIf="soundEnabled; else soundDisabled">volume_up</mat-icon>
         <ng-template #soundDisabled>
           <mat-icon>volume_off</mat-icon>
         </ng-template>
-      </button>
+      </button> -->
 
       <span class="spacer"></span>
 

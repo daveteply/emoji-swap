@@ -1,13 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AudioService } from './audio.service';
-import { AudioContext } from 'angular-audio-context';
 
 describe('AudioService', () => {
   let service: AudioService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [AudioContext] });
+    TestBed.configureTestingModule({ providers: [] });
     service = TestBed.inject(AudioService);
   });
 
