@@ -4,6 +4,7 @@
   height: $tile-scale * 0.8;
   width: $tile-scale * 0.8;
   position: relative;
+  margin: 0.1em;
 
   &__disabled {
     pointer-events: none;
