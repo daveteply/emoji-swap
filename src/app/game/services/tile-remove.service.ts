@@ -59,7 +59,7 @@ export class TileRemoveService {
     gameBoard.grid[this.currentTile.rowInx][this.currentTile.colInx].animateRemove = true;
 
     this.tileRemoveStateSource.next(TileRemoveSteps.ApplyDropClass);
-    this.audioService.PlayAudio(AudioType.TileRemove);
+    this.audioService.PlayAudio(AudioType.TileRemove, true);
   }
 
   public ApplyDropClass(gameBoard: GameBoard): void {
