@@ -32,10 +32,9 @@ $theme: mat-light-theme(
       box-shadow: 0 0 0.5em 1em mat-color($accent);
       color: #ffffff;
       border-radius: 1em;
-      white-space: nowrap;
       text-align: center;
-      letter-spacing: 0.1em;
       line-height: 120%;
+      overflow-wrap: break-word;
       &__time-bonus {
         animation: base-effect 4s;
       }
@@ -79,7 +78,6 @@ $theme: mat-light-theme(
   100% {
     opacity: 0;
     font-size: 400%;
-    letter-spacing: 0.5em;
   }
 }
 

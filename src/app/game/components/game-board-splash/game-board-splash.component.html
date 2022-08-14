@@ -12,13 +12,13 @@
       [class.splash-item__level-complete]="item.splashType === splashType.LevelComplete"
     >
       <div [ngSwitch]="item.splashType">
-        <span *ngSwitchCase="splashType.TimeBonus">Fast match!</span>
-        <span *ngSwitchCase="splashType.SuperTimeBonus">Super fast match!</span>
-        <span *ngSwitchCase="splashType.MatchLengthBonus">Long Match Series!</span>
-        <span *ngSwitchCase="splashType.CascadeBonus">Cascading matches!</span>
-        <span *ngSwitchCase="splashType.HintLoss">Hint taken!</span>
+        <span *ngSwitchCase="splashType.TimeBonus">Fast<br />match!</span>
+        <span *ngSwitchCase="splashType.SuperTimeBonus">Super<br />fast<br />match!</span>
+        <span *ngSwitchCase="splashType.MatchLengthBonus">Long<br />Match<br />Series!</span>
+        <span *ngSwitchCase="splashType.CascadeBonus">Cascading<br />matches!</span>
+        <span *ngSwitchCase="splashType.HintLoss">Hint<br />taken!</span>
         <span *ngSwitchCase="splashType.NoMoreMoves">No moves;<br />Reshuffling!</span
-        ><span *ngSwitchCase="splashType.LevelComplete">Level Complete!</span>
+        ><span *ngSwitchCase="splashType.LevelComplete">Level<br />Complete!</span>
       </div>
       <div *ngIf="item?.scoreValue">
         <span *ngIf="item.splashType === splashType.HintLoss; else negativeScore">-</span>
