@@ -23,6 +23,7 @@
     "@capacitor/android": "^4.0.1",
     "@capacitor/angular": "^2.0.3",
     "@capacitor/core": "latest",
+    "@capacitor/device": "^4.0.1",
     "@capacitor/ios": "^4.0.1",
     "@types/hammerjs": "^2.0.41",
     "@types/howler": "^2.2.7",
