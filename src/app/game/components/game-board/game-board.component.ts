@@ -121,6 +121,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
             // level change
             if (this.matchSetCount >= MATCH_SET_COUNT_NEXT_LEVEL) {
+              // reset removal audio notes
+              this.audioService.SetMinNote();
               this.nextLevel();
             } else {
               this.gameLoopService.DoStep(GameLoopSteps.FindMatches);
