@@ -1,15 +1,17 @@
 <div class="content">
   <div>
     <h2>Welcome to {{ appTitle }}!</h2>
+    <div class="griddin-icon"></div>
+    <br />
+    <br />
     <h3>To play:</h3>
     <p class="instructions">
       Swap tiles up, down, right or left to match
       <b> at least {{ matchLength }} tiles</b> on the grid.
     </p>
-    <br />
     <p>How high can you score?</p>
     <p>
-      <button mat-raised-button color="accent" routerLink="game">Play the Game!</button>
+      <button mat-raised-button color="accent" routerLink="game" class="play-cta">Play</button>
     </p>
   </div>
   <div class="audio-mention">
