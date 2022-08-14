@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">emoji-swap</string>
-    <string name="title_activity_main">emoji-swap</string>
+    <string name="app_name">Griddin</string>
+    <string name="title_activity_main">Griddin</string>
     <string name="package_name">com.turbogeekbear.griddin1</string>
     <string name="custom_url_scheme">com.turbogeekbear.griddin1</string>
 </resources>
