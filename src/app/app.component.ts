@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ConfirmNavComponent } from './components/confirm-nav/confirm-nav.component';
 import { APP_TITLE } from './constants';
+import { Device } from '@capacitor/device';
 
 @Component({
   selector: 'ejw-root',
@@ -15,7 +16,12 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router, private dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // device info
+    Device.getInfo().then((deviceInfo) => {
+      this.isWeb = deviceInfo.platform === 'web';
+    });
+  }
 
   navHome(): void {
     if (this.router.url === '/game') {

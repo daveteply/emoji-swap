@@ -28,6 +28,15 @@
         background-size: contain;
       }
     }
+    .turbogeekbear-icon {
+      width: 2em;
+      height: 2em;
+      background-image: url("^assets/Turbogeekbear_bear_01s.webp");
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      padding-right: 1em;
+    }
     .spacer {
       flex: 1 1 auto;
     }
