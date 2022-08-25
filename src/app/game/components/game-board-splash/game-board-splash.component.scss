@@ -31,9 +31,9 @@ $theme: mat-light-theme(
       background-color: mat-color($primary);
       box-shadow: 0 0 0.5em 1em mat-color($accent);
       color: #ffffff;
-      border-radius: 1em;
+      border-radius: 0.5em;
       text-align: center;
-      line-height: 120%;
+      line-height: 1em;
       overflow-wrap: break-word;
       &__time-bonus {
         animation: base-effect 4s;
