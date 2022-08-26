@@ -2,6 +2,7 @@
   <div class="splash-items">
     <div
       class="splash-item"
+      [class.safari-veritical-fix]="isIOS"
       *ngFor="let item of splashItems"
       [class.splash-item__time-bonus]="item.splashType === splashType.TimeBonus"
       [class.splash-item__super-time-bonus]="item.splashType === splashType.SuperTimeBonus"

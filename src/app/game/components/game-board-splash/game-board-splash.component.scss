@@ -33,6 +33,7 @@ $theme: mat-light-theme(
       color: #ffffff;
       border-radius: 0.5em;
       text-align: center;
+      margin: 0;
       line-height: 1em;
       overflow-wrap: break-word;
       &__time-bonus {
@@ -62,6 +63,10 @@ $theme: mat-light-theme(
         color: mat-color($primary);
         animation: base-effect 4s 500ms, in-from-top 4s, rainbow-cycle 0.5s infinite;
       }
+    }
+
+    .safari-veritical-fix {
+      line-height: 3em;
     }
   }
 }
