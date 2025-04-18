@@ -16,7 +16,7 @@ import { GameSplashService, SplashType } from './game-splash.service';
   providedIn: 'root',
 })
 export class ScoringService {
-  private intervalId = 0;
+  private intervalId: string | number | NodeJS.Timer | undefined;
   private elapsed = 0;
   private isRunning = false;
 
