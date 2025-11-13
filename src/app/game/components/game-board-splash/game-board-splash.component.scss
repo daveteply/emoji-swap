@@ -1,16 +1,3 @@
-@import "@angular/material/theming";
-
-$primary: mat-palette($mat-indigo);
-$accent: mat-palette($mat-pink);
-$theme: mat-light-theme(
-  (
-    color: (
-      primary: $primary,
-      accent: $accent,
-    ),
-  )
-);
-
 .splash-content {
   overflow: hidden;
   position: relative;
@@ -28,9 +15,9 @@ $theme: mat-light-theme(
       opacity: 0;
       padding: 1em;
       font-weight: bold;
-      background-color: mat-color($primary);
-      box-shadow: 0 0 0.5em 1em mat-color($accent);
-      color: #ffffff;
+      background-color: var(--mat-primary-default);
+      box-shadow: 0 0 0.5em 1em var(--mat-accent-default);
+      color: var(--mat-primary-default-contrast);
       border-radius: 0.5em;
       text-align: center;
       margin: 0;
@@ -54,13 +41,13 @@ $theme: mat-light-theme(
         animation: base-effect 4s;
       }
       &__cascade {
-        background-image: radial-gradient(mat-color($accent), mat-color($primary));
-        box-shadow: 0 0 0.5em 1em mat-color($primary);
+        background-image: radial-gradient(var(--mat-accent-default), var(--mat-primary-default));
+        box-shadow: 0 0 0.5em 1em var(--mat-primary-default);
         animation: base-effect 4s;
       }
       &__level-complete {
         background-color: #ffffff;
-        color: mat-color($primary);
+        color: var(--mat-primary-default);
         animation: base-effect 4s 500ms, in-from-top 4s, rainbow-cycle 0.5s infinite;
       }
     }
