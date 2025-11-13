@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "emoji-swap:build:production"
+              "buildTarget": "emoji-swap:build:production"
             },
             "development": {
-              "browserTarget": "emoji-swap:build:development"
+              "buildTarget": "emoji-swap:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "emoji-swap:build"
+            "buildTarget": "emoji-swap:build"
           }
         },
         "test": {
