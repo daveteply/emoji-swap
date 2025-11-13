@@ -6,9 +6,10 @@ import { APP_TITLE } from './constants';
 import { Device } from '@capacitor/device';
 
 @Component({
-  selector: 'ejw-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    selector: 'ejw-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnInit {
   isWeb: boolean = false;

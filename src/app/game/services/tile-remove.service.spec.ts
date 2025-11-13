@@ -5,7 +5,7 @@ import { TileRemoveService } from './tile-remove.service';
 
 describe('TileRemoveService', () => {
   let service: TileRemoveService;
-  let audioServiceStub: Partial<AudioService>;
+  let audioServiceStub: Partial<AudioService> = {};
 
   beforeEach(() => {
     TestBed.configureTestingModule({

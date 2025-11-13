@@ -8,7 +8,7 @@ describe('GameBoardSplashComponent', () => {
   let component: GameBoardSplashComponent;
   let fixture: ComponentFixture<GameBoardSplashComponent>;
 
-  let scoringServiceStub: Partial<ScoringService>;
+  let scoringServiceStub: Partial<ScoringService> = {};
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

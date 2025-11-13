@@ -7,8 +7,8 @@ import { ScoringService } from './scoring.service';
 describe('GameInteractionsService', () => {
   let service: GameInteractionsService;
 
-  let gameUtilityServiceStub: Partial<GameUtilityService>;
-  let scoringServiceStub: Partial<ScoringService>;
+  let gameUtilityServiceStub: Partial<GameUtilityService> = {};
+  let scoringServiceStub: Partial<ScoringService> = {};
 
   beforeEach(() => {
     TestBed.configureTestingModule({

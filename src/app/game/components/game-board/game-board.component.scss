@@ -1,4 +1,4 @@
-@import "../../../../style-values.scss";
+@use "../../../../style-values";
 
 #game-board {
   position: relative;
@@ -9,12 +9,12 @@
 
   .grid-rows {
     display: grid;
-    grid-template-rows: repeat($grid-row-count, 1fr);
+    grid-template-rows: repeat(style-values.$grid-row-count, 1fr);
 
     .grid-row {
       height: 100%;
       display: grid;
-      grid-template-columns: repeat($grid-colum-count, 1fr);
+      grid-template-columns: repeat(style-values.$grid-colum-count, 1fr);
       place-items: center;
     }
   }

@@ -5,7 +5,7 @@ import { AudioService } from 'src/app/services/audio.service';
 
 describe('ScoringService', () => {
   let service: ScoringService;
-  let audioServiceStub: Partial<AudioService>;
+  let audioServiceStub: Partial<AudioService> = {};
 
   beforeEach(() => {
     TestBed.configureTestingModule({

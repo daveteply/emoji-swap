@@ -6,7 +6,7 @@ describe('GameBoardTileComponent', () => {
   let component: GameBoardTileComponent;
   let fixture: ComponentFixture<GameBoardTileComponent>;
 
-  let gameInteractionServiceStub: Partial<GameInteractionsService>;
+  let gameInteractionServiceStub: Partial<GameInteractionsService> = {};
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

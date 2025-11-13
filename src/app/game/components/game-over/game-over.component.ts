@@ -5,9 +5,10 @@ import { AudioService } from 'src/app/services/audio.service';
 import { GameStats } from '../../models/game-stats';
 
 @Component({
-  selector: 'app-game-over',
-  templateUrl: './game-over.component.html',
-  styleUrls: ['./game-over.component.scss'],
+    selector: 'app-game-over',
+    templateUrl: './game-over.component.html',
+    styleUrls: ['./game-over.component.scss'],
+    standalone: false
 })
 export class GameOverComponent implements OnInit {
   constructor(

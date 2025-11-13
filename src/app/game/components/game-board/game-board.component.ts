@@ -22,9 +22,10 @@ import { GameOverComponent } from '../game-over/game-over.component';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-game-board',
-  templateUrl: './game-board.component.html',
-  styleUrls: ['./game-board.component.scss'],
+    selector: 'app-game-board',
+    templateUrl: './game-board.component.html',
+    styleUrls: ['./game-board.component.scss'],
+    standalone: false
 })
 export class GameBoardComponent implements OnInit, OnDestroy {
   public boardDisabled = false;

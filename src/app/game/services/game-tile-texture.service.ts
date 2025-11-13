@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as shuffleArray from 'shuffle-array';
+import shuffleArray from 'shuffle-array';
 import { environment } from 'src/environments/environment';
 import { EmojiData } from '../emoji-data';
 
@@ -34,11 +34,11 @@ export class GameTileTextureService {
 
     // grab first 3 shuffled subgroups (some subgroups have a small number of sequences)
     const subGroups = shuffledSubGroups.slice(0, 3);
-    const emojiSequences = subGroups.flatMap((s) => s.codes);
+    const emojiSequences = subGroups.flatMap((s: any) => s.codes);
     const shuffledSequences = shuffleArray(emojiSequences);
 
     return shuffledSequences
-      .map((s) => {
+      .map((s: any) => {
         return { desc: s.desc, sequence: s.sequence, ver: s.version };
       })
       .slice(0, playableTextureCount);

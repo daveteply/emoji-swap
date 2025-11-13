@@ -1,8 +1,8 @@
-@import "../../../../style-values.scss";
+@use "../../../../style-values";
 
 .game-tile {
-  height: $tile-scale * 0.8;
-  width: $tile-scale * 0.8;
+  height: style-values.$tile-scale * 0.8;
+  width: style-values.$tile-scale * 0.8;
   position: relative;
   margin: 0.1em;
 
@@ -26,7 +26,7 @@
     border: 1px solid #5373dd;
     border-radius: 0.25em;
 
-    font-size: $tile-scale * 0.6;
+    font-size: style-values.$tile-scale * 0.6;
 
     display: flex;
     justify-content: center;
@@ -37,19 +37,19 @@
       filter: blur(2px) grayscale(50%) brightness(0.7);
     }
     &__slide-down {
-      margin-top: $tile-scale;
+      margin-top: style-values.$tile-scale;
       @extend .tile-slide;
     }
     &__slide-up {
-      margin-top: -$tile-scale;
+      margin-top: -(style-values.$tile-scale);
       @extend .tile-slide;
     }
     &__slide-right {
-      margin-left: $tile-scale;
+      margin-left: style-values.$tile-scale;
       @extend .tile-slide;
     }
     &__slide-left {
-      margin-left: -$tile-scale;
+      margin-left: -(style-values.$tile-scale);
       @extend .tile-slide;
     }
     &__reset-slide {
@@ -96,21 +96,21 @@
       opacity: 0;
     }
     50% {
-      font-size: $tile-scale;
+      font-size: style-values.$tile-scale;
     }
     100% {
-      font-size: $tile-scale * 0.6;
+      font-size: style-values.$tile-scale * 0.6;
       opacity: 1;
     }
   }
 
   @keyframes remove {
     0% {
-      font-size: $tile-scale * 1.01;
+      font-size: style-values.$tile-scale * 1.01;
     }
     50% {
       transform: rotate(-365deg);
-      font-size: $tile-scale * 0.5;
+      font-size: style-values.$tile-scale * 0.5;
       opacity: 0;
     }
   }
@@ -118,11 +118,11 @@
   @keyframes wobble {
     0% {
       transform: rotate(45deg);
-      font-size: $tile-scale * 1.01;
+      font-size: style-values.$tile-scale * 1.01;
     }
     50% {
       transform: rotate(-45deg);
-      font-size: $tile-scale;
+      font-size: style-values.$tile-scale;
       border-radius: 1em;
     }
   }
@@ -141,22 +141,22 @@
   @keyframes hint {
     0% {
       border: 0.5em dotted green;
-      font-size: $tile-scale * 2;
+      font-size: style-values.$tile-scale * 2;
     }
     100% {
-      font-size: $tile-scale * 0.5;
+      font-size: style-values.$tile-scale * 0.5;
       opacity: 0;
     }
   }
 }
 
-@media screen and (min-width: $default-app-width) {
+@media screen and (min-width: style-values.$default-app-width) {
   .game-tile {
-    height: $tile-scale * 1.2;
-    width: $tile-scale * 1.2;
+    height: style-values.$tile-scale * 1.2;
+    width: style-values.$tile-scale * 1.2;
 
     .tile-overlay {
-      font-size: $tile-scale;
+      font-size: style-values.$tile-scale;
     }
   }
 }

@@ -1,4 +1,4 @@
-@import "../style-values";
+@use "../style-values";
 
 #app-container {
   background-color: white;
@@ -6,9 +6,9 @@
   display: grid;
   grid-template-rows: 4.5em auto 5em;
 
-  @media screen and (min-width: $default-app-width) {
+  @media screen and (min-width: style-values.$default-app-width) {
     margin: auto;
-    max-width: $default-app-width;
+    max-width: style-values.$default-app-width;
   }
 
   header {
@@ -22,7 +22,7 @@
         margin-top: 0.65em;
         width: 12em;
         height: 3em;
-        background-image: url("^assets/Griddin-logo-01.webp");
+        background-image: url("/assets/Griddin-logo-01.webp");
         background-position: center center;
         background-repeat: no-repeat;
         background-size: contain;
@@ -31,7 +31,7 @@
     .turbogeekbear-icon {
       width: 2em;
       height: 2em;
-      background-image: url("^assets/Turbogeekbear_bear_01s.webp");
+      background-image: url("/assets/Turbogeekbear_bear_01s.webp");
       background-position: center center;
       background-repeat: no-repeat;
       background-size: contain;

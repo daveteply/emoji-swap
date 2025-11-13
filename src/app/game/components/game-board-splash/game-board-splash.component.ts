@@ -5,9 +5,10 @@ import { takeUntil } from 'rxjs/operators';
 import { GameSplash, GameSplashService, SplashType } from '../../services/game-splash.service';
 
 @Component({
-  selector: 'app-game-board-splash',
-  templateUrl: './game-board-splash.component.html',
-  styleUrls: ['./game-board-splash.component.scss'],
+    selector: 'app-game-board-splash',
+    templateUrl: './game-board-splash.component.html',
+    styleUrls: ['./game-board-splash.component.scss'],
+    standalone: false
 })
 export class GameBoardSplashComponent implements OnInit, OnDestroy {
   private subscription: Subject<boolean> = new Subject<boolean>();
