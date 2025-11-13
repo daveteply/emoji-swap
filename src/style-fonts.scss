@@ -4,7 +4,8 @@ $rcl-typography: mat.define-typography-config(
   $font-family: "Orbitron",
 );
 
-@include mat.core($rcl-typography);
+@include mat.core();
+@include mat.all-component-typographies($rcl-typography);
 
 @font-face {
   font-family: "Orbitron";
