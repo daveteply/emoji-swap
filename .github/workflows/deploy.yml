@@ -45,17 +45,12 @@ jobs:
           REPO_NAME="${{ github.event.repository.name }}"
           APP_VERSION="${{ needs.read-version.outputs.app_version }}"
           DEPLOY_PATH="dist/$REPO_NAME/$APP_VERSION"
-
           echo "DEPLOY_PATH=$DEPLOY_PATH" >> $GITHUB_ENV
-          echo "deploy_path_url=/url/$APP_VERSION" >> $GITHUB_ENV
 
       - name: Build and Publish to GitHub Pages
         id: build-publish
         uses: bitovi/github-actions-angular-to-github-pages@v1.0.0
         with:
-          # The PATH is now the path the build command will output to
           path: ${{ env.DEPLOY_PATH }}
           install_command: npm ci
-          # We explicitly tell the build command the exact outputPath and base-href
-          build_command: npm run build -- --base-href=/${{ github.event.repository.name }}/${{ needs.read-version.outputs.app_version }}/ --output-path=${{ env.DEPLOY_PATH }}
-          caching: true
+          build_command: npm run build -- --output-path=${{ env.DEPLOY_PATH }} --base-href=/${{ github.event.repository.name }}/
