@@ -30,6 +30,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: bitovi/github-actions-angular-to-github-pages@v1.0.0
         with:
-          checkout: false
           path: dist/emoji-swap/browser
           build_command: npm run build -- --base-href=/${{ github.event.repository.name }}/demo-${{ steps.package-version.outputs.version }}/
