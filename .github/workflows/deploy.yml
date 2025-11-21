@@ -26,7 +26,7 @@ jobs:
         run: npm install
 
       - name: Build Angular application
-        run: ng build --configuration production --base-href https://daveteply.github.io/emoji-swap/demo-${{ steps.package-version.outputs.version }}
+        run: npx ng build --configuration production --base-href https://daveteply.github.io/emoji-swap/demo-${{ steps.package-version.outputs.version }}
 
       - name: Deploy to GitHub Pages
         uses: bitovi/github-actions-angular-to-github-pages@v1.0.0
