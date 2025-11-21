@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import shuffleArray from 'shuffle-array';
 import { environment } from 'src/environments/environment';
 import { EmojiData } from '../emoji-data';
+import { shuffleArray } from 'src/app/services/array.utils';
 
 export interface EmojiSequence {
   desc: string;
