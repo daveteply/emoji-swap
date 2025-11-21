@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -22,14 +27,9 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Build Angular application
-        run: npx ng build --configuration production --base-href https://daveteply.github.io/emoji-swap/demo-${{ steps.package-version.outputs.version }}
-
       - name: Deploy to GitHub Pages
         uses: bitovi/github-actions-angular-to-github-pages@v1.0.0
         with:
           checkout: false
           path: dist/emoji-swap/browser
+          build_command: npm run build -- --base-href=/${{ github.event.repository.name }}/demo-${{ steps.package-version.outputs.version }}/
