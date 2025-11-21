@@ -43,7 +43,7 @@ jobs:
         id: vars
         run: |
           # Use the extracted version for the deployment path
-          DEPLOY_PATH="dist/${{ github.event.repository.name }}/${{ needs.read-version.outputs.app_version }}"
+          DEPLOY_PATH="dist/${{ github.event.repository.name }}"
           echo "DEPLOY_PATH=$DEPLOY_PATH" >> $GITHUB_ENV
           echo "deploy_path_url=/url/${{ needs.read-version.outputs.app_version }}" >> $GITHUB_ENV
 
