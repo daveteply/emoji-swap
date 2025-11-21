@@ -1,14 +1,13 @@
-name: Build and Deploy Angular to GitHub Pages
+name: Build and Deploy Angular to Versioned GitHub Pages
 
 on:
   push:
     branches: ["main"]
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 jobs:
   read-version:
@@ -22,13 +21,9 @@ jobs:
         id: read
         uses: zvonimirsun/read-package-version-actions@v2
 
-  deploy:
+  build-and-deploy:
     needs: read-version
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.build-publish.outputs.page_url }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,20 +32,28 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "24.x"
-          cache: "npm" # Recommended for faster installs
+          cache: "npm"
 
-      - name: Set deployment path and versioned output
+      - name: Set Deployment Variables
         id: vars
         run: |
           REPO_NAME="${{ github.event.repository.name }}"
           APP_VERSION="${{ needs.read-version.outputs.app_version }}"
-          DEPLOY_PATH="dist/$REPO_NAME/$APP_VERSION"
-          echo "DEPLOY_PATH=$DEPLOY_PATH" >> $GITHUB_ENV
+          BASE_HREF="/$REPO_NAME/$APP_VERSION/"
+          BUILD_OUTPUT_DIR="./build_output"
+          echo "BASE_HREF=$BASE_HREF" >> $GITHUB_ENV
+          echo "BUILD_OUTPUT_DIR=$BUILD_OUTPUT_DIR" >> $GITHUB_ENV
 
-      - name: Build and Publish to GitHub Pages
-        id: build-publish
-        uses: bitovi/github-actions-angular-to-github-pages@v1.0.0
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Angular app with versioned base-href
+        run: npm run build -- --output-path=${{ env.BUILD_OUTPUT_DIR }} --base-href=${{ env.BASE_HREF }}
+
+      - name: Deploy to gh-pages branch with versioned folder
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: ${{ env.DEPLOY_PATH }}
-          install_command: npm ci
-          build_command: npm run build -- --output-path=${{ env.DEPLOY_PATH }} --base-href=/${{ github.event.repository.name }}/
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ env.BUILD_OUTPUT_DIR }}
+          destination_dir: ${{ needs.read-version.outputs.app_version }}
+          keep_files: true
