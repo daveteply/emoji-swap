@@ -30,3 +30,6 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: bitovi/github-actions-angular-to-github-pages@v1.0.0
+        with:
+          checkout: false
+          path: dist/emoji-swap/browser
