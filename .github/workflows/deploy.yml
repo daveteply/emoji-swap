@@ -31,4 +31,5 @@ jobs:
         uses: bitovi/github-actions-angular-to-github-pages@v1.0.0
         with:
           path: dist/emoji-swap/browser
+          install_command: npm install
           build_command: npm run build -- --base-href=/${{ github.event.repository.name }}/demo-${{ steps.package-version.outputs.version }}/
