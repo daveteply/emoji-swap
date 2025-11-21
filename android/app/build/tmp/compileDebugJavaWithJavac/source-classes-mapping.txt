@@ -1,4 +1,0 @@
-com/daveteply/emojiswap/MainActivity.java
- com.daveteply.emojiswap.MainActivity
-com/daveteply/emojiswap/BuildConfig.java
- com.daveteply.emojiswap.BuildConfig
