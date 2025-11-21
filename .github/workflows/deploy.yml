@@ -42,8 +42,7 @@ jobs:
       - name: Set deployment path
         id: vars
         run: |
-          # Use the extracted version for the deployment path
-          DEPLOY_PATH="dist/${{ github.event.repository.name }}"
+          DEPLOY_PATH="dist/${{ github.event.repository.name }}/${{ needs.read-version.outputs.app_version }}"
           echo "DEPLOY_PATH=$DEPLOY_PATH" >> $GITHUB_ENV
           echo "deploy_path_url=/url/${{ needs.read-version.outputs.app_version }}" >> $GITHUB_ENV
 
@@ -57,6 +56,3 @@ jobs:
           install_command: npm ci
           build_command: npm run build -- --base-href=/${{ github.event.repository.name }}/${{ needs.read-version.outputs.app_version }}/
           caching: true # Enable npm dependency caching for faster runs
-
-      - name: Debug - List contents of dist/
-        run: ls -R dist
