@@ -3,7 +3,6 @@
 #game-board {
   position: relative;
   overflow: hidden;
-  height: 100%;
   display: grid;
   grid-template-rows: 1fr 1.5em;
 
@@ -12,9 +11,8 @@
     grid-template-rows: repeat(style-values.$grid-row-count, 1fr);
 
     .grid-row {
-      height: 100%;
       display: grid;
-      grid-template-columns: repeat(style-values.$grid-colum-count, 1fr);
+      grid-template-columns: repeat(style-values.$grid-column-count, 1fr);
       place-items: center;
     }
   }
