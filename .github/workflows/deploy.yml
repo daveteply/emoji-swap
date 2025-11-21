@@ -1,9 +1,9 @@
-name: Build and Deploy to GH Pages
+name: Build and Deploy Angular to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -11,25 +11,44 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-deploy:
+  read-version:
     runs-on: ubuntu-latest
+    outputs:
+      app_version: ${{ steps.read.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Extract package version
+        id: read
+        uses: zvonimirsun/read-package-version-actions@v2
+
+  deploy:
+    needs: read-version
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.build-publish.outputs.page_url }}
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Read package.json
-        uses: zvonimirsun/read-package-version-actions@v2
-        id: package-version
+      - name: Set deployment path
+        id: vars
+        run: |
+          # Use the extracted version for the deployment path
+          DEPLOY_PATH="dist/${{ github.event.repository.name }}/${{ needs.read-version.outputs.app_version }}"
+          echo "DEPLOY_PATH=$DEPLOY_PATH" >> $GITHUB_ENV
+          echo "deploy_path_url=/url/${{ needs.read-version.outputs.app_version }}" >> $GITHUB_ENV
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "20"
-
-      - name: Deploy to GitHub Pages
+      - name: Build and Publish to GitHub Pages
+        id: build-publish
         uses: bitovi/github-actions-angular-to-github-pages@v1.0.0
         with:
-          path: dist/emoji-swap/browser
-          install_command: npm install
-          build_command: npm run build -- --base-href=/${{ github.event.repository.name }}/demo-${{ steps.package-version.outputs.version }}/
+          # Use the dynamic base-href and path for cache busting
+          path: ${{ env.DEPLOY_PATH }}
+          # The install and build commands can be customized here
+          install_command: npm ci
+          build_command: npm run build -- --base-href=/${{ github.event.repository.name }}/demo-${{ needs.read-version.outputs.app_version }}/
+          caching: true # Enable npm dependency caching for faster runs
+
