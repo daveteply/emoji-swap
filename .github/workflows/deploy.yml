@@ -58,3 +58,5 @@ jobs:
           build_command: npm run build -- --base-href=/${{ github.event.repository.name }}/${{ needs.read-version.outputs.app_version }}/
           caching: true # Enable npm dependency caching for faster runs
 
+      - name: Debug - List contents of dist/
+        run: ls -R dist
