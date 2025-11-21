@@ -5,8 +5,8 @@ import { GameTile } from '../models/game-tile';
 import { PlayerTile } from '../models/player-tile';
 import { GameUtilityService } from './game-utility.service';
 import { ScoringService } from './scoring.service';
+import { GameGestures, IPanEvent, SwipeDirection } from './game-gestures';
 
-// https://hammerjs.github.io/api/#constants
 export enum PlayerSwipeDirection {
   Left = 2,
   Right = 4,
@@ -34,8 +34,59 @@ export class GameInteractionsService {
   private adjacentTile!: GameTile;
 
   private isSwapBack = false;
+  private isPanning = false;
 
-  constructor(private gameUtilityService: GameUtilityService, private scoringService: ScoringService) {}
+  constructor(
+    private gameUtilityService: GameUtilityService,
+    private scoringService: ScoringService,
+    private gameGesturesService: GameGestures
+  ) {}
+
+  public registerGestureElement(element: HTMLElement, tile: GameTile): void {
+    this.gameGesturesService.registerElement(element);
+    this.gameGesturesService.pan$.subscribe((panEvent: IPanEvent) => {
+      // Only process pan if it's from this element
+      if (panEvent.element === element) {
+        this.handlePanEvent(panEvent, tile);
+      }
+    });
+  }
+
+  private handlePanEvent(panEvent: IPanEvent, tile: GameTile): void {
+    if (!panEvent.direction) return;
+
+    // Map SwipeDirection to PlayerSwipeDirection
+    const playerDirection = this.mapSwipeDirectionToPlayerDirection(panEvent.direction);
+
+    if (!panEvent.isFinal && !this.isPanning) {
+      // Pan started - initialize player tile (only once)
+      this.isPanning = true;
+      this.playerTile = {
+        tile: tile,
+        direction: playerDirection,
+      };
+      this.TileSwiped(this.playerTile);
+    } else if (!panEvent.isFinal && this.isPanning) {
+      // Pan continuing - update direction
+      this.playerTile.direction = playerDirection;
+    } else if (panEvent.isFinal) {
+      // Pan ended
+      this.isPanning = false;
+    }
+  }
+
+  private mapSwipeDirectionToPlayerDirection(direction: SwipeDirection): PlayerSwipeDirection {
+    switch (direction) {
+      case SwipeDirection.Up:
+        return PlayerSwipeDirection.Up;
+      case SwipeDirection.Down:
+        return PlayerSwipeDirection.Down;
+      case SwipeDirection.Left:
+        return PlayerSwipeDirection.Left;
+      case SwipeDirection.Right:
+        return PlayerSwipeDirection.Right;
+    }
+  }
 
   public DoStep(step: InteractionSteps): void {
     this.gameInteractionStateSource.next(step);
@@ -54,7 +105,6 @@ export class GameInteractionsService {
     let nextRowInx = this.playerTile.tile.rowInx;
     let nextColInx = this.playerTile.tile.colInx;
 
-    // https://hammerjs.github.io/api/#constants DIRECTION_NONE 	1
     // if (this.playerTile.direction !== 1) {
     switch (this.playerTile.direction) {
       case PlayerSwipeDirection.Up:

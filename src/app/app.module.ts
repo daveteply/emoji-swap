@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HammerConfig } from './hammer-config';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ConfirmNavComponent } from './components/confirm-nav/confirm-nav.component';
@@ -19,19 +18,12 @@ import { MatDialogModule } from '@angular/material/dialog';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HammerModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatTooltipModule,
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-  ],
-  providers: [
-    {
-      provide: HAMMER_GESTURE_CONFIG,
-      useClass: HammerConfig,
-    },
   ],
   bootstrap: [AppComponent],
 })

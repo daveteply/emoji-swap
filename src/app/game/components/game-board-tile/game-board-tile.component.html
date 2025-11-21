@@ -1,4 +1,4 @@
-<div class="game-tile" (pan)="onPan($event)" [class.game-tile__disabled]="disabled">
+<div #tileElement class="game-tile" [class.game-tile__disabled]="disabled">
   <div
     class="tile-overlay"
     [innerHTML]="tile.html"

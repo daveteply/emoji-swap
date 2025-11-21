@@ -11,7 +11,7 @@
 - **Lazy-loaded routing** (`app-routing.module.ts`): Intro and Game modules load on-demand
 - **Intro Module**: Entry point for game setup
 - **Game Module**: Core gameplay with 7 nested services and 5 components
-- **Root Module**: Global Material UI, HammerJS gesture handling, ConfirmNav component
+- **Root Module**: Global Material UI, ConfirmNav component
 
 ### Game Loop Architecture
 
@@ -19,7 +19,7 @@ The game uses a **state-machine pattern** with observable streams:
 
 1. **GameBoardComponent** (orchestrator): Subscribes to GameLoopService and GameInteractionsService state changes
 2. **GameLoopService**: Emits `GameLoopSteps` enum (LockBoard → FindMatches → RemoveMatchSet → UnlockBoard)
-3. **GameInteractionsService**: Handles player swipes via HammerJS (DirectionalAnimation → Swap → SwapBack → Shutter)
+3. **GameInteractionsService**: Handles player input, emits `InteractionSteps` enum (LocateAdjacentTile → ApplyDirectionalAnimation → Swap → etc.)
 4. **GameService**: Core algorithms for match detection (cardinal + diagonal directions) and potential move suggestions
 5. **TileRemoveService**: Cascade removal animation orchestration
 6. **ScoringService**: Real-time scoring with time bonuses, cascade multipliers, hints
@@ -84,17 +84,11 @@ npm watch          # ng build --watch (dev configuration)
 
 - **GameLoopSteps**: LockBoard, FindMatches, RemoveMatchSet, CompleteLoop, UnlockBoard
 - **InteractionSteps**: LocateAdjacentTile, ApplyDirectionalAnimation, Swap, SwapBack, Shutter, ShowHint
-- **PlayerSwipeDirection**: Left (2), Right (4), Up (8), Down (16) - maps to HammerJS constants
+- **PlayerSwipeDirection**: Up, Down, Left, Right
 - **AudioType**: Match, Cascade, Success, Error, Hint, Swap, Failed, UI
 - State transitions via `.DoStep(step)` → `.next(step)` → subscribers react
 
 ## Key Integration Points
-
-### HammerJS Gesture Recognition
-
-- `HammerConfig` configures DIRECTION\_\* constants for swipe detection
-- Tile component uses `(pan)="onPan($event)"` with `event.direction` and `event.isFinal`
-- Direction maps to PlayerSwipeDirection enum for board-relative moves
 
 ### Audio Engine (Howler.js)
 
@@ -114,7 +108,7 @@ npm watch          # ng build --watch (dev configuration)
 ### Mobile (Capacitor)
 
 - Android & iOS support via Capacitor v4.8.2
-- Gesture input routes through HammerJS → GameInteractionsService
+- Touch swipe detection in GameBoardComponent (handleTouchStart/End)
 - Device detection via @capacitor/device plugin
 
 ## Error Handling & Constraints

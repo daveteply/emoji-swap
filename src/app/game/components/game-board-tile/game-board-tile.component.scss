@@ -4,6 +4,8 @@
   height: style-values.$tile-scale * 0.8;
   width: style-values.$tile-scale * 0.8;
   position: relative;
+  user-select: none;
+  touch-action: none;
   margin: 0.1em;
 
   &__disabled {
