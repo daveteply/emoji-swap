@@ -55,6 +55,6 @@ jobs:
           path: ${{ env.DEPLOY_PATH }}
           # The install and build commands can be customized here
           install_command: npm ci
-          build_command: npm run build -- --base-href=/${{ github.event.repository.name }}/demo-${{ needs.read-version.outputs.app_version }}/
+          build_command: npm run build -- --base-href=/${{ github.event.repository.name }}/${{ needs.read-version.outputs.app_version }}/
           caching: true # Enable npm dependency caching for faster runs
 
