@@ -1,0 +1,33 @@
+{
+  "name": "Emoji Swap Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "forwardPorts": [4200],
+  "portsAttributes": {
+    "4200": {
+      "label": "Angular Dev Server",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "angular.ng-template",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "streetsidesoftware.code-spell-checker",
+        "github.vscode-github-actions",
+        "vitest.explorer"
+      ],
+      "settings": {
+        "explorer.fileNesting.enabled": true,
+        "explorer.fileNesting.expand": false,
+        "explorer.fileNesting.patterns": {
+          "*.ts": "$(capture).spec.ts, $(capture).html, $(capture).scss, $(capture).css"
+        }
+      }
+    }
+  },
+  "postCreateCommand": "npm install"
+}
