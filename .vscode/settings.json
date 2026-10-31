@@ -1,0 +1,21 @@
+{
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "$(capture).spec.ts, $(capture).html, $(capture).scss, $(capture).css"
+  },
+  "cSpell.words": [
+    "Bejeweled",
+    "Cascade",
+    "Cascading",
+    "demoralize",
+    "Griddin",
+    "Howler",
+    "inx",
+    "Mixkit",
+    "Orbitron",
+    "Renderable",
+    "Turbogeekbear",
+    "vitest"
+  ]
+}
