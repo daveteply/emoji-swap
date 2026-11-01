@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:coverage": "ng test --watch=false --coverage",
+    "update-emoji": "node tools/emoji/update-emoji-data.mjs",
     "format": "prettier --write ."
   },
   "private": true,

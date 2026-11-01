@@ -1,7 +1,13 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { EmojiData } from '../emoji-data';
 import { shuffleArray } from 'src/app/services/array.utils';
+import {
+  detectMaxSupportedEmojiVersion,
+  EmojiGroup,
+  filterSupportedEmojis,
+} from './emoji-support';
 
 export interface EmojiSequence {
   desc: string;
@@ -14,33 +20,57 @@ export interface EmojiSequence {
   providedIn: 'root',
 })
 export class GameTileTextureService {
-  constructor() {}
+  private document = inject(DOCUMENT);
+  private _emojiDataCache: EmojiGroup[] | null = null;
+  private _maxSupportedEmojiVersion: number | null = null;
+
+  public get MaxSupportedEmojiVersion(): number {
+    if (this._maxSupportedEmojiVersion === null) {
+      this._maxSupportedEmojiVersion = detectMaxSupportedEmojiVersion(this.document);
+      if (!environment.production) {
+        console.info(`Detected max supported Emoji version: E${this._maxSupportedEmojiVersion}`);
+      }
+    }
+    return this._maxSupportedEmojiVersion;
+  }
+
+  public SetEmojiDataCache(groups: EmojiGroup[]): void {
+    this._emojiDataCache = groups;
+  }
+
+  public GetSupportedEmojiGroups(): EmojiGroup[] {
+    if (!this._emojiDataCache) {
+      const filtered = filterSupportedEmojis(EmojiData, this.MaxSupportedEmojiVersion);
+      this._emojiDataCache = filtered.length > 0 ? filtered : EmojiData;
+    }
+    return this._emojiDataCache;
+  }
 
   public RandomEmojiCodeList(playableTextureCount: number): EmojiSequence[] {
-    const emojiGroup = EmojiData[Math.floor(Math.random() * (EmojiData.length - 1))];
+    const groups = this.GetSupportedEmojiGroups();
+    if (!groups.length) {
+      return [];
+    }
 
-    // DEBUG
-    // const emojiGroup = EmojiData.find((e) => e.id === 'Symbols') || EmojiData[0];
-    // DEBUG
+    const emojiGroup = groups[Math.floor(Math.random() * groups.length)];
 
     if (!environment.production) {
       console.info('emoji group: ', emojiGroup.id);
     }
 
     const shuffledSubGroups = shuffleArray(emojiGroup.subGroup);
-    // DEBUG
-    // const shuffledSubGroups = emojiGroup.subGroup.filter((s) => s.id === 'arrow');
-    // DEBUG
 
-    // grab first 3 shuffled subgroups (some subgroups have a small number of sequences)
-    const subGroups = shuffledSubGroups.slice(0, 3);
-    const emojiSequences = subGroups.flatMap((s: any) => s.codes);
+    // Grab up to 5 shuffled subgroups so levels have a rich pool of sequences
+    const subGroups = shuffledSubGroups.slice(0, 5);
+    const emojiSequences = subGroups.flatMap((s) => s.codes);
     const shuffledSequences = shuffleArray(emojiSequences);
 
     return shuffledSequences
-      .map((s: any) => {
-        return { desc: s.desc, sequence: s.sequence, ver: s.version };
-      })
+      .map((s) => ({
+        desc: s.desc,
+        sequence: s.sequence,
+        ver: s.version,
+      }))
       .slice(0, playableTextureCount);
   }
 }
