@@ -1,27 +1,51 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router, RouterModule } from '@angular/router';
 import { ConfirmNavComponent } from './components/confirm-nav/confirm-nav.component';
 import { APP_TITLE } from './constants';
-import { Device } from '@capacitor/device';
 
 @Component({
-    selector: 'ejw-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: false
+  selector: 'ejw-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+  ],
 })
-export class AppComponent implements OnInit {
-  isWeb: boolean = false;
+export class AppComponent {
+  isWeb = true;
   appTitle = APP_TITLE;
 
-  constructor(private router: Router, private dialog: MatDialog) {}
+  constructor(
+    private router: Router,
+    private dialog: MatDialog,
+  ) {
+    this.unregisterStaleServiceWorkers();
+  }
 
-  ngOnInit(): void {
-    // device info
-    Device.getInfo().then((deviceInfo) => {
-      this.isWeb = deviceInfo.platform === 'web';
-    });
+  private unregisterStaleServiceWorkers(): void {
+    if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        if (registrations.length > 0) {
+          Promise.all(registrations.map((r) => r.unregister())).then(() => {
+            if (typeof caches !== 'undefined') {
+              caches.keys().then((keys) => Promise.all(keys.map((k) => caches.delete(k))));
+            }
+          });
+        }
+      });
+    }
   }
 
   navHome(): void {

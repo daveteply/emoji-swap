@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
-    selector: 'ejw-confirm-nav',
-    templateUrl: './confirm-nav.component.html',
-    styleUrls: ['./confirm-nav.component.scss'],
-    standalone: false
+  selector: 'ejw-confirm-nav',
+  templateUrl: './confirm-nav.component.html',
+  styleUrls: ['./confirm-nav.component.scss'],
+  imports: [MatButtonModule, MatDialogModule],
 })
-export class ConfirmNavComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class ConfirmNavComponent {}

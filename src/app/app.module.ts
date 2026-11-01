@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ConfirmNavComponent } from './components/confirm-nav/confirm-nav.component';
 
@@ -14,17 +13,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent, ConfirmNavComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
     MatToolbarModule,
     MatTooltipModule,
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    AppComponent,
+    ConfirmNavComponent,
   ],
-  bootstrap: [AppComponent],
+  providers: [provideZoneChangeDetection({ eventCoalescing: true })],
 })
 export class AppModule {}

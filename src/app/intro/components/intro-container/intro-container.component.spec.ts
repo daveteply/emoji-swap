@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 import { IntroContainerComponent } from './intro-container.component';
 
@@ -8,7 +10,7 @@ describe('IntroContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [IntroContainerComponent],
+      imports: [IntroContainerComponent, RouterModule.forRoot([]), MatButtonModule],
     }).compileComponents();
   });
 

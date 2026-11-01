@@ -12,7 +12,7 @@ describe('GameBoardSplashComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GameBoardSplashComponent],
+      imports: [GameBoardSplashComponent],
       providers: [{ provide: ScoringService, useValue: scoringServiceStub }],
     }).compileComponents();
   });

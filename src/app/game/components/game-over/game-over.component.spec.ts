@@ -14,7 +14,7 @@ describe('GameOverComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GameOverComponent],
+      imports: [GameOverComponent],
       providers: [
         { provide: AudioService, useValue: audioServiceStub },
         { provide: MAT_DIALOG_DATA, useValue: {} },
