@@ -1,16 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GameInteractionsService } from '../../services/game-interactions.service';
+import { vi } from 'vitest';
+import { GameInteractionsService, PlayerSwipeDirection } from '../../services/game-interactions.service';
 import { GameBoardTileComponent } from './game-board-tile.component';
 
 describe('GameBoardTileComponent', () => {
   let component: GameBoardTileComponent;
   let fixture: ComponentFixture<GameBoardTileComponent>;
-
-  let gameInteractionServiceStub: Partial<GameInteractionsService> = {
-    registerGestureElement: () => {},
+  let gameInteractionServiceStub: {
+    registerGestureElement: ReturnType<typeof vi.fn>;
+    TileSwiped: ReturnType<typeof vi.fn>;
   };
 
   beforeEach(async () => {
+    gameInteractionServiceStub = {
+      registerGestureElement: vi.fn(),
+      TileSwiped: vi.fn(),
+    };
+
     await TestBed.configureTestingModule({
       imports: [GameBoardTileComponent],
       providers: [
@@ -29,7 +35,26 @@ describe('GameBoardTileComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create and register its gesture element after view init', () => {
     expect(component).toBeTruthy();
+    expect(gameInteractionServiceStub.registerGestureElement).toHaveBeenCalledWith(
+      expect.any(HTMLElement),
+      component.tile
+    );
+  });
+
+  it('should call TileSwiped when onTileSwiped is triggered while enabled', () => {
+    component.disabled = false;
+    component.onTileSwiped();
+    expect(gameInteractionServiceStub.TileSwiped).toHaveBeenCalledWith({
+      tile: component.tile,
+      direction: PlayerSwipeDirection.Left,
+    });
+  });
+
+  it('should ignore onTileSwiped when disabled is true', () => {
+    component.disabled = true;
+    component.onTileSwiped();
+    expect(gameInteractionServiceStub.TileSwiped).not.toHaveBeenCalled();
   });
 });
