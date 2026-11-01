@@ -1,91 +1,14 @@
-name: Build and Deploy Angular to Versioned GitHub Pages
+# Deprecated: Superseded by Vercel deployment (vercel.json) and PR CI (.github/workflows/pr-build.yml)
+name: Legacy GitHub Pages Deploy (Manual Only)
 
 on:
-  push:
-    branches: ["main"]
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 
 jobs:
-  read-version:
-    runs-on: ubuntu-latest
-    outputs:
-      app_version: ${{ steps.read.outputs.version }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Extract package version
-        id: read
-        uses: zvonimirsun/read-package-version-actions@v2
-
-  build-and-deploy:
-    needs: read-version
+  noop:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "24.x"
-          cache: "npm"
-
-      - name: Set Deployment Variables
-        id: vars
-        run: |
-          REPO_NAME="${{ github.event.repository.name }}"
-          APP_VERSION="${{ needs.read-version.outputs.app_version }}"
-          BASE_HREF="/$REPO_NAME/$APP_VERSION/"
-          BUILD_OUTPUT_DIR="./build_output"
-          echo "BASE_HREF=$BASE_HREF" >> $GITHUB_ENV
-          echo "BUILD_OUTPUT_DIR=$BUILD_OUTPUT_DIR" >> $GITHUB_ENV
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build Angular app with versioned base-href
-        run: npm run build -- --output-path=${{ env.BUILD_OUTPUT_DIR }} --base-href=${{ env.BASE_HREF }}
-
-      - name: Deploy to gh-pages branch with versioned folder
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ${{ env.BUILD_OUTPUT_DIR }}/browser
-          destination_dir: ${{ needs.read-version.outputs.app_version }}
-          keep_files: true
-
-  update-readme:
-    needs: [read-version, build-and-deploy]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # Set up Git identity for the commit
-      - name: Git Setup
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-
-      - name: Inject Version into README Template
-        id: inject-version
-        run: |
-          VERSION="${{ needs.read-version.outputs.app_version }}"
-
-          echo "Current Version: $VERSION"
-          sed "s/VERSION-HERE/$VERSION/g" README_TEMPLATE.md > README.md
-
-      - name: Commit updated README
-        run: |
-          git add README.md
-
-          # '|| true' ensures the step doesn't fail if there are no changes to commit
-          git commit -m "docs: Update live demo link to version $VERSION [skip ci]" || true
-
-          # Push only if a commit was made
-          git push
+      - run: echo "Deployment has migrated to Vercel (see vercel.json)."
