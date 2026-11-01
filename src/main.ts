@@ -1,13 +1,17 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowser } from '@angular/platform-browser';
+import { enableProdMode, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
 
-import { AppModule } from './app/app.module';
+import { AppRoutingModule } from './app/app-routing.module';
+import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowser()
-  .bootstrapModule(AppModule)
-  .catch((err) => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    importProvidersFrom(AppRoutingModule),
+  ],
+}).catch((err) => console.error(err));

@@ -30,7 +30,23 @@ export class AppComponent {
   constructor(
     private router: Router,
     private dialog: MatDialog,
-  ) {}
+  ) {
+    this.unregisterStaleServiceWorkers();
+  }
+
+  private unregisterStaleServiceWorkers(): void {
+    if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        if (registrations.length > 0) {
+          Promise.all(registrations.map((r) => r.unregister())).then(() => {
+            if (typeof caches !== 'undefined') {
+              caches.keys().then((keys) => Promise.all(keys.map((k) => caches.delete(k))));
+            }
+          });
+        }
+      });
+    }
+  }
 
   navHome(): void {
     if (this.router.url === '/game') {
