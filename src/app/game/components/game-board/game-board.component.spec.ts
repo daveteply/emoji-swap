@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 import { of } from 'rxjs';
 import { AudioService } from 'src/app/services/audio.service';
 import { GameInteractionsService } from '../../services/game-interactions.service';
@@ -37,7 +37,7 @@ describe('GameBoardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GameBoardComponent, GameBoardTileComponent],
+      imports: [GameBoardComponent, GameBoardTileComponent, MatProgressBarModule, MatDialogModule, RouterModule.forRoot([])],
       providers: [
         { provide: GameService, useValue: gameServiceStub },
         { provide: GameLoopService, useValue: gameLoopServiceStub },
@@ -49,7 +49,6 @@ describe('GameBoardComponent', () => {
         { provide: ScoringService, useValue: scoringServiceStub },
         { provide: AudioService, useValue: audioServiceStub },
       ],
-      imports: [MatProgressBarModule, MatDialogModule, RouterTestingModule],
     }).compileComponents();
   });
 

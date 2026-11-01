@@ -6,7 +6,6 @@ import { GameInteractionsService, PlayerSwipeDirection } from '../../services/ga
   selector: 'app-game-board-tile',
   templateUrl: './game-board-tile.component.html',
   styleUrls: ['./game-board-tile.component.scss'],
-  standalone: false,
 })
 export class GameBoardTileComponent {
   constructor(private gameInteractionsService: GameInteractionsService) {}

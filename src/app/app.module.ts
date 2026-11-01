@@ -14,7 +14,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent, ConfirmNavComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,6 +23,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    AppComponent,
+    ConfirmNavComponent,
   ],
   bootstrap: [AppComponent],
 })

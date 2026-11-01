@@ -6,11 +6,13 @@ describe('GameBoardTileComponent', () => {
   let component: GameBoardTileComponent;
   let fixture: ComponentFixture<GameBoardTileComponent>;
 
-  let gameInteractionServiceStub: Partial<GameInteractionsService> = {};
+  let gameInteractionServiceStub: Partial<GameInteractionsService> = {
+    registerGestureElement: () => {},
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GameBoardTileComponent],
+      imports: [GameBoardTileComponent],
       providers: [
         {
           provide: GameInteractionsService,

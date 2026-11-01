@@ -13,13 +13,18 @@ import { GameOverComponent } from './components/game-over/game-over.component';
 import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [
+  imports: [
+    CommonModule,
+    GameRoutingModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatIconModule,
     GameContainerComponent,
     GameBoardComponent,
     GameBoardTileComponent,
     GameBoardSplashComponent,
     GameOverComponent,
   ],
-  imports: [CommonModule, GameRoutingModule, MatButtonModule, MatProgressBarModule, MatDialogModule, MatIconModule],
 })
 export class GameModule {}

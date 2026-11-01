@@ -1,14 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AudioType } from 'src/app/services/audio-data';
 import { AudioService } from 'src/app/services/audio.service';
 import { GameStats } from '../../models/game-stats';
 
 @Component({
-    selector: 'app-game-over',
-    templateUrl: './game-over.component.html',
-    styleUrls: ['./game-over.component.scss'],
-    standalone: false
+  selector: 'app-game-over',
+  templateUrl: './game-over.component.html',
+  styleUrls: ['./game-over.component.scss'],
+  imports: [CommonModule, MatButtonModule, MatDialogModule],
 })
 export class GameOverComponent implements OnInit {
   constructor(

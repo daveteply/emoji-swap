@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { GameBoard } from '../../models/game-board';
 import { GameInteractionsService, InteractionSteps } from '../../services/game-interactions.service';
@@ -16,16 +17,18 @@ import {
   DEFAULT_GAME_BOARD_ROW_COUNT,
   MATCH_SET_COUNT_NEXT_LEVEL,
 } from '../../../constants';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { GameSplashService, SplashType } from '../../services/game-splash.service';
 import { GameOverComponent } from '../game-over/game-over.component';
+import { GameBoardTileComponent } from '../game-board-tile/game-board-tile.component';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-game-board',
-    templateUrl: './game-board.component.html',
-    styleUrls: ['./game-board.component.scss'],
-    standalone: false
+  selector: 'app-game-board',
+  templateUrl: './game-board.component.html',
+  styleUrls: ['./game-board.component.scss'],
+  imports: [CommonModule, MatDialogModule, MatProgressBarModule, GameBoardTileComponent],
 })
 export class GameBoardComponent implements OnInit, OnDestroy {
   public boardDisabled = false;
@@ -47,8 +50,8 @@ export class GameBoardComponent implements OnInit, OnDestroy {
 
   private swapInProgress = false;
 
-  @Output() scoreUpdated = new EventEmitter();
-  @Output() levelUpdated = new EventEmitter();
+  @Output() scoreUpdated = new EventEmitter<number>();
+  @Output() levelUpdated = new EventEmitter<number>();
 
   constructor(
     private gameService: GameService,

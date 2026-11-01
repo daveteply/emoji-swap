@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [IntroContainerComponent],
-  imports: [CommonModule, IntroRoutingModule, RouterModule, MatButtonModule],
+  imports: [CommonModule, IntroRoutingModule, RouterModule, MatButtonModule, IntroContainerComponent],
 })
 export class IntroModule {}

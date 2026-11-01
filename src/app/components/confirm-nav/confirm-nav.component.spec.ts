@@ -8,7 +8,7 @@ describe('ConfirmNavComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ConfirmNavComponent],
+      imports: [ConfirmNavComponent],
     }).compileComponents();
   });
 
