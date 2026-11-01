@@ -68,20 +68,15 @@ export class GameService {
   public NewTile(rowIndex: number, colIndex: number, level: number): GameTile {
     const targetEmoji = this.currentLevelTileTextures[Math.floor(Math.random() * this.currentLevelTileTextures.length)];
     const emoji = String.fromCodePoint(...targetEmoji.sequence);
-    // merge it with more value
-    const tile = Object.assign(
-      {
-        colInx: colIndex,
-        rowInx: rowIndex,
-        html: emoji,
-        score: { baseScore: 0 },
-        isNew: Math.floor(Math.random() * 5),
-        title: targetEmoji.desc,
-        code: targetEmoji.sequence.join(),
-      },
-      emoji
-    );
-    return tile;
+    return {
+      colInx: colIndex,
+      rowInx: rowIndex,
+      html: emoji,
+      score: { baseScore: 0 },
+      isNew: Math.floor(Math.random() * 5),
+      title: targetEmoji.desc,
+      code: targetEmoji.sequence.join(),
+    };
   }
 
   public ReIndexGrid(gameBoard: GameBoard): void {
