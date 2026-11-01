@@ -18,7 +18,9 @@ describe('ConfirmNavComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create and render confirmation buttons', () => {
     expect(component).toBeTruthy();
+    const buttons = fixture.nativeElement.querySelectorAll('button');
+    expect(buttons.length).toBe(2);
   });
 });

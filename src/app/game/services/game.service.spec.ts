@@ -548,9 +548,53 @@ describe('GameService', () => {
       mockBoard.grid[2][2].code = 'A';
       gameService.FindMatchesAndPotentials(mockBoard);
       const matchSets = gameService.currentMatchSets;
-      // gameService.ApplyScoring(mockBoard, matchSets);
-      // const tally = gameService.TallyScore(mockBoard);
-      // expect(tally).toBe(9);
+      expect(matchSets.length).toBe(1);
+    });
+  });
+
+  describe('CreateGame, NewTile, and ReIndexGrid', () => {
+    it('should create a game board of the specified dimensions with valid emoji tiles', () => {
+      const board = gameService.CreateGame(4, 5, 1);
+      expect(board.grid.length).toBe(4);
+      expect(board.grid[0].length).toBe(5);
+
+      const tile = board.grid[2][3];
+      expect(tile.rowInx).toBe(2);
+      expect(tile.colInx).toBe(3);
+      expect(tile.html.length).toBeGreaterThan(0);
+      expect(tile.title.length).toBeGreaterThan(0);
+      expect(tile.code.length).toBeGreaterThan(0);
+      expect((tile as unknown as Record<string, unknown>)['0']).toBeUndefined();
+    });
+
+    it('should reset tile flags and re-index row/col positions in ReIndexGrid', () => {
+      const board = gameService.CreateGame(2, 2, 1);
+      board.grid[0][1].rowInx = 99;
+      board.grid[0][1].colInx = 99;
+      board.grid[0][1].matched = true;
+      board.grid[0][1].potential = true;
+      board.grid[0][1].animateSlideUp = true;
+      board.grid[0][1].animateSlideRight = true;
+      board.grid[0][1].animateSlideDown = true;
+      board.grid[0][1].animateSlideLeft = true;
+      board.grid[0][1].animateShutter = true;
+      board.grid[0][1].isNew = 3;
+      board.grid[0][1].score = { baseScore: 50 };
+
+      gameService.ReIndexGrid(board);
+
+      const resetTile = board.grid[0][1];
+      expect(resetTile.rowInx).toBe(0);
+      expect(resetTile.colInx).toBe(1);
+      expect(resetTile.matched).toBe(false);
+      expect(resetTile.potential).toBe(false);
+      expect(resetTile.animateSlideUp).toBe(false);
+      expect(resetTile.animateSlideRight).toBe(false);
+      expect(resetTile.animateSlideDown).toBe(false);
+      expect(resetTile.animateSlideLeft).toBe(false);
+      expect(resetTile.animateShutter).toBe(false);
+      expect(resetTile.isNew).toBe(0);
+      expect(resetTile.score.baseScore).toBe(0);
     });
   });
 });

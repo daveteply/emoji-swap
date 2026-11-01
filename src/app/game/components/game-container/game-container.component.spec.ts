@@ -14,9 +14,7 @@ describe('GameContainerComponent', () => {
   let component: GameContainerComponent;
   let fixture: ComponentFixture<GameContainerComponent>;
 
-  let audioServiceStub: Partial<AudioService>;
-
-  audioServiceStub = { PlayAudio: async () => {} };
+  const audioServiceStub: Partial<AudioService> = { PlayAudio: async () => {} };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -40,7 +38,17 @@ describe('GameContainerComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create with initial score 0 and level 1', () => {
     expect(component).toBeTruthy();
+    expect(component.score).toBe(0);
+    expect(component.level).toBe(1);
+  });
+
+  it('should update score and level when child emits events', () => {
+    component.updateScore(150);
+    expect(component.score).toBe(150);
+
+    component.updateLevel(3);
+    expect(component.level).toBe(3);
   });
 });
