@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -10,6 +10,7 @@ import { GameBoardComponent } from '../game-board/game-board.component';
   selector: 'app-game-container',
   templateUrl: './game-container.component.html',
   styleUrls: ['./game-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule, MatButtonModule, MatIconModule, MatProgressBarModule, GameBoardComponent, GameBoardSplashComponent],
 })
 export class GameContainerComponent implements OnInit {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AudioType } from 'src/app/services/audio-data';
@@ -10,6 +10,7 @@ import { GameStats } from '../../models/game-stats';
   selector: 'app-game-over',
   templateUrl: './game-over.component.html',
   styleUrls: ['./game-over.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule, MatButtonModule, MatDialogModule],
 })
 export class GameOverComponent implements OnInit {

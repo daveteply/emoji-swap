@@ -3,6 +3,7 @@
 #game-board {
   position: relative;
   overflow: hidden;
+  height: 100%;
   display: grid;
   grid-template-rows: 1fr 1.5em;
 
@@ -11,6 +12,7 @@
     grid-template-rows: repeat(style-values.$grid-row-count, 1fr);
 
     .grid-row {
+      height: 100%;
       display: grid;
       grid-template-columns: repeat(style-values.$grid-column-count, 1fr);
       place-items: center;
@@ -19,8 +21,13 @@
 
   .main-progress {
     padding: 0.5em;
-    .mat-progress-bar {
+    .mat-progress-bar,
+    .mat-mdc-progress-bar {
       height: 1em;
+      --mat-progress-bar-track-height: 1em;
+      --mat-progress-bar-active-indicator-height: 1em;
+      --mdc-linear-progress-track-height: 1em;
+      --mdc-linear-progress-active-indicator-height: 1em;
     }
   }
 }

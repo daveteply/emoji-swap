@@ -1,3 +1,6 @@
+$primary-color: #3f51b5;
+$accent-color: #ff4081;
+
 .splash-content {
   overflow: hidden;
   position: relative;
@@ -15,9 +18,9 @@
       opacity: 0;
       padding: 1em;
       font-weight: bold;
-      background-color: var(--mat-primary-default);
-      box-shadow: 0 0 0.5em 1em var(--mat-accent-default);
-      color: var(--mat-primary-default-contrast);
+      background-color: $primary-color;
+      box-shadow: 0 0 0.5em 1em $accent-color;
+      color: #ffffff;
       border-radius: 0.5em;
       text-align: center;
       margin: 0;
@@ -41,13 +44,13 @@
         animation: base-effect 4s;
       }
       &__cascade {
-        background-image: radial-gradient(var(--mat-accent-default), var(--mat-primary-default));
-        box-shadow: 0 0 0.5em 1em var(--mat-primary-default);
+        background-image: radial-gradient($accent-color, $primary-color);
+        box-shadow: 0 0 0.5em 1em $primary-color;
         animation: base-effect 4s;
       }
       &__level-complete {
         background-color: #ffffff;
-        color: var(--mat-primary-default);
+        color: $primary-color;
         animation: base-effect 4s 500ms, in-from-top 4s, rainbow-cycle 0.5s infinite;
       }
     }

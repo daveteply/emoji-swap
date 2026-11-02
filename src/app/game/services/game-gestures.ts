@@ -35,22 +35,61 @@ export class GameGestures {
   private touchStartY = 0;
   private minSwipeDistance = 30; // minimum distance to register as swipe
   private isPointerDown = false;
+  private activeElement: HTMLElement | null = null;
+  private registeredElements = new WeakSet<HTMLElement>();
+
+  private readonly onWindowPointerEnd = (event: PointerEvent): void => {
+    if (this.isPointerDown && this.activeElement) {
+      this.onPointerUp(event, this.activeElement);
+    }
+  };
 
   public registerElement(element: HTMLElement): void {
-    element.addEventListener('pointerdown', (e) => this.onPointerDown(e));
+    if (this.registeredElements.has(element)) {
+      return;
+    }
+    this.registeredElements.add(element);
+
+    element.addEventListener('pointerdown', (e) => this.onPointerDown(e, element));
     element.addEventListener('pointermove', (e) => this.onPointerMove(e, element));
     element.addEventListener('pointerup', (e) => this.onPointerUp(e, element));
     element.addEventListener('pointercancel', (e) => this.onPointerCancel(e, element));
   }
 
-  private onPointerDown(event: PointerEvent): void {
+  private onPointerDown(event: PointerEvent, element: HTMLElement): void {
+    // If a previous gesture never received pointerup, finalize it cleanly first
+    if (this.isPointerDown && this.activeElement) {
+      this.panSubject.next({
+        direction: null,
+        deltaX: 0,
+        deltaY: 0,
+        isFinal: true,
+        element: this.activeElement,
+      });
+    }
+
     this.isPointerDown = true;
+    this.activeElement = element;
     this.touchStartX = event.clientX;
     this.touchStartY = event.clientY;
+
+    if (typeof element.setPointerCapture === 'function' && event.pointerId !== undefined) {
+      try {
+        element.setPointerCapture(event.pointerId);
+      } catch {
+        // Ignore capture errors on synthetic events
+      }
+    }
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('pointerup', this.onWindowPointerEnd, { once: true });
+      window.addEventListener('pointercancel', this.onWindowPointerEnd, { once: true });
+    }
   }
 
   private onPointerMove(event: PointerEvent, element: HTMLElement): void {
     if (!this.isPointerDown) return;
+    const targetElement = this.activeElement || element;
 
     const deltaX = event.clientX - this.touchStartX;
     const deltaY = event.clientY - this.touchStartY;
@@ -73,14 +112,15 @@ export class GameGestures {
         deltaX,
         deltaY,
         isFinal: false,
-        element,
+        element: targetElement,
       });
     }
   }
 
   private onPointerUp(event: PointerEvent, element: HTMLElement): void {
     if (!this.isPointerDown) return;
-    this.isPointerDown = false;
+    const targetElement = this.activeElement || element;
+    this.cleanupPointerState(event, targetElement);
 
     const deltaX = event.clientX - this.touchStartX;
     const deltaY = event.clientY - this.touchStartY;
@@ -100,7 +140,7 @@ export class GameGestures {
       deltaX,
       deltaY,
       isFinal: true,
-      element,
+      element: targetElement,
     });
 
     // Only register as swipe if movement is greater than minimum distance
@@ -109,13 +149,14 @@ export class GameGestures {
     }
 
     if (direction) {
-      this.swipeSubject.next({ direction, element });
+      this.swipeSubject.next({ direction, element: targetElement });
     }
   }
 
   private onPointerCancel(event: PointerEvent, element: HTMLElement): void {
     if (!this.isPointerDown) return;
-    this.isPointerDown = false;
+    const targetElement = this.activeElement || element;
+    this.cleanupPointerState(event, targetElement);
 
     const deltaX = event.clientX - this.touchStartX;
     const deltaY = event.clientY - this.touchStartY;
@@ -125,7 +166,27 @@ export class GameGestures {
       deltaX,
       deltaY,
       isFinal: true,
-      element,
+      element: targetElement,
     });
+  }
+
+  private cleanupPointerState(event: PointerEvent, element: HTMLElement): void {
+    this.isPointerDown = false;
+    this.activeElement = null;
+
+    if (typeof element.releasePointerCapture === 'function' && event.pointerId !== undefined) {
+      try {
+        if (element.hasPointerCapture?.(event.pointerId)) {
+          element.releasePointerCapture(event.pointerId);
+        }
+      } catch {
+        // Ignore release errors
+      }
+    }
+
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('pointerup', this.onWindowPointerEnd);
+      window.removeEventListener('pointercancel', this.onWindowPointerEnd);
+    }
   }
 }

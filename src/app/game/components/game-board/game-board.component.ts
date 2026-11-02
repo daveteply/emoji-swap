@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { GameBoard } from '../../models/game-board';
 import { GameInteractionsService, InteractionSteps } from '../../services/game-interactions.service';
 import { GameService } from '../../services/game.service';
@@ -28,6 +28,7 @@ import { Router } from '@angular/router';
   selector: 'app-game-board',
   templateUrl: './game-board.component.html',
   styleUrls: ['./game-board.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule, MatDialogModule, MatProgressBarModule, GameBoardTileComponent],
 })
 export class GameBoardComponent implements OnInit, OnDestroy {

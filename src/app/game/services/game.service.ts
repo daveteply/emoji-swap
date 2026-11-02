@@ -73,7 +73,7 @@ export class GameService {
       rowInx: rowIndex,
       html: emoji,
       score: { baseScore: 0 },
-      isNew: Math.floor(Math.random() * 5),
+      isNew: Math.floor(Math.random() * 5) + 1,
       title: targetEmoji.desc,
       code: targetEmoji.sequence.join(),
     };

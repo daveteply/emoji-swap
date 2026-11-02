@@ -99,6 +99,31 @@ describe('GameInteractionsService', () => {
       element,
     });
     expect((service as any).isPanning).toBe(false);
+
+    // Re-registering the same element with a new tile updates the tile reference without duplicate subscriptions
+    const updatedTile = mockBoard.grid[0][2];
+    service.registerGestureElement(element, updatedTile);
+    expect(gesturesStub.registerElement).toHaveBeenCalledTimes(1);
+
+    panSubject.next({
+      direction: SwipeDirection.Left,
+      deltaX: -20,
+      deltaY: 0,
+      isFinal: false,
+      element,
+    });
+    expect(steps.length).toBe(2);
+    expect((service as any).playerTile.tile).toBe(updatedTile);
+
+    // Null-direction final event (e.g., pointercancel or tap) still resets isPanning
+    panSubject.next({
+      direction: null,
+      deltaX: 0,
+      deltaY: 0,
+      isFinal: true,
+      element,
+    });
+    expect((service as any).isPanning).toBe(false);
   });
 
   it('should locate adjacent tiles in all 4 directions and apply directional animations + swap', () => {

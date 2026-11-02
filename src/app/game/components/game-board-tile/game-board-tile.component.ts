@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, ViewChild } from '@angular/core';
 import { GameTile } from '../../models/game-tile';
 import { GameInteractionsService, PlayerSwipeDirection } from '../../services/game-interactions.service';
 
@@ -6,8 +6,9 @@ import { GameInteractionsService, PlayerSwipeDirection } from '../../services/ga
   selector: 'app-game-board-tile',
   templateUrl: './game-board-tile.component.html',
   styleUrls: ['./game-board-tile.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
-export class GameBoardTileComponent {
+export class GameBoardTileComponent implements AfterViewInit, OnChanges {
   constructor(private gameInteractionsService: GameInteractionsService) {}
 
   @ViewChild('tileElement', { read: ElementRef }) tileElement!: ElementRef;
@@ -16,6 +17,12 @@ export class GameBoardTileComponent {
   @Input() disabled!: boolean;
 
   ngAfterViewInit(): void {
+    if (this.tileElement && this.tile) {
+      this.gameInteractionsService.registerGestureElement(this.tileElement.nativeElement, this.tile);
+    }
+  }
+
+  ngOnChanges(): void {
     if (this.tileElement && this.tile) {
       this.gameInteractionsService.registerGestureElement(this.tileElement.nativeElement, this.tile);
     }
