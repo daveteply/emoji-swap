@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 
@@ -6,6 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   selector: 'ejw-confirm-nav',
   templateUrl: './confirm-nav.component.html',
   styleUrls: ['./confirm-nav.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatDialogModule],
 })
 export class ConfirmNavComponent {}

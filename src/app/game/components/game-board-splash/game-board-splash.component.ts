@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GameSplash, GameSplashService, SplashType } from '../../services/game-splash.service';
@@ -8,6 +8,7 @@ import { GameSplash, GameSplashService, SplashType } from '../../services/game-s
   selector: 'app-game-board-splash',
   templateUrl: './game-board-splash.component.html',
   styleUrls: ['./game-board-splash.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule],
 })
 export class GameBoardSplashComponent implements OnInit, OnDestroy {

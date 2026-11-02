@@ -23,6 +23,9 @@
     bottom: 0;
     top: 0;
     left: 0;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
 
     background-color: #ddd;
     border: 1px solid #5373dd;
@@ -135,7 +138,7 @@
   @keyframes shutter {
     0% {
       margin-left: 0.5em;
-      transform: skewX(5deg, 5deg);
+      transform: skew(5deg, 5deg);
     }
     50% {
       margin-left: -0.5em;

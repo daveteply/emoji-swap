@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { APP_TITLE, MATCH_MINIUM_LENGTH } from 'src/app/constants';
@@ -7,6 +7,7 @@ import { APP_TITLE, MATCH_MINIUM_LENGTH } from 'src/app/constants';
   selector: 'app-intro-container',
   templateUrl: './intro-container.component.html',
   styleUrls: ['./intro-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RouterModule, MatButtonModule],
 })
 export class IntroContainerComponent {

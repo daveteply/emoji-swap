@@ -91,4 +91,22 @@ describe('GameGestures', () => {
 
     expect(pans.length).toBe(0);
   });
+
+  it('should not attach duplicate listeners if registerElement is called again and should finalize interrupted gestures', () => {
+    const pans: IPanEvent[] = [];
+    service.pan$.subscribe((e) => pans.push(e));
+
+    // Calling registerElement a second time should be a no-op
+    service.registerElement(element);
+
+    // Start first gesture without pointerup, then start a second pointerdown
+    dispatchPointer('pointerdown', 10, 10);
+    dispatchPointer('pointermove', 30, 10);
+    dispatchPointer('pointerdown', 15, 15);
+
+    expect(pans.length).toBe(2);
+    expect(pans[0].isFinal).toBe(false);
+    expect(pans[1].isFinal).toBe(true);
+    expect(pans[1].direction).toBeNull();
+  });
 });

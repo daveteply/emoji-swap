@@ -35,6 +35,9 @@ export class GameInteractionsService {
 
   private isSwapBack = false;
   private isPanning = false;
+  private registeredTileMap = new WeakMap<HTMLElement, GameTile>();
+  private subscribedElements = new WeakSet<HTMLElement>();
+  private isPanSubscribed = false;
 
   constructor(
     private gameUtilityService: GameUtilityService,
@@ -43,22 +46,37 @@ export class GameInteractionsService {
   ) {}
 
   public registerGestureElement(element: HTMLElement, tile: GameTile): void {
-    this.gameGesturesService.registerElement(element);
-    this.gameGesturesService.pan$.subscribe((panEvent: IPanEvent) => {
-      // Only process pan if it's from this element
-      if (panEvent.element === element) {
-        this.handlePanEvent(panEvent, tile);
-      }
-    });
+    this.registeredTileMap.set(element, tile);
+
+    if (!this.subscribedElements.has(element)) {
+      this.subscribedElements.add(element);
+      this.gameGesturesService.registerElement(element);
+    }
+
+    if (!this.isPanSubscribed) {
+      this.isPanSubscribed = true;
+      this.gameGesturesService.pan$.subscribe((panEvent: IPanEvent) => {
+        const currentTile = this.registeredTileMap.get(panEvent.element);
+        if (currentTile) {
+          this.handlePanEvent(panEvent, currentTile);
+        }
+      });
+    }
   }
 
   private handlePanEvent(panEvent: IPanEvent, tile: GameTile): void {
+    if (panEvent.isFinal) {
+      // Pan ended - always reset panning state even if direction is null
+      this.isPanning = false;
+      return;
+    }
+
     if (!panEvent.direction) return;
 
     // Map SwipeDirection to PlayerSwipeDirection
     const playerDirection = this.mapSwipeDirectionToPlayerDirection(panEvent.direction);
 
-    if (!panEvent.isFinal && !this.isPanning) {
+    if (!this.isPanning) {
       // Pan started - initialize player tile (only once)
       this.isPanning = true;
       this.playerTile = {
@@ -66,12 +84,9 @@ export class GameInteractionsService {
         direction: playerDirection,
       };
       this.TileSwiped(this.playerTile);
-    } else if (!panEvent.isFinal && this.isPanning) {
+    } else {
       // Pan continuing - update direction
       this.playerTile.direction = playerDirection;
-    } else if (panEvent.isFinal) {
-      // Pan ended
-      this.isPanning = false;
     }
   }
 

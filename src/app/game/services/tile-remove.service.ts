@@ -81,6 +81,7 @@ export class TileRemoveService {
       const nextTile = Object.assign({}, gameBoard.grid[nextRowInx][colInx]);
       nextTile.rowInx = nextRowInx + 1;
       nextTile.animateSlideDown = false;
+      nextTile.isNew = 0;
 
       gameBoard.grid[nextRowInx + 1][colInx] = nextTile;
     }
